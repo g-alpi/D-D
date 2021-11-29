@@ -1,0 +1,21 @@
+@font-face{
+	font-family: D-Dtitle;
+	src: url(fonts/BreatheFireIii-PKLOB.ttf);
+}
+body{
+	background-color: #FFFEBD;
+	color: #000000;
+	font-family: Helvetica, sans-serif;
+	font-size: 30px;
+}
+h1{
+	font-family: D-Dtitle;
+	color: #880404;
+	font-size: 50px;
+	text-align: center;
+}
+div{
+	border: 50px solid ;
+	border-color: #290000;
+	background-color: #FFE071;
+}
