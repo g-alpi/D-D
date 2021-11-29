@@ -1,11 +1,16 @@
+
 @font-face{
 	font-family: D-Dtitle;
 	src: url(fonts/BreatheFireIii-PKLOB.ttf);
 }
+@font-face{
+	font-family: RoundStyle-Book;
+	src: url(fonts/RoundStyle-Book.ttf);
+}
 body{
 	background-color: #FFFEBD;
 	color: #000000;
-	font-family: Helvetica, sans-serif;
+	font-family: RoundStyle-Book;
 	font-size: 30px;
 }
 h1{
