@@ -5,6 +5,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Home Page</title>
 	<link rel="stylesheet" href="estilos/estilosGenerales.css">
+	<?php include 'functions/functionsPHP.php' ?>
 </head>
 <body id="bodyHomePage">
 	<div id="contenedorCuerpo">
@@ -22,17 +23,19 @@
 			</div>
 
 			<p class="txtDesc">
-				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi euismod elementum massa, eu vestibulum lorem venenatis eget. Aliquam erat volutpat. Suspendisse vehicula tortor felis, a aliquet purus congue non. Nulla eget augue eu neque fringilla luctus gravida nec ex. Sed lacinia orci id tortor tincidunt vehicula. Proin ut sollicitudin tellus. Phasellus a dictum leo. 
+				Los mundos de las aventuras en Dungeons & Dragons parten de la base de una fantasía medieval que se amplía con lugares, criaturas y magia, haciéndolos únicos y fantásticos.
+				Hay montones de mundos en Dungeons and Dragons, todos ellos están conectados entre sí y con otros planos de existencia formando todo un cosmos llamado Multiverso.
+				Adentrate en esta aventura y create una ficha de personaje!!!
 			</p>
 
 		</div>
 
 		<div class="contenedorInfo">
 			<h2 class="titleInfoHomePage">Login</h2>
-				<form class="homePagForm" method="GET">
+				<form class="homePagForm" method="POST">
 
 					<p class="titleInpForm">Nombre</p>
-					<input type="text" name="Nombre"><br>
+					<input type="text" name="Nombre" id="Nombre"><br>
 
 					<p class="titleInpForm">Contraseña</p>
 					<input type="text" name="Contra" ><br>
@@ -50,9 +53,11 @@
 				<div class="newAccBtn">
 					<a href="www.google.com">Crear cuenta nueva</a>
 				</div>
-				<?php include"functionsPHP.php";
-							login($_GET['Nombre']);
-					?>
+				<?php 
+					session_start();
+					login();
+				     
+				?>
 		</div>
 </body>
 </html>
