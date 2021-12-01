@@ -10,7 +10,8 @@
 	<div class="dashboardHeader">
 		<a href="home.php"><button>Logout</button></a>
 		<?php 
-			echo $_GET['nombre'];
+			session_start();
+			echo $_SESSION['Nombre'];
 
 		?>
 	</div>
