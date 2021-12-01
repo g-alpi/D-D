@@ -7,8 +7,8 @@
               try {
                 $hostname = "localhost";
                 $dbname = "dnd";
-                $username = "root";
-                $pw = "Informatica_1";
+                $username = "edupedu";
+                $pw = "edupedu1";
                 $pdo = new PDO ("mysql:host=$hostname;dbname=$dbname","$username","$pw");
               } catch (PDOException $e) {
                 echo "Failed to get DB handle: " . $e->getMessage() . "\n";
@@ -38,7 +38,7 @@
 
               if($row){
                   $_SESSION['Nombre'] = $_POST['Nombre'];
-                  header('Location:prueba.php');
+                  header('Location:dashboard.php');
 
               }else{
                 echo "Login Incorrecto";

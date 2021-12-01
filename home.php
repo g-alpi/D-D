@@ -53,7 +53,7 @@
 				<div class="newAccBtn">
 					<a href="www.google.com">Crear cuenta nueva</a>
 				</div>
-				<?php 
+				<?php
 					session_start();
 					login();
 				     
