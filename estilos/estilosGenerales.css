@@ -29,6 +29,7 @@ A:hover{
   color: blue;
 }
 /* Empieza el estilo de la Home Page */
+
   body{
     background-color: #FFFEBD;  
   }
@@ -99,6 +100,13 @@ A:hover{
             text-align: center;
             width: 100%;
           }
+
+          .newAccBtn{
+            text-align: right;
+            margin: 0 2% 1% 0;
+            width: 100vw;
+          }
+
 /*Estilos del dashboard*/
 div.dashboardHeader{
   display: flex;
@@ -126,3 +134,4 @@ div.dashboardButtons button{
   font-size: 36px;
 
 }
+
