@@ -1,0 +1,128 @@
+/* Colores para toda la pagina */
+@font-face{
+  font-family: D-Dtitle;
+  src: url(../fonts/BreatheFireIii-PKLOB.ttf);
+}
+@font-face{
+  font-family: RoundStyle-Book;
+  src: url(../fonts/RoundStyle-Book.ttf);
+}
+html * {
+  font-family: RoundStyle-Book;
+}
+h1{
+  color: #880404;
+  font-family: D-Dtitle;
+  font-size: 5vw;
+  text-align: center;
+}
+h2{
+  color: #880404;
+}
+A: link{
+  color: blue;
+}
+A:visited{
+  color: #880404;
+}
+A:hover{
+  color: blue;
+}
+/* Empieza el estilo de la Home Page */
+  body{
+    background-color: #FFFEBD;  
+  }
+  #contenedorCuerpo{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    
+  }
+  .contTitle{
+        width: 100vw;
+        justify-content: center;
+        display: flex;
+        
+      }
+    /* Contenido la box de la izquierda de Home Page */
+      .divImgHomePage{
+        width: 100vw;
+        text-align: right;
+      }
+      .imgHomePage{
+        width: 20%;
+        height: 70%;
+        margin: 5% 15% 0% 0%;
+      }
+      .txtDesc{
+        margin: 0% 4% 4% 4%;
+      }
+
+      /* Contenido la box de la derecha de Home Page */
+
+      .contenedorInfo{
+        width: 35vw;
+        display: flex;
+        margin-top: 3vh;
+        background-color: green;
+        justify-content: center;
+        text-align: justify;
+        flex-wrap: wrap;
+        background-color: #FFE071;
+      }
+
+          .titleInfoHomePage{
+            width: 100vw;
+            text-align: center;
+            margin-bottom: 1vw;
+          }
+          .homePagForm{
+            text-align: center;
+            width: 100vw;
+          }
+          .titleInpForm { 
+            margin: 0px;
+          }
+          form input:first-of-type{
+            margin-bottom: 7%;
+          }
+          .linkPswForgot{
+            margin: 0px;
+            text-align: left;
+            margin-left: 27%;
+          }
+          a{
+            font-size: 0.9vw;
+          }
+          .loginButton{
+            margin-top: 5%;
+            text-align: center;
+            width: 100%;
+          }
+/*Estilos del dashboard*/
+div.dashboardHeader{
+  display: flex;
+  justify-content: space-between;
+}
+div.dashboardHeader button{
+  width: 10vw;
+  height: 4vw;
+  background-color: #FFE071;
+  border-color: #290000;
+}
+div.dashboardButtons{
+  display: flex;
+  justify-content: center;
+  align-content: flex-start;
+  margin: 0 auto;
+}
+div.dashboardButtons button{
+  width: 25vw;
+  height: 10vw;
+  margin: 0 2vw;
+  border-radius: 30px;
+  border-color: #290000;
+  background-color: #FFE071;
+  font-size: 36px;
+
+}
