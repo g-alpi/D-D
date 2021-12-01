@@ -3,17 +3,22 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" type="text/css" href="estilosGenerales.css">
+	<link rel="stylesheet" type="text/css" href="estilos/estilosGenerales.css">
+
 	<title></title>
 </head>
 <body>
 	<div class="dashboardHeader">
 		<a href="home.php"><button>Logout</button></a>
-		<?php 
-			session_start();
-			echo $_SESSION['Nombre'];
+			<div class="sessionName">
+				<p>
+					<?php 
+						session_start();
+						echo $_SESSION['Nombre'];
 
-		?>
+					?>
+				</p>
+			</div>
 	</div>
 	<h1>Escoge una opción</h1>
 	<div class="dashboardButtons">
