@@ -3,11 +3,11 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Home Page</title>
-	<link rel="stylesheet" href="estilos/estilosGenerales.css">
-	<?php include 'functions/functionsPHP.php' ?>
+	<link rel="stylesheet" href="styles.css">
+	<title>Home</title>
 </head>
 <body id="bodyHomePage">
+	<?php include 'functions.php'; ?>
 	<div id="contenedorCuerpo">
 
 		<div class="contTitle">
