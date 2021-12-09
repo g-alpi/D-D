@@ -23,4 +23,13 @@
             <i class="fa fa-github"></i>
         </a>
     </div>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-11BT01L0CV"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-11BT01L0CV');
+    </script>
 </footer>
