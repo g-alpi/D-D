@@ -7,9 +7,15 @@
   font-family: RoundStyle-Book;
   src: url(../fonts/RoundStyle-Book.ttf);
 }
+
 html * {
   font-family: RoundStyle-Book;
 }
+
+body {
+  margin: 0;
+}
+
 h1{
   color: #880404;
   font-family: D-Dtitle;
@@ -19,13 +25,11 @@ h1{
 h2{
   color: #880404;
 }
-A: link{
+a:link{
   color: blue;
 }
-A:visited{
-  color: #880404;
-}
-A:hover{
+
+a:hover{
   color: blue;
 }
 /* Empieza el estilo de la Home Page */
@@ -108,29 +112,66 @@ A:hover{
           }
 
 /*Estilos del dashboard*/
-div.dashboardHeader{
+header {
   display: flex;
   justify-content: space-between;
-}
-div.dashboardHeader button{
-  width: 10vw;
-  height: 4vw;
-  background-color: #FFE071;
-  border-color: #290000;
-  border-radius: 10px;
-  font-size: 2vw;
-}
-div.sessionName{
-  display: flex;
   align-items: center;
-  justify-content: center;
-  width: 10vw;
-  height: 4vw;
-  background-color: #FFE071;
+  background-color: black;
+  width: 100vw;
+  height: 10vh;
 }
-div.sessionName p{
-  font-size: 2vw;
+
+header > nav {
+  flex-grow: 1;
 }
+
+header img {
+  width: 66px;
+  height: 66px;
+}
+
+header p, header a {
+  font-size: 28px;
+  color: #FFFEBD;
+  text-decoration: none;
+  transition: color 1s;
+  position: relative;
+  cursor: pointer;
+}
+
+header a:hover {
+  color: #880404;
+  transition: color 1s;
+} 
+
+header p:after {
+  content: "";
+  border: 0 solid transparent;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 10px solid #FFFEBD;
+  margin-left: 15px;
+  position: absolute;
+  top: 40%;
+  transform: rotate(-90deg);
+}
+
+header > nav ul {
+  display:flex;
+  justify-content: flex-end;
+  flex-direction: row;
+  gap: 25px;
+}
+
+header > nav li {
+  color: #FFFEBD;
+  list-style-type: none;
+}
+
+.header-flex {
+  padding: 50px;
+}
+
 div.dashboardButtons{
   display: flex;
   justify-content: center;

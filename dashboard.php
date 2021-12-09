@@ -7,18 +7,7 @@
 	<title>Dashboard</title>
 </head>
 <body>
-	<div class="dashboardHeader">
-		<a href="home.php"><button>Logout</button></a>
-			<div class="sessionName">
-				<p>
-					<?php 
-						session_start();
-						echo $_SESSION['Nombre'];
-
-					?>
-				</p>
-			</div>
-	</div>
+	<?php include "header.php";?>
 	<h1>Escoge una opción</h1>
 	<div class="dashboardButtons">
 		<a><button>Listar Fichas</button></a>
