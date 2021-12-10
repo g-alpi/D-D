@@ -51,7 +51,7 @@
 				</form>
 
 				<div class="newAccBtn">
-					<a href="www.google.com">Crear cuenta nueva</a>
+					<a href="register.php">Crear cuenta nueva</a>
 				</div>
 				<?php
 					session_start();
