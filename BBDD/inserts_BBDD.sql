@@ -1,5 +1,5 @@
-insert into usuarios values(null,'Test','123','test@gmail.com');
-insert into usuarios values(null,'Bot','123','Bot@gmail.com'); 
+insert into usuarios values(null,'Test','123',null,'test@gmail.com');
+insert into usuarios values(null,'Bot','123',null,'Bot@gmail.com'); 
 
 insert into arma values(1,'Garrote','--','Melee','1d4','Contundente',2,'Ligero');
 insert into arma values(2,'Daga','20/60','Melee','1d4','Penetrante',1,'Ligero, Arrojadiza');

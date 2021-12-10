@@ -23,6 +23,10 @@
 					<input type="text" name="correo" id="correoRegistro">
 				</div>
 				<div class="inputRegistro">
+					<label for="fechaNatalRegistro">Fecha de Nacimiento:</label>
+					<input type="date" name="fechaNatal" id="fechaNatalRegistro">
+				</div>
+				<div class="inputRegistro">
 					<div class="inputContrasenaRegistro">
 					<label for="contrasenaRegistro">Contraseña:</label>
 					<input type="contrasena" name="contrasena" id="contrasenaRegistro">
