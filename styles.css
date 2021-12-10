@@ -129,9 +129,63 @@ div.dashboardButtons button{
   border-color: #290000;
   background-color: #FFE071;
   font-size: 36px;
+  transition: box-shadow 1s ;
 
 }
 
+/* Animacion botones*/
+  button:hover{
+    
+    box-shadow: inset 0px 0px 15px 7px rgba(175, 36, 36, 0.788);
+    animation: animacionBoton 3.5s 1s infinite alternate ;
+
+  }
+  @keyframes animacionBoton {
+    0% { box-shadow: inset 0px 0px 10px 4px rgba(255, 0, 0, 0.5); }
+    50% { box-shadow: inset 0px 0px 15px 7px rgba(175, 36, 36, 0.788); }
+    100% { box-shadow: inset 0px 0px 20px 4px rgba(255, 0, 0, 0.5); }
+}
+  
+/*componente CSS*/
+/*componentes*/
+.alert {
+  padding: 20px;
+  text-align: center;
+  background-color: #f44336;
+  color: white;
+  opacity: 1;
+  position: absolute;
+  bottom: 5vw;
+  left: 30%;
+  right: 30%;
+  transition: opacity 1s;
+  margin-bottom: 15px;
+  animation: alerta 1s ;
+}
+
+.alert.success {background-color: #04AA6D;}
+.alert.info {background-color: #2196F3;}
+.alert.warning {background-color: #ff9800;}
+
+.closebtn {
+  margin-left: 15px;
+  color: white;
+  font-weight: bold;
+  float: right;
+  font-size: 22px;
+  line-height: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.closebtn:hover {
+  color: black;
+}
+
+@keyframes alerta {
+  0% {bottom: 0vw;}
+  100% {bottom: 5vw;}  
+}
 /* Estilos del header */
 
 header, footer {

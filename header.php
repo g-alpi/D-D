@@ -11,7 +11,7 @@
                 session_start();
                 if ($_SESSION["Nombre"]){
                     ?>
-                        <li><a href="#">Logout</a></li>
+                        <li><a href="/index.php">Logout</a></li>
                     <?php
                 }
             ?>

@@ -46,7 +46,10 @@
         $_SESSION["IDUsuario"] = $row["id"];
         header('Location:dashboard.php');
       } else {
-        echo "Login Incorrecto";
+        echo '<div class="alert">
+        <span class="closebtn" onclick="this.parentElement.style.display=\'none\';">&times;</span> 
+        <strong>ERROR!</strong> El nombre de usuario o la contraseña que has introducido no es correcto.
+        </div>';
       } 
     }
 ?>
