@@ -19,6 +19,7 @@ id_personaje int
 
 create table personaje (
 id_personaje int primary key auto_increment,
+nombre varchar (50),
 raza varchar(20),
 clase varchar(20),
 trasfondo varchar(30),
