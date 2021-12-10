@@ -21,6 +21,8 @@ h1{
   font-family: D-Dtitle;
   font-size: 5vw;
   text-align: center;
+  letter-spacing: 10px;
+  text-shadow: 10px 10px 10px #FFE071;
 }
 h2{
   color: #880404;
@@ -183,7 +185,7 @@ div.dashboardButtons button{
 @keyframes alerta {
   0% {bottom: 0vw;}
   100% {bottom: 5vw;}  
-  
+}
 /* Estilos del header */
 
 header, footer {
@@ -191,7 +193,7 @@ header, footer {
   justify-content: space-between;
   align-items: center;
   background-color: rgba(0, 0, 0, 0.85);
-  width: 100vw;
+  max-width: 100vw;
   height: 10vh;
   position: relative;
 }
@@ -309,4 +311,68 @@ i {
 
 .fa-github {
   color: white;
+}
+
+/* Listado personajes */
+
+.section-personajes > div {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 5vw;
+  padding: 5vw;
+  padding-top: 0;
+}
+
+.marco-personaje {
+  flex: 20vw;
+  max-width: 20vw;
+  background-color: #290000;
+  padding: 50px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 25% 0%;
+  box-shadow: 0 0 0 5px #FFFEBD, 0 0 0 10px #290000;
+}
+
+.marco-personaje img {
+  width: 80%;
+  height: auto;
+  margin: 0 auto;
+  border-radius: 25% 0%;
+  border:5px solid #FFFEBD;
+}
+
+.marco-personaje p {
+  color:#FFFEBD;
+  font-size: 24px;
+}
+
+.botones-ficha {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.botones-ficha a {
+  text-decoration: none;
+  color: #FFFEBD;
+  background-color: #880404;
+  padding: 15px;
+  border-radius: 50px;
+  transition: color 1s, background-color 1s;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.botones-ficha a:hover {
+  color: #290000;
+  background-color: #FFE071;
+  transition: color 1s, background-color 1s;
+}
+
+a.borrar {
+  pointer-events: none;
+  color: white;
+  background-color: black;
 }

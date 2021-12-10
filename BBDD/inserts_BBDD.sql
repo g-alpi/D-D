@@ -16,25 +16,17 @@
 -- insert into clase values('bárbaro','Hacha y armadura mediana',0,0);
 -- insert into clase values('Picaro','Daga y armadura ligera de cuero',0,0);
 
-select* from idiomas;
-
 insert into idiomas values (null,"comun"),(null,"elfico"),(null,"enano"),(null,"gigante"),(null,"gnomo"),(null,"trasgo"),(null,"mediano"),(null,"orco");
 
-select* from armaduras;
 insert into armaduras values(null,"acolchada","ligera",11,99,null,"desventaja",8,5),(null,"cuero","ligera",11,99,null,null,10,10),(null,"cuero tachonado","ligera",12,99,null,null,30,45)
 ,(null,"pechera","media",14,2,null,null,20,400),(null,"cota de escamas","media",14,2,null,"desventaja",20,50),(null,"placas de acero","media",15,2,null,"desventaja",40,750),
 (null,"malla","pesada",16,null,13,"desventaja",20,75),(null,"ferula","pesada",17,null,15,"desventaja",600,200),(null,"cota de malla","pesada",14,null,null,"desventaja",40,30),
 (null,"escudo","escudo",2,null,null,null,6,10);
 
-select* from armas;
-
 insert into armas values(null,"daga",5,"simple melee","1d4","perforante",1,2),(null,"maza",5,"simple melee","1d6","contundente",4,5),(null,"hoz",5,"simple melee","1d6","cortante",2,1),
 (null,"arco",320,"simple distancia","1d8","perforante",5,25),(null,"dardo",60,"simple distancia","1d4","perforante",4,5),(null,"arco corto",320,"simple distancia","1d6","perforante",2,25),
 (null,"hacha de guerra",5,"marcial melee","1d4","cortante",4,10),(null,"guja",5,"marcial melee","1d10","cortante",6,20),(null,"tridente",5,"marcial melee","1d6","perforante",4,5),
 (null,"ballesta",100,"marcial distancia","1d6","perforante",3,75);
-
-
-select * from razas;
 
 insert into razas values
  (null,"enano","Duros y valientes, los enanos son conocidos como hábiles guerreros, mineros y trabajadores de la piedra y el metal. Aunque midan menos de un metro y medio, los enanos son 
@@ -78,19 +70,11 @@ Un tipo (que incluye los elfos grises y elfos de los valles de Greyhawk, los Sil
 Esta categoría incluye a los elfos salvajes (grugach) de Greyhawk y a los Kagonesti de Dragonlance, al igual que a las razas conocidas como elfos de los bosques en Greyhawk y los Reinos Olvidados.","elfoBosque.jpg",
 1,"sabiduria","mediano",30,4);
 
-
-
-
-
-select * from clases;
-
 insert into clases values(null,"barbaro","1d12","fuerza",null,"fuerza","constitucion"),(null,"bardo","1d8","carisma",null,"destreza","carisma"),(null,"brujo","1d8","carisma",null,"sabiduria","carisma"),
 (null,"clerigo","1d8","sabiduria",null,"inteligencia","sabiduria"),(null,"explorador","1d10","destreza","sabiduria","fuerza","destreza"),
 (null,"guerrero","1d10","fuerza","destreza","fuerza","constitucion"),(null,"hechicero","1d6","carisma",null,"constitucion","carisma"),(null,"mago","1d6","inteligencia",null,"inteligencia","sabiduria"),
 (null,"monje","1d8","destreza","sabiduria","fuerza","destreza"),(null,"paladin","1d10","fuerza","carisma","sabiduria","carisma"),
 (null,"picaro","1d8","destreza",null,"destreza","inteligencia");
-
-select * from trasfondos;
 
 insert into trasfondos values
 (null,"acolito","Has pasado tu vida al servicio de un templo para un dios específico o panteón de dioses. Actúas como intermediario entre el reino del mundo sagrado y el mundo mortal, realizando ritos sagrados y ofreciendo sacrificios para llevar a los adoradores a la presencia de lo divino. No es necesariamente un clérigo; realizar ritos sagrados no es lo mismo que canalizar el poder divino.
@@ -105,3 +89,9 @@ Cuando elija estos antecedentes, trabaje con su DM para determinar de qué organ
 ,"atletismo","intimidacion")
 ;
 
+/* Usuario + personaje de prueba */ 
+insert into usuarios (usuario, password) values ("Carlos", "Carlos123");
+insert into personajes (nombre, raza, clase) values("Arghenom3", 2, 1);
+set foreign_key_checks=0;
+insert into usuarios_personajes (id_usuario, id_personaje) values(1, 1);
+set foreign_key_checks=1;

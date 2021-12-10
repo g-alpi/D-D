@@ -15,7 +15,7 @@ create table usuarios (
 
 create table personajes (
 	id int primary key auto_increment,
-  nombre varchar(30),
+    nombre varchar(30),
 	raza int,
 	clase int,
 	nivel int,

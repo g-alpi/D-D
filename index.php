@@ -38,7 +38,7 @@
 					<input type="text" name="Nombre" id="Nombre"><br>
 
 					<p class="titleInpForm">Contraseña</p>
-					<input type="text" name="Contra" ><br>
+					<input type="password" name="Contra" ><br>
 
 					<p class="linkPswForgot"><a href="www.google.com">Olvidaste la contraseña?</a></p>
 
