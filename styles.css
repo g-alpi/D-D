@@ -19,13 +19,13 @@ h1{
 h2{
   color: #880404;
 }
-A: link{
+a:link{
   color: blue;
 }
-A:visited{
+a:visited{
   color: #880404;
 }
-A:hover{
+a:hover{
   color: blue;
 }
 /* Empieza el estilo de la Home Page */
@@ -149,8 +149,6 @@ div.dashboardButtons button{
 
 }
 
-<<<<<<< Updated upstream
-=======
 /* Animacion botones*/
   button:hover{
     
@@ -164,4 +162,3 @@ div.dashboardButtons button{
     100% { box-shadow: inset 0px 0px 20px 4px rgba(255, 0, 0, 0.5); }
 }
   
->>>>>>> Stashed changes
