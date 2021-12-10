@@ -15,7 +15,7 @@ create table usuarios (
 
 create table personajes (
 	id int primary key auto_increment,
-    nombre varchar(30),
+  nombre varchar(30),
 	raza int,
 	clase int,
 	nivel int,
@@ -99,7 +99,7 @@ create table razas (
 	id int primary key auto_increment,
 	nombre varchar(20),
 	descripcion varchar(700),
-    ruta_imagen varchar(50),
+  ruta_imagen varchar(50),
 	incremento_estadistica int,
 	estadistica_incrementada varchar(20),
 	tamano varchar(20),
@@ -152,9 +152,9 @@ create table clases(
 	nombre varchar(20),
 	DG varchar(4),
 	caracteristicaPrimaria1 varchar(20),
-    caracteristicaPrimaria2 varchar(20),
+  caracteristicaPrimaria2 varchar(20),
 	competenciaSalvacion1 varchar(30),
-    competenciaSalvacion2 varchar(30)
+  competenciaSalvacion2 varchar(30)
 );
 
 alter table personajes add foreign key (clase) references clases (id);
@@ -348,4 +348,5 @@ alter table objetos_personajes add foreign key(id_personaje) references personaj
 -- alter table propiedades_arma add constraint fk_poriedad_armas foreign key (id_arma) references arma (id_arma);
 
 -- alter table idiomasPersonaje add foreign key (id_personaje) references personaje(id_personaje) ;
+
 -- alter table idiomasPersonaje add foreign key (idioma) references idiomas(idioma);
