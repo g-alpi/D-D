@@ -59,8 +59,7 @@ create table idiomas (
 create table trasfondos (
 	id int primary key auto_increment,
 	nombre varchar(30),
-	descripcion varchar(500),
-	idiomas_disponibles int,
+	descripcion varchar(1100),
 	habilidad_adicional_1 varchar(20),
 	habilidad_adicional_2 varchar(20)
 );
