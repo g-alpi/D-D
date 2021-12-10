@@ -1,21 +1,24 @@
 <?php
-function conectar
+function conectar(){
+  try {
+    $hostname = "localhost";
+    $dbname = "dnd";
+    $username = "edupedu";
+    $pw = "edupedu1";
+    $pdo = new PDO ("mysql:host=$hostname;dbname=$dbname","$username","$pw");
+  } catch (PDOException $e) {
+    echo "Failed to get DB handle: " . $e->getMessage() . "\n";
+    exit;
+  }
+}
+
     function login(){ 
       if(!isset($_POST["Nombre"])){
                     
                     die();
                 }
-              try {
-                $hostname = "localhost";
-                $dbname = "dnd";
-                $username = "edupedu";
-                $pw = "edupedu1";
-                $pdo = new PDO ("mysql:host=$hostname;dbname=$dbname","$username","$pw");
-              } catch (PDOException $e) {
-                echo "Failed to get DB handle: " . $e->getMessage() . "\n";
-                exit;
-              }
-
+          
+              conectar();
 
               //preparem i executem la consulta
               $query = $pdo->prepare("select * FROM usuarios where login_usuario= :user and passwd= :password");
@@ -26,7 +29,7 @@ function conectar
               $query->execute();      
 
 
-                //comprovo errors:
+              //comprovo errors:
               $e= $query->errorInfo();
               if ($e[0]!='00000') {
                 echo "\nPDO::errorInfo():\n";
@@ -51,24 +54,10 @@ function conectar
             /* header('Location:dashboard.php');)*/
     //Función de registro de cuenta
     function registro(){
-        if(!isset($_POST["nombre"])){
-            die();
-        }
-      //connexió dins block try-catch:
-      //  prova d'executar el contingut del try
-      //  si falla executa el catch
-      try {
-        $hostname = "localhost";
-        $dbname = "dnd";
-        $username = "master";
-        $pw = "Master1234";
-        $pdo = new PDO ("mysql:host=$hostname;dbname=$dbname","$username","$pw");
-      } catch (PDOException $e) {
-        echo "Failed to get DB handle: " . $e->getMessage() . "\n";
-        exit;
-      }
-
+        
+      conectar();
       //encriptació de la contrasenya amb SHA256
+
       $encriptedPwd = hash("sha256", $_POST["contrasena"]);
 
 
@@ -95,5 +84,15 @@ function conectar
       unset($pdo); 
       unset($query);
     }
-            ?>
+    function verificarContrasena(){
+      $contrasena = $_POST['contrasena'];
+      $confirmarContrasena = $_POST['confirmarContrasena'];
+      if($confirmarContrasena == $contrasena){
+        return true;
+      }
+      else{
+        return false;
+      }
+    }
+  ?>
 

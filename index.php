@@ -35,10 +35,10 @@
 				<form class="homePagForm" method="POST">
 
 					<p class="titleInpForm">Nombre</p>
-					<input type="text" name="Nombre" id="Nombre"><br>
+					<input type="text" name="Nombre" id="Nombre">
 
 					<p class="titleInpForm">Contraseña</p>
-					<input type="text" name="Contra" ><br>
+					<input type="text" name="Contra" >
 
 					<p class="linkPswForgot"><a href="www.google.com">Olvidaste la contraseña?</a></p>
 

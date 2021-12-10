@@ -8,7 +8,7 @@
 </head>
 <body>
 	<div class="dashboardHeader">
-		<a href="home.php"><button>Logout</button></a>
+		<a href="index.php"><button>Logout</button></a>
 			<div class="sessionName">
 				<p>
 					<?php 
