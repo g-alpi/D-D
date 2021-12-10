@@ -29,11 +29,11 @@
 				<div class="inputRegistro">
 					<div class="inputContrasenaRegistro">
 					<label for="contrasenaRegistro">Contraseña:</label>
-					<input type="contrasena" name="contrasena" id="contrasenaRegistro">
+					<input type="password" name="contrasena" id="contrasenaRegistro">
 					</div>
 					<div class="inputContrasenaRegistro">
 					<label for="confirmarContrasenaRegistro">Confirmar contraseña:</label>
-					<input type="contrasena" name="confirmarContrasena" id="confirmarContrasenaRegistro">
+					<input type="password" name="confirmarContrasena" id="confirmarContrasenaRegistro">
 					</div>
 				</div>
 				<input type="submit" name="registro" value="Registrarse">

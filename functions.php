@@ -21,11 +21,14 @@ function accesoBBDD() {
           
               $pdo = accesoBBDD();
 
+              //encriptació de la contrasenya amb SHA256
+              $encriptedPwd = hash("sha256", $_POST["Contra"]);
+
               //preparem i executem la consulta
               $query = $pdo->prepare("select * FROM usuarios where usuario= :user and password= :password");
 
               $query->bindParam(':user', $_POST["Nombre"]);
-              $query->bindParam(':password',$_POST["Contra"]);
+              $query->bindParam(':password',$encriptedPwd);
 
               $query->execute();      
 
@@ -46,7 +49,10 @@ function accesoBBDD() {
                   header('Location:dashboard.php');
 
               }else{
-                echo "Login Incorrecto";
+                echo '<div class="alert">
+        <span class="closebtn" onclick="this.parentElement.style.display=\'none\';">&times;</span> 
+        <strong>ERROR!</strong> El nombre de usuario o la contraseña que has introducido no es correcto.
+        </div>';
               }
               //eliminem els objectes per alliberar memòria 
               unset($pdo); 
@@ -55,7 +61,13 @@ function accesoBBDD() {
             /* header('Location:dashboard.php');)*/
     //Función de registro de cuenta
     function registro(){
-        
+      if (!formularioLleno()) {
+        echo '<div class="alert">
+        <span class="closebtn" onclick="this.parentElement.style.display=\'none\';">&times;</span> 
+        <strong>ERROR!</strong> Rellena todos los campos.
+        </div>';
+        die();
+      }
       $pdo = accesoBBDD();
 
       //Usamos la funcion para verificar que las dos contraseñas son iguales.
@@ -64,6 +76,7 @@ function accesoBBDD() {
         unset($query);
        die(); 
       }
+
 
       //encriptació de la contrasenya amb SHA256
       $encriptedPwd = hash("sha256", $_POST["contrasena"]);
@@ -74,18 +87,23 @@ function accesoBBDD() {
       $query->bindParam(':user', $_POST["nombre"]);
       $query->bindParam(':password', $encriptedPwd);
       $query->bindParam(':correo', $_POST["correo"]);
-      $query->bindParam(':fecha',$_POST["fecha"]);
+      $query->bindParam(':fecha',$_POST["fechaNatal"]);
 
       //Usamos la funcion para verificar que las dos contraseñas son iguales.
       $query->execute();      
-        //comprovo errors:
+        //Compruebo errores
+      
       $e= $query->errorInfo();
       if ($e[0]!='00000') {
-        echo "\nPDO::errorInfo():\n";
+        echo '<div class="alert">
+        <span class="closebtn" onclick="this.parentElement.style.display=\'none\';">&times;</span> 
+        <strong>ERROR!</strong> PDO::errorInfo():';
         die("Error: " . $e[2]);
+        echo'</div>';
+        
       }  
       //eliminem els objectes per alliberar memòria 
-      unset($pdo); 
+      unset($pdo);
       unset($query);
       
     }
@@ -104,15 +122,33 @@ function accesoBBDD() {
       //Cogemos las filas una a una
       $row = $query->fetch();
       if($row){
-        header('Location:dashboard')
-      } 
+        header('Location:dashboard');
+      }
+      else{
+        echo '<div class="alert">
+        <span class="closebtn" onclick="this.parentElement.style.display=\'none\';">&times;</span> 
+        <strong>ERROR!</strong> Registro Incorrecto.
+        </div>';
+      }
+    }
+    //Formulario lleno
+    function formularioLleno(){
+      if(empty($_GET['nombre'])|| empty($_GET['contrasena']) || empty($_GET['correo']) || empty($_GET['fechaNatal'])){
+        return false;
+      }
+      else{
+        return true;
+      }
     }
     //Funcion para verificar la contraseña
     function verificarContrasena(){
       $contrasena = $_POST['contrasena'];
       $confirmarContrasena = $_POST['confirmarContrasena'];
       if($confirmarContrasena != $contrasena){
-        echo "Las contraseñas no coinciden";
+        echo '<div class="alert">
+        <span class="closebtn" onclick="this.parentElement.style.display=\'none\';">&times;</span> 
+        <strong>ERROR!</strong> Las contraseñas no coinciden.
+        </div>';
         return false;
       }
       else{
