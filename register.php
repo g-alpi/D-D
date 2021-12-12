@@ -7,7 +7,8 @@
 	<title></title>
 </head>
 <body>
-	<?php 
+	<?php
+		include'header.php';
 		include'functions.php'; 
 	?>
 	<h1>Crear Usuario</h1>
@@ -20,7 +21,7 @@
 				</div>
 				<div class="inputRegistro">
 					<label for="correoRegistro">Correo Electronico:</label>
-					<input type="text" name="correo" id="correoRegistro">
+					<input type="email" name="correo" id="correoRegistro">
 				</div>
 				<div class="inputRegistro">
 					<label for="fechaNatalRegistro">Fecha de Nacimiento:</label>
@@ -43,6 +44,8 @@
 			?>
 		</div>
 	</div>
-
+	<?php
+		include 'footer.php';
+	?>
 </body>
 </html>

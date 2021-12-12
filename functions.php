@@ -61,6 +61,7 @@ function accesoBBDD() {
             /* header('Location:dashboard.php');)*/
     //Función de registro de cuenta
     function registro(){
+      /*
       if (!formularioLleno()) {
         echo '<div class="alert">
         <span class="closebtn" onclick="this.parentElement.style.display=\'none\';">&times;</span> 
@@ -68,6 +69,7 @@ function accesoBBDD() {
         </div>';
         die();
       }
+      */
       $pdo = accesoBBDD();
 
       //Usamos la funcion para verificar que las dos contraseñas son iguales.
@@ -132,14 +134,37 @@ function accesoBBDD() {
       }
     }
     //Formulario lleno
-    function formularioLleno(){
-      if(empty($_GET['nombre'])|| empty($_GET['contrasena']) || empty($_GET['correo']) || empty($_GET['fechaNatal'])){
-        return false;
+    function formularioLleno(){      
+      if(isset($_POST['nombre'])){
+        if(isset($_POST['contrasena'])){
+          if(isset($_POST['correo'])){
+            if(isset($_POST['fechaNatal'])){
+              return true;
+              echo"<p>Todo correcto</p>";
+            }
+            else{
+              echo "<p>Fecha Vacia</p>";
+              return false;
+            }
+          }
+          else{
+            echo "<p>Correo vacio</p>";
+            return false;
+          }
+          
+          }
+        else{
+          echo "<p>Contraseña vacia</p>";
+          return false;
+        }
       }
       else{
-        return true;
+        echo "<p>Nombre vacio</p>";
+        return false;
       }
     }
+
+
     //Funcion para verificar la contraseña
     function verificarContrasena(){
       $contrasena = $_POST['contrasena'];
