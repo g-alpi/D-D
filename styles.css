@@ -115,6 +115,10 @@ a:hover{
 
 /*Estilos del dashboard*/
 
+#dashboard {
+  min-height: 60vh;
+}
+
 div.dashboardButtons{
   display: flex;
   justify-content: center;
@@ -129,21 +133,21 @@ div.dashboardButtons button{
   border-color: #290000;
   background-color: #FFE071;
   font-size: 36px;
-  transition: box-shadow 1s ;
+  transition: box-shadow 2s ;
 
 }
 
 /* Animacion botones*/
   button:hover{
-    
-    box-shadow: inset 0px 0px 15px 7px rgba(175, 36, 36, 0.788);
-    animation: animacionBoton 3.5s 1s infinite alternate ;
+    cursor: pointer;
+    box-shadow: inset 0px 0px 15px 8px rgba(175, 36, 36, 0.788);
+    animation: animacionBoton 4s 2s infinite;
 
   }
   @keyframes animacionBoton {
-    0% { box-shadow: inset 0px 0px 10px 4px rgba(255, 0, 0, 0.5); }
-    50% { box-shadow: inset 0px 0px 15px 7px rgba(175, 36, 36, 0.788); }
-    100% { box-shadow: inset 0px 0px 20px 4px rgba(255, 0, 0, 0.5); }
+    0% { box-shadow: inset 0px 0px 15px 8px rgba(175, 36, 36, 0.788); }
+    50% { box-shadow: inset 0px 0px 15px 4px rgba(255, 0, 0, 0.5); }
+    100% { box-shadow: inset 0px 0px 15px 8px rgba(175, 36, 36, 0.788); }
 }
   
 /*componente CSS*/
