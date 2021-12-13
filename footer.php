@@ -2,7 +2,7 @@
     <div class="footer-autores">
         <h3>Autores:</h3>
         <div>
-            <p>Guillem Albó</p>
+            <p>Guillem Albo</p>
             <a href="https://github.com/g-alpi"><i class="fa fa-github"></i></a>
         </div>
         <div>

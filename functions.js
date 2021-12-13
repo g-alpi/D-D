@@ -221,8 +221,303 @@ $(document).ready(function() {
 
         $("#navegacionRaza").before(grid);
         $("#navegacionRaza").prepend("<button id='siguientePasoRaza'>Siguiente Paso</button>");
+        $('#siguientePasoRaza').click(function () {
+            $('#raza').prop( "disabled", true );
+            $('#subraza').prop( "disabled", true );
+            $("#sectionRaza").after('<section id="habilidades"></section>');
+            $('#vuelveAtrasRaza').remove();
+            $('#siguientePasoRaza').remove();
+            formularioHabilidades();
+
+        })
 
         /* Fin del grid */
     };
+    function formularioHabilidades() {
+        let andamio=$("#habilidades");
+        let titulo= $("<h2></h2>").text("Puntos restantes");
+        andamio.append(titulo);
+    
+        let puntos=27;
+    
+        
+    
+        andamio.append("<div id='puntos'>"+puntos+"/27</div>");
+    
+    
+        let divFuerza=$("<div id='div_fuerza'></div>");
+        divFuerza.append("Fuerza");
+        let selectFuerza=$("<select id='fuerza'></select>");
+        divFuerza.append(selectFuerza);
+        divFuerza.append('<p class="puntosHabilidad">8</p>');
+        generarOptions(selectFuerza);
+        andamio.append(divFuerza);
+    
+        divDestreza=$("<div id='div_destreza'></div>");
+        divDestreza.append("Destreza");
+        let selectDestreza=$("<select id='destreza'></select>");
+        divDestreza.append(selectDestreza);
+        divDestreza.append('<p class="puntosHabilidad">8</p>');
+        generarOptions(selectDestreza);
+        andamio.append(divDestreza);
+    
+        divConstitucion=$("<div id='div_constitucion'></div>");
+        divConstitucion.append("Constitucion");
+        let selectConstitucion=$("<select id='constitucion'></select>");
+        divConstitucion.append(selectConstitucion);
+        divConstitucion.append('<p class="puntosHabilidad">8</p>');
+        generarOptions(selectConstitucion);
+        andamio.append(divConstitucion);
+    
+        divInteligencia=$("<div id='div_inteligencia'></div>");
+        divInteligencia.append("Inteligencia");
+        let selectInteligencia=$("<select id='inteligencia'></select>");
+        divInteligencia.append(selectInteligencia);
+        divInteligencia.append('<p class="puntosHabilidad">8</p>');
+        generarOptions(selectInteligencia);
+        andamio.append(divInteligencia);
+    
+        divSabiduria=$("<div id='div_sabiduria'></div>");
+        divSabiduria.append("Sabiduria");
+        let selectSabiduria=$("<select id='sabiduria'></select>");
+        divSabiduria.append(selectSabiduria);
+        divSabiduria.append('<p class="puntosHabilidad">8</p>');
+        generarOptions(selectSabiduria);
+        andamio.append(divSabiduria);
+    
+        divCarisma=$("<div id='div_carisma'></div>");
+        divCarisma.append("Carisma");
+        let selectCarisma=$("<select id='carisma'></select>");
+        divCarisma.append(selectCarisma);
+        divCarisma.append('<p class="puntosHabilidad">8</p>');
+        generarOptions(selectCarisma);
+        andamio.append(divCarisma);
+        
+        andamio.append($("<div id='navegacionRaza'><button id='vuelveAtrasHabilidad'>Vuelve atrás</button></div>"))
+        $('#vuelveAtrasHabilidad').click(function () {
+            $(andamio).remove();
+            $('#raza').prop( "disabled", false );
+            $('#subraza').prop( "disabled", false );
+
+            $("#navegacionRaza").prepend("<button id='siguientePasoRaza'>Siguiente Paso</button>");
+            $('#siguientePasoRaza').click(function () {
+                $('#raza').prop( "disabled", true );
+                $('#subraza').prop( "disabled", true );
+                $("#sectionRaza").after('<section id="habilidades"></section>');
+                $('#vuelveAtrasRaza').remove();
+                $('#siguientePasoRaza').remove();
+                formularioHabilidades();
+    
+            })
+            $("#sectionRaza").append($("<div id='navegacionRaza'><button id='vuelveAtrasRaza'>Vuelve atrás</button></div>"))
+            $("#vuelveAtrasRaza").on("click", function(){$("#sectionRaza").remove();});
+            
+        })
+        
+
+
+        let habilidades= {"fuerza":8,"destreza":8,"constitucion":8,"inteligencia":8,"sabiduria":8,"carisma":8};
+    
+        selectFuerza.click(function () { 
+                puntos+=selectValor('#fuerza',puntos,habilidades);
+                if (puntos==0){
+                    $('#vuelveAtrasHabilidad').before("<button id='siguientePasoRaza'>Siguiente Paso</button>");
+                }
+        })
+    
+        selectDestreza.click(function () {    
+                puntos+=selectValor('#destreza',puntos,habilidades);  
+                if (puntos==0){
+                    $('#vuelveAtrasHabilidad').before("<button id='siguientePasoRaza'>Siguiente Paso</button>");
+                }     
+        })
+    
+        selectConstitucion.click(function () {       
+                puntos+=selectValor('#constitucion',puntos,habilidades);
+                if (puntos==0){
+                    $('#vuelveAtrasHabilidad').before("<button id='siguientePasoRaza'>Siguiente Paso</button>");
+                }
+            
+        })
+    
+        selectInteligencia.click(function () {     
+                puntos+=selectValor('#inteligencia',puntos,habilidades);
+                if (puntos==0){
+                    $('#vuelveAtrasHabilidad').before("<button id='siguientePasoRaza'>Siguiente Paso</button>");
+                }
+        })
+    
+        selectSabiduria.click(function () {        
+                puntos+=selectValor('#sabiduria',puntos,habilidades);
+                if (puntos==0){
+                    $('#vuelveAtrasHabilidad').before("<button id='siguientePasoRaza'>Siguiente Paso</button>");
+                }
+            
+        })
+    
+        selectCarisma.click(function () { 
+                puntos+=selectValor('#carisma',puntos,habilidades);
+                if (puntos==0){
+                    $('#vuelveAtrasHabilidad').before("<button id='siguientePasoRaza'>Siguiente Paso</button>");
+                }
+        })    
+    
+    }
+        
+    function selectValor(habilidad,puntos,diccionario){
+        
+        lvlHabilidad=$(habilidad).val();
+        $(habilidad+' option').remove();
+        
+        let texto=habilidad.substring(1, habilidad.lenght);
+        $('#div_'+texto+' p').text(lvlHabilidad);
+    
+        
+        let costePuntos8= {8: 0, 9: -1, 10: -2, 11: -3, 12: -4, 13: -5, 14: -7, 15: -9};
+        let costePuntos9= {8: 1, 9: 0, 10: -1, 11: -2, 12: -3, 13: -4, 14: -6, 15: -8};
+        let costePuntos10= {8: 2, 9: 1, 10: 0, 11: -1, 12: -2, 13: -3, 14: -5, 15: -7};
+        let costePuntos11= {8: 3, 9: 2, 10: 1, 11: 0, 12: -1, 13: -2, 14: -4, 15: -6};
+        let costePuntos12= {8: 4, 9: 3, 10: 2, 11: 1, 12: 0, 13: -1, 14: -3, 15: -5};
+        let costePuntos13= {8: 5, 9: 4, 10: 3, 11: 2, 12: 1, 13: 0, 14: -2, 15: -4};
+        let costePuntos14= {8: 7, 9: 6, 10: 5, 11: 4, 12: 3, 13: 2, 14: 0, 15: -2};
+        let costePuntos15= {8: 9, 9: 8, 10: 7, 11: 6, 12: 5, 13: 4, 14: 2, 15: 0};
+  
+        for (let i=8; i <=15; i++) {
+             
+    
+            if (diccionario[texto]==8) {
+    
+                if(puntos+parseInt(costePuntos8[i])>=0){
+                    $(habilidad).append('<option value='+i+'>'+i+'</option>');
+                }
+                else{
+                    break;
+                }
+            }
+            else if (diccionario[texto]==9) {
+                if(puntos+parseInt(costePuntos9[i])>=0){
+                    $(habilidad).append('<option value='+i+'>'+i+'</option>');
+                }
+                else{
+                    break;
+                }
+            }
+            else if (diccionario[texto]==10) {
+                if(puntos+parseInt(costePuntos10[i])>=0){
+                    $(habilidad).append('<option value='+i+'>'+i+'</option>');
+                }
+                else{
+                    break;
+                }
+            }
+            else if (diccionario[texto]==11) {
+                if(puntos+parseInt(costePuntos11[i])>=0){
+                    $(habilidad).append('<option value='+i+'>'+i+'</option>');
+                }
+                else{
+                    break;
+                }
+            }
+            else if (diccionario[texto]==12) {
+                if(puntos+parseInt(costePuntos12[i])>=0){
+                    $(habilidad).append('<option value='+i+'>'+i+'</option>');
+                }
+                else{
+                    break;
+                }
+            }
+            else if (diccionario[texto]==13) {
+                if(puntos+parseInt(costePuntos13[i])>=0){
+                    $(habilidad).append('<option value='+i+'>'+i+'</option>');
+                }
+                else{
+                    break;
+                }
+            }
+            else if (diccionario[texto]==14) {
+                if(puntos+parseInt(costePuntos14[i])>=0){
+                    $(habilidad).append('<option value='+i+'>'+i+'</option>');
+                }
+                else{
+                    break;
+                }
+            }
+            else if (diccionario[texto]==15) {
+                if(puntos+parseInt(costePuntos15[i])>=0){
+                    $(habilidad).append('<option value='+i+'>'+i+'</option>');
+                }
+                else{
+                    break;
+                }
+            }
+            
+       }
+    
+        $(habilidad+' option[value="'+lvlHabilidad+'"]').attr('selected',"");
+    
+        
+        if (diccionario[texto]==8) {
+            diccionario[texto]=lvlHabilidad;
+            $("#puntos").text(puntos+costePuntos8[lvlHabilidad]+"/27"); 
+            console.log(diccionario);
+            return costePuntos8[lvlHabilidad];
+        }
+        else if (diccionario[texto]==9) {
+            diccionario[texto]=lvlHabilidad;
+            $("#puntos").text(puntos+costePuntos9[lvlHabilidad]+"/27"); 
+            console.log(diccionario);
+            return costePuntos9[lvlHabilidad];
+        }
+        else if (diccionario[texto]==10) {
+            diccionario[texto]=lvlHabilidad;
+            $("#puntos").text(puntos+costePuntos10[lvlHabilidad]+"/27"); 
+            console.log(diccionario);
+            return costePuntos10[lvlHabilidad];
+        }
+        else if (diccionario[texto]==11) {
+            diccionario[texto]=lvlHabilidad;
+            $("#puntos").text(puntos+costePuntos11[lvlHabilidad]+"/27"); 
+            console.log(diccionario);
+            return costePuntos11[lvlHabilidad];
+        }
+        else if (diccionario[texto]==12) {
+            diccionario[texto]=lvlHabilidad;
+            $("#puntos").text(puntos+costePuntos12[lvlHabilidad]+"/27"); 
+            console.log(diccionario);
+            return costePuntos12[lvlHabilidad];
+        }
+        else if (diccionario[texto]==13) {
+            diccionario[texto]=lvlHabilidad;
+            $("#puntos").text(puntos+costePuntos13[lvlHabilidad]+"/27"); 
+            console.log(diccionario);
+            return costePuntos13[lvlHabilidad];
+        }
+        else if (diccionario[texto]==14) {
+            diccionario[texto]=lvlHabilidad;
+            $("#puntos").text(puntos+costePuntos14[lvlHabilidad]+"/27"); 
+            console.log(diccionario);
+            return costePuntos14[lvlHabilidad];
+        }
+        else if (diccionario[texto]==15) {
+            diccionario[texto]=lvlHabilidad;
+            $("#puntos").text(puntos+costePuntos15[lvlHabilidad]+"/27"); 
+            console.log(diccionario);
+            return costePuntos15[lvlHabilidad];
+        }
+        
+        
+    }
+    
+    function generarOptions(constructor) {
+        
+    
+        for (let i=8; i <=15; i++) {
+                 $(constructor).append('<option value='+i+'>'+i+'</option>');
+                
+    
+            }
+        
+    }
+
 
 });
