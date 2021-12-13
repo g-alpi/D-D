@@ -1,0 +1,475 @@
+/* Colores para toda la pagina */
+@font-face{
+  font-family: D-Dtitle;
+  src: url(../fonts/BreatheFireIii-PKLOB.ttf);
+}
+@font-face{
+  font-family: RoundStyle-Book;
+  src: url(../fonts/RoundStyle-Book.ttf);
+}
+
+html * {
+  font-family: RoundStyle-Book;
+}
+
+body {
+  margin: 0;
+}
+
+h1{
+  color: #880404;
+  font-family: D-Dtitle;
+  font-size: 5vw;
+  text-align: center;
+  letter-spacing: 10px;
+  text-shadow: 10px 10px 10px #FFE071;
+}
+h2{
+  color: #880404;
+}
+a:link{
+  color: blue;
+}
+
+a:hover{
+  color: blue;
+}
+/* Empieza el estilo de la Home Page */
+
+  body{
+    background-color: #FFFEBD;  
+  }
+  #contenedorCuerpo{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    
+  }
+  .contTitle{
+        width: 100vw;
+        justify-content: center;
+        display: flex;
+        
+      }
+    /* Contenido la box de la izquierda de Home Page */
+      .divImgHomePage{
+        width: 100vw;
+        text-align: right;
+      }
+      .imgHomePage{
+        width: 20%;
+        height: 70%;
+        margin: 5% 15% 0% 0%;
+      }
+      .txtDesc{
+        margin: 0% 4% 4% 4%;
+      }
+
+      /* Contenido la box de la derecha de Home Page */
+
+      .contenedorInfo{
+        width: 35vw;
+        display: flex;
+        margin-top: 3vh;
+        background-color: green;
+        justify-content: center;
+        text-align: justify;
+        flex-wrap: wrap;
+        background-color: #FFE071;
+      }
+
+          .titleInfoHomePage{
+            width: 100vw;
+            text-align: center;
+            margin-bottom: 1vw;
+          }
+          .homePagForm{
+            text-align: center;
+            width: 100vw;
+          }
+          .titleInpForm { 
+            margin: 0px;
+          }
+          form input:first-of-type{
+            margin-bottom: 7%;
+          }
+          .linkPswForgot{
+            margin: 0px;
+            text-align: left;
+            margin-left: 27%;
+          }
+          a{
+            font-size: 0.9vw;
+          }
+          .loginButton{
+            margin-top: 5%;
+            text-align: center;
+            width: 100%;
+          }
+
+          .newAccBtn{
+            text-align: right;
+            margin: 0 2% 1% 0;
+            width: 100vw;
+          }
+
+/*Estilos del dashboard*/
+  div.dashboardHeader{
+    display: flex;
+    justify-content: space-between;
+  }
+  div.dashboardHeader button{
+    width: 10vw;
+    height: 4vw;
+    background-color: #FFE071;
+    border-color: #290000;
+    border-radius: 10px;
+    font-size: 2vw;
+  }
+  div.sessionName{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 10vw;
+    height: 4vw;
+    background-color: #FFE071;
+  }
+  div.sessionName p{
+    font-size: 2vw;
+  }
+  div.dashboardButtons{
+    display: flex;
+    justify-content: center;
+    align-content: flex-start;
+    margin: 0 auto;
+  }
+  div.dashboardButtons button{
+    width: 25vw;
+    height: 10vw;
+    margin: 0 2vw;
+    border-radius: 30px;
+    border-color: #290000;
+    background-color: #FFE071;
+    font-size: 36px;
+  }
+/*CSS del register*/
+  h1{
+    text-align: center;
+  }
+  .registroFlex{
+    display: flex;
+    justify-content: center;
+    min-height: 60vh;
+  }
+  /*Css del formulario de registro*/
+    div.formularioRegistro{
+      background-color: #FFE071;
+      text-align: center;
+      height: 50%;
+      padding: 4vh 2vw 0vw;
+
+    }
+    /*Css de los inputs del form*/
+    
+    #contrasenaRegistro{
+      margin-bottom: 0.5vh;
+    }
+
+#dashboard {
+  min-height: 60vh;
+}
+
+div.dashboardButtons{
+  display: flex;
+  justify-content: center;
+  align-content: flex-start;
+  margin: 0 auto;
+}
+/*componente CSS*/
+/*componentes*/
+.alert {
+  padding: 20px;
+  text-align: center;
+  background-color: #f44336;
+  color: white;
+  opacity: 1;
+  position: absolute;
+  bottom: 5vw;
+  left: 30%;
+  right: 30%;
+  transition: opacity 1s;
+  margin-bottom: 15px;
+  animation: alerta 1s ;
+}
+
+.alert.success {background-color: #04AA6D;}
+.alert.info {background-color: #2196F3;}
+.alert.warning {background-color: #ff9800;}
+
+.closebtn {
+  margin-left: 15px;
+  color: white;
+  font-weight: bold;
+  float: right;
+  font-size: 22px;
+  line-height: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+div.dashboardButtons button{
+  width: 25vw;
+  height: 10vw;
+  margin: 0 2vw;
+  border-radius: 30px;
+  border-color: #290000;
+  background-color: #FFE071;
+  font-size: 36px;
+  transition: box-shadow 2s ;
+}
+.closebtn:hover {
+  color: black;
+}
+
+/* Animacion botones*/
+  button:hover{
+    cursor: pointer;
+    box-shadow: inset 0px 0px 15px 8px rgba(175, 36, 36, 0.788);
+    animation: animacionBoton 4s 2s infinite;
+
+  }
+  @keyframes animacionBoton {
+    0% { box-shadow: inset 0px 0px 15px 8px rgba(175, 36, 36, 0.788); }
+    50% { box-shadow: inset 0px 0px 15px 4px rgba(255, 0, 0, 0.5); }
+    100% { box-shadow: inset 0px 0px 15px 8px rgba(175, 36, 36, 0.788); }
+}
+  
+/*componente CSS*/
+/*componentes*/
+.alert {
+  padding: 20px;
+  text-align: center;
+  background-color: #f44336;
+  color: white;
+  opacity: 1;
+  position: absolute;
+  bottom: 5vw;
+  left: 30%;
+  right: 30%;
+  transition: opacity 1s;
+  margin-bottom: 15px;
+  animation: alerta 1s ;
+}
+
+.alert.success {background-color: #04AA6D;}
+.alert.info {background-color: #2196F3;}
+.alert.warning {background-color: #ff9800;}
+
+.closebtn {
+  margin-left: 15px;
+  color: white;
+  font-weight: bold;
+  float: right;
+  font-size: 22px;
+  line-height: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.closebtn:hover {
+  color: black;
+}
+
+@keyframes alerta {
+  0% {bottom: 0vw;}
+  100% {bottom: 5vw;}  
+}
+/* Estilos del header */
+
+header, footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.85);
+  max-width: 100vw;
+  height: 10vh;
+  position: relative;
+}
+
+header:before, footer:before {
+  content:"";
+  background-image: url("imagenes/paper.jpg");
+  background-size: cover;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: -1;
+}
+
+header > nav {
+  flex-grow: 1;
+}
+
+header img {
+  width: 66px;
+  height: 66px;
+}
+
+header p {
+  padding-right: 30px;
+}
+
+header p, header a {
+  font-size: 28px;
+  color: #FFFEBD;
+  text-decoration: none;
+  transition: color 1s;
+  position: relative;
+}
+
+header a:hover {
+  color: #880404;
+  transition: color 1s;
+} 
+
+header > nav ul {
+  display:flex;
+  justify-content: flex-end;
+  flex-direction: row;
+  gap: 25px;
+}
+
+header > nav li {
+  color: #FFFEBD;
+  list-style-type: none;
+}
+
+.header-flex {
+  padding: 50px;
+}
+
+/* Estilos del Footer */
+footer {
+  height: auto;
+}
+
+.footer-autores, .footer-git {
+  padding-left: 50px;
+  padding-right: 50px;
+  padding-top: 10px;
+  padding-bottom: 30px;
+}
+
+.logo-ieti {
+  height: 150px;
+  width: auto;
+}
+
+footer h3 {
+  font-size: 28px;
+  color: #FFFEBD;
+}
+
+footer p {
+  font-size: 22px;
+  color: #FFFEBD;
+  padding-left: 20px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+footer a {
+  text-decoration: none;
+}
+
+.footer-colegio h3 {
+  text-align: center;
+}
+
+.footer-autores > div {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+}
+
+i {
+  font-size: 28px !important;
+  margin-left: 25px;
+}
+
+.footer-git i {
+  font-size: 164px !important;
+}
+
+.fa-twitter {
+  color: #00ACEE;
+}
+
+.fa-github {
+  color: white;
+}
+
+/* Listado personajes */
+
+.section-personajes > div {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 5vw;
+  padding: 5vw;
+  padding-top: 0;
+}
+
+.marco-personaje {
+  flex: 20vw;
+  max-width: 20vw;
+  background-color: #290000;
+  padding: 50px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 25% 0%;
+  box-shadow: 0 0 0 5px #FFFEBD, 0 0 0 10px #290000;
+}
+
+.marco-personaje img {
+  width: 80%;
+  height: auto;
+  margin: 0 auto;
+  border-radius: 25% 0%;
+  border:5px solid #FFFEBD;
+}
+
+.marco-personaje p {
+  color:#FFFEBD;
+  font-size: 24px;
+}
+
+.botones-ficha {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.botones-ficha a {
+  text-decoration: none;
+  color: #FFFEBD;
+  background-color: #880404;
+  padding: 15px;
+  border-radius: 50px;
+  transition: color 1s, background-color 1s;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.botones-ficha a:hover {
+  color: #290000;
+  background-color: #FFE071;
+  transition: color 1s, background-color 1s;
+}
+
+a.borrar {
+  pointer-events: none;
+  color: white;
+  background-color: black;
+}
