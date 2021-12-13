@@ -6,6 +6,7 @@
         <ul>
             <li><a href="/index.php">Home</a></li>
             <li><a href="/dashboard.php">Dashboard</a></li>
+            <li><a href="/crearPersonaje.php">Crear Ficha</a></li>
             <li><a href="/tusFichas.php">Tus Fichas</a></li>
             <?php
                 session_start();

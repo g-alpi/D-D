@@ -99,10 +99,11 @@ create table razas (
 	id int primary key auto_increment,
 	nombre varchar(20),
 	descripcion varchar(700),
-  ruta_imagen varchar(50),
+    ruta_imagen varchar(50),
 	incremento_estadistica int,
 	estadistica_incrementada varchar(20),
 	tamano varchar(20),
+    vision varchar(50),
 	velocidad int,
 	id_razaPadre int
 );
@@ -131,7 +132,7 @@ alter table razas_idiomas add foreign key(id_idioma) references idiomas(id);
 create table habilidadesRaciales (
 	id int primary key auto_increment,
 	nombre varchar(50),
-	descripcion varchar(200)
+	descripcion varchar(1000)
 );
 
 /* Relacionamos las habilidades raciales con las razas */
@@ -337,16 +338,3 @@ create table objetos_personajes (
 
 alter table objetos_personajes add foreign key(id_objeto) references objetos(id);
 alter table objetos_personajes add foreign key(id_personaje) references personajes(id);
-
-/* Relacionamos la tabla personaje con sus habilidades */
--- alter table personaje add constraint fk_personaje_habilidades foreign key(id_personaje) references habilidades(id_personaje);
-	
-/*relazionamos razas con sus rasgos*/
--- alter table rasgo_raza add constraint fk_rasgos_raza foreign key (raza) references razas(nombre);
-
-/*realazionamos las armas con sus propiedades*/
--- alter table propiedades_arma add constraint fk_poriedad_armas foreign key (id_arma) references arma (id_arma);
-
--- alter table idiomasPersonaje add foreign key (id_personaje) references personaje(id_personaje) ;
-
--- alter table idiomasPersonaje add foreign key (idioma) references idiomas(idioma);

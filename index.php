@@ -41,7 +41,7 @@
 					<p class="titleInpForm">Contraseña</p>
 					<input type="password" name="Contra" ><br>
 
-					<p class="linkPswForgot"><a href="www.google.com">Olvidaste la contraseña?</a></p>
+					<p class="linkPswForgot"><a href="#">Olvidaste la contraseña?</a></p>
 
 				
 
