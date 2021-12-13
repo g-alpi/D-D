@@ -114,6 +114,66 @@ a:hover{
           }
 
 /*Estilos del dashboard*/
+  div.dashboardHeader{
+    display: flex;
+    justify-content: space-between;
+  }
+  div.dashboardHeader button{
+    width: 10vw;
+    height: 4vw;
+    background-color: #FFE071;
+    border-color: #290000;
+    border-radius: 10px;
+    font-size: 2vw;
+  }
+  div.sessionName{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 10vw;
+    height: 4vw;
+    background-color: #FFE071;
+  }
+  div.sessionName p{
+    font-size: 2vw;
+  }
+  div.dashboardButtons{
+    display: flex;
+    justify-content: center;
+    align-content: flex-start;
+    margin: 0 auto;
+  }
+  div.dashboardButtons button{
+    width: 25vw;
+    height: 10vw;
+    margin: 0 2vw;
+    border-radius: 30px;
+    border-color: #290000;
+    background-color: #FFE071;
+    font-size: 36px;
+  }
+/*CSS del register*/
+  h1{
+    text-align: center;
+  }
+  .registroFlex{
+    display: flex;
+    justify-content: center;
+    min-height: 60vh;
+  }
+  /*Css del formulario de registro*/
+    div.formularioRegistro{
+      background-color: #FFE071;
+      text-align: center;
+      height: 50%;
+      padding: 4vh 2vw 0vw;
+
+    }
+    /*Css de los inputs del form*/
+    
+    #contrasenaRegistro{
+      margin-bottom: 0.5vh;
+    }
 
 #dashboard {
   min-height: 60vh;
@@ -125,6 +185,37 @@ div.dashboardButtons{
   align-content: flex-start;
   margin: 0 auto;
 }
+/*componente CSS*/
+/*componentes*/
+.alert {
+  padding: 20px;
+  text-align: center;
+  background-color: #f44336;
+  color: white;
+  opacity: 1;
+  position: absolute;
+  bottom: 5vw;
+  left: 30%;
+  right: 30%;
+  transition: opacity 1s;
+  margin-bottom: 15px;
+  animation: alerta 1s ;
+}
+
+.alert.success {background-color: #04AA6D;}
+.alert.info {background-color: #2196F3;}
+.alert.warning {background-color: #ff9800;}
+
+.closebtn {
+  margin-left: 15px;
+  color: white;
+  font-weight: bold;
+  float: right;
+  font-size: 22px;
+  line-height: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
 div.dashboardButtons button{
   width: 25vw;
   height: 10vw;
@@ -134,7 +225,9 @@ div.dashboardButtons button{
   background-color: #FFE071;
   font-size: 36px;
   transition: box-shadow 2s ;
-
+}
+.closebtn:hover {
+  color: black;
 }
 
 /* Animacion botones*/

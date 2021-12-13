@@ -3,6 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" href="styles.css">
 	<title>Home</title>
 </head>
@@ -35,12 +36,12 @@
 				<form class="homePagForm" method="POST">
 
 					<p class="titleInpForm">Nombre</p>
-					<input type="text" name="Nombre" id="Nombre"><br>
+					<input type="text" name="Nombre" id="Nombre">
 
 					<p class="titleInpForm">Contraseña</p>
 					<input type="password" name="Contra" ><br>
 
-					<p class="linkPswForgot"><a href="www.google.com">Olvidaste la contraseña?</a></p>
+					<p class="linkPswForgot"><a href="#">Olvidaste la contraseña?</a></p>
 
 				
 
@@ -51,7 +52,7 @@
 				</form>
 
 				<div class="newAccBtn">
-					<a href="www.google.com">Crear cuenta nueva</a>
+					<a href="register.php">Crear cuenta nueva</a>
 				</div>
 				<?php
 					session_start();
