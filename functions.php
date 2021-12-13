@@ -1,5 +1,8 @@
 <?php
-function accesoBBDD() {
+
+    /* Esta funcion te permite el acceso a BBDD */
+
+    function accesoBBDD() {
       try {
         $hostname = "localhost";
         $dbname = "dnd";
@@ -45,7 +48,8 @@ function accesoBBDD() {
               $row = $query->fetch();
 
               if($row){
-                  $_SESSION['Nombre'] = $_POST['Nombre'];
+                  $_SESSION['Nombre'] = $row['usuario'];
+                  $_SESSION["IDUsuario"] = $row["id"];
                   header('Location:dashboard.php');
 
               }else{
@@ -77,41 +81,50 @@ function accesoBBDD() {
         unset($pdo); 
         unset($query);
        die(); 
-      }
-
-
-      //encriptació de la contrasenya amb SHA256
-      $encriptedPwd = hash("sha256", $_POST["contrasena"]);
-      
-      //preparem i executem la consulta
-      $query = $pdo->prepare("insert into usuarios values(null, :user, :password, :fecha, :correo)");
-
-      $query->bindParam(':user', $_POST["nombre"]);
-      $query->bindParam(':password', $encriptedPwd);
-      $query->bindParam(':correo', $_POST["correo"]);
-      $query->bindParam(':fecha',$_POST["fechaNatal"]);
-
-      //Usamos la funcion para verificar que las dos contraseñas son iguales.
-      $query->execute();      
-        //Compruebo errores
-      
-      $e= $query->errorInfo();
-      if ($e[0]!='00000') {
-        echo '<div class="alert">
-        <span class="closebtn" onclick="this.parentElement.style.display=\'none\';">&times;</span> 
-        <strong>ERROR!</strong> PDO::errorInfo():';
-        die("Error: " . $e[2]);
-        echo'</div>';
+      } else {
+        //encriptació de la contrasenya amb SHA256
+        $encriptedPwd = hash("sha256", $_POST["contrasena"]);
         
-      }  
-      //eliminem els objectes per alliberar memòria 
-      unset($pdo);
-      unset($query);
-      
+        //preparem i executem la consulta
+        $query = $pdo->prepare("insert into usuarios values(null, :user, :password, :fecha, :correo)");
+
+        $query->bindParam(':user', $_POST["nombre"]);
+        $query->bindParam(':password', $encriptedPwd);
+        $query->bindParam(':correo', $_POST["correo"]);
+        $query->bindParam(':fecha',$_POST["fechaNatal"]);
+
+        //Usamos la funcion para verificar que las dos contraseñas son iguales.
+        $query->execute();      
+          //Compruebo errores
+        
+        $e= $query->errorInfo();
+        if ($e[0]!='00000') {
+          echo '<div class="alert">
+          <span class="closebtn" onclick="this.parentElement.style.display=\'none\';">&times;</span> 
+          <strong>ERROR!</strong> PDO::errorInfo():';
+          die("Error: " . $e[2]);
+          echo'</div>';
+          
+        } 
+        if ($_POST["nombre"]){
+          usuarioCreado($pdo, $_POST["nombre"], $encriptedPwd);
+        }
+        
+
+        //eliminem els objectes per alliberar memòria 
+        unset($pdo);
+        unset($query);
+
+      }
     }
+
     //Funcion para verificar que el usuario ha sido creado
-    function usuarioCreado($pdo ,$encriptedPwd){
-      $query = $pdo->prepare("select from usuarios where usuario = ".$_POST["nombre"]. " AND password = ".$encriptedPwd);
+    function usuarioCreado($pdo, $user, $encriptedPwd){
+      $query = $pdo->prepare("select * from usuarios where usuario = :user AND password = :password");
+
+      $query->bindParam(':user', $user);
+      $query->bindParam(':password', $encriptedPwd);
+
       $query->execute();
 
       //Compruebo errores

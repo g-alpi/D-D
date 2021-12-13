@@ -10,7 +10,10 @@
             <a href="https://github.com/carlosvalgar"><i class="fa fa-github"></i></a>
             <a href="https://twitter.com/Carvagia"><i class="fa fa-twitter"></i></a>
         </div>
-        <div><p>Eduard Valle</p></div>
+        <div>
+            <p>Eduard Valle</p>
+            <a href="https://github.com/edupedu101"><i class="fa fa-github"></i></a>
+        </div>
     </div>
     <div class="footer-colegio">
         <a href="https://agora.xtec.cat/iesesteveterradas/">

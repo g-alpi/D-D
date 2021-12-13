@@ -6,11 +6,12 @@
         <ul>
             <li><a href="/index.php">Home</a></li>
             <li><a href="/dashboard.php">Dashboard</a></li>
+            <li><a href="/tusFichas.php">Tus Fichas</a></li>
             <?php
                 session_start();
                 if ($_SESSION["Nombre"]){
                     ?>
-                        <li><a href="#">Logout</a></li>
+                        <li><a href="/index.php">Logout</a></li>
                     <?php
                 }
             ?>
