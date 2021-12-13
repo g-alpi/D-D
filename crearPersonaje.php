@@ -13,7 +13,17 @@
 </head>
 <body>
     <?php include "header.php";?>
-    <section id="nombrePersonaje"></section>
+    <form method="post"></form>
+    <div id="flexDiv">
+        <div id="nombreForm">
+                <label for="nombreFicha"><h2 id="escogerNombre">Escoge tu nombre</h2></label>
+                <input type="text" name="nombreFicha" id="nombreFicha">
+                <button id="botonNombre">Siguiente</button>
+        </div>
+        <section id="nombrePersonaje"></section>
+        
+    </div>
+    
     <?php include "footer.php";?>
 </body>
 </html>

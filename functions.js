@@ -1,8 +1,10 @@
 $(document).ready(function() {
-    
+    /* Añade un evento al botón de siguiente*/
+    $("#botonNombre").on('click',formularioSeleccionRaza);
     /* Esta funcion crea el formulario de la seleccion de raza hasta que tiene que elegir una raza */
 
     function formularioSeleccionRaza(){
+        $("#nombreFicha").prop('disabled',true);
         let sectionRaza = $("<section id='sectionRaza'></section>");
         
         /* Header */
@@ -30,7 +32,8 @@ $(document).ready(function() {
         $("#nombrePersonaje").after(sectionRaza);
 
         $("#raza").on("change", function(){tieneSubraza(this.value);});
-        $("#vuelveAtrasRaza").on("click", function(){$("#sectionRaza").remove();});
+        $("#vuelveAtrasRaza").on("click", function(){$("#sectionRaza").remove();
+        $("#nombreFicha").prop('disabled',false);});
     };
     
     /* Esta funcion comprueba si tiene o no una subraza y llama la funcion acorde */
@@ -222,5 +225,4 @@ $(document).ready(function() {
         /* Fin del grid */
     };
 
-    formularioSeleccionRaza();
 });
