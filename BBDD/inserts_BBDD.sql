@@ -90,7 +90,7 @@ Cuando elija estos antecedentes, trabaje con su DM para determinar de qué organ
 ;
 
 /* Usuario + personaje de prueba */ 
-insert into usuarios (usuario, password) values ("Carlos", "Carlos123");
+insert into usuarios (usuario, password) values ("Carlos", "ac9c2c34c9f7ad52528c3422af40a66e2e24aaf2a727831255413c9470158984");
 insert into personajes (nombre, raza, clase) values("Arghenom3", 2, 1);
 set foreign_key_checks=0;
 insert into usuarios_personajes (id_usuario, id_personaje) values(1, 1);
