@@ -1,158 +1,224 @@
 $(document).ready(function() {
-    /* Añade un evento al botón de siguiente*/
-    $("#botonNombre").on('click',formularioSeleccionRaza);
-    /* Esta funcion crea el formulario de la seleccion de raza hasta que tiene que elegir una raza */
+
+    inicializar();
+
+    // Esta funcion asigna todos los eventos necesarios
+    
+    function inicializar() {
+        $("#nombreFicha").on("input", comprobarNombre);
+        $("#nombreFicha").on("keydown", changeEnter);
+    }
+
+    // Esta funcion comprueba si tiene letras el input nombre, si tiene crea el boton para seguir, sino lo elimina
+
+    function comprobarNombre() {
+        if (this.value.length > 0 && !botonExiste("#botonNombre")){
+            crearBoton("botonNombre", "#nombreForm", "Siguiente Paso", formularioSeleccionRaza);
+        } else if (this.value.length == 0) {
+            $("#botonNombre").remove();
+        };
+    }
+
+    // Esta funcion nos crea el boton de siguiente y le hace el append donde queramos con el texto que le digamos y con la funcionalidad que queramos
+
+    function crearBoton(idBoton, insert, texto, funcion, prepend) {
+        let botonSiguiente = $("<button type='button' id='" + idBoton + "'>" + texto + "</button>").on("click", funcion);
+        if (prepend){
+            $(insert).prepend(botonSiguiente);
+        } else {
+            $(insert).append(botonSiguiente);
+        }
+    }
+
+    // Esta funcion nos comprueba si un boton existe
+
+    function botonExiste(idBoton){
+        if($(idBoton).length) {
+            return true;
+        }
+        return false;
+    }
+
+    // Evita el uso normal del enter para el input de texto
+
+    function changeEnter(event){
+        if(event.key == "Enter") {
+            event.preventDefault();
+            $("#botonNombre").click();
+        }
+    }
+
+    // Esta funcion crea el formulario de la seleccion de raza hasta que tiene que elegir una raza 
 
     function formularioSeleccionRaza(){
+        $("#botonNombre").remove();
         $("#nombreFicha").prop('disabled',true);
-        let sectionRaza = $("<section id='sectionRaza'></section>");
-        
-        /* Header */
 
+        let sectionRaza = $("<section id='sectionRaza'></section>");
         let headerSeccion = $("<h2></h2>").text("Selecciona tu raza");
         sectionRaza.append(headerSeccion);
+        sectionRaza.append(crearSelectRaza("raza", ""));
+        sectionRaza.append($("<div id='navegacionRaza'></div>"))
+        $("#nombrePersonaje").after(sectionRaza);
+        crearBoton("vuelveAtrasRaza", "#navegacionRaza", "Vuelve atrás",volverAtrasRaza);
+        $("#raza").on("change", function(){tieneSubraza(this.value);});
+    };
+    
+    // Nos permite volver a seleccion de nombre
 
-        /* Select Raza */
+    function volverAtrasRaza() {
+        $("#sectionRaza").remove();
+        $("#nombreFicha").prop('disabled',false);
+    }
 
-        let selectorRaza = $("<select id='raza' name='raza'></select>");
-        let opcionesRaza;
-        
-        opcionesRaza = $("<option hidden disabled selected>Selecciona tu Raza</option>");
+    // Esta funcion crea el formulario de select de la raza
+
+    function crearSelectRaza(tipo, raza_padre) {
+        let selectorRaza = $("<select id='" + tipo + "' name='" + tipo + "'></select>");        
+        let opcionesRaza = $("<option hidden disabled selected>Selecciona tu " + tipo + "</option>");
         selectorRaza.append(opcionesRaza);
         
         $.each(razas, function(index, value){
-            if(razas[index]["raza_padre"] == "") {
+            if(razas[index]["raza_padre"] == raza_padre) {
                 opcionesRaza = $("<option value='" + index + "'>" + index + "</option>");
                 selectorRaza.append(opcionesRaza);
             }
         });
 
-        sectionRaza.append(selectorRaza);
-        sectionRaza.append($("<div id='navegacionRaza'><button id='vuelveAtrasRaza'>Vuelve atrás</button></div>"))
-        $("#nombrePersonaje").after(sectionRaza);
+        return selectorRaza;
+    }
 
-        $("#raza").on("change", function(){tieneSubraza(this.value);});
-        $("#vuelveAtrasRaza").on("click", function(){$("#sectionRaza").remove();
-        $("#nombreFicha").prop('disabled',false);});
-    };
-    
-    /* Esta funcion comprueba si tiene o no una subraza y llama la funcion acorde */
+    // Esta funcion comprueba si tiene o no una subraza y llama la funcion acorde 
 
     function tieneSubraza(nombreRaza) {
         if (razas[nombreRaza]["tiene_hijos"]) {
             formularioSeleccionSubraza(nombreRaza);
         } else {
-            descripcionRaza(nombreRaza);
+            detallesRaza(nombreRaza);
         }
     };
 
-    /* Esta funcion crea la descripcion de la raza padre y añade un selector de raza hija */
+    // Esta funcion crea la descripcion de la raza padre y añade un selector de raza hija
 
     function formularioSeleccionSubraza(nombreRaza) {
-
-        /* Elimina los otros containers */
         $("#siguientePasoRaza").remove();
         $("#grid-container-subraza-selector").remove();
         $("#grid-container-raza").remove();
 
         let grid = $("<div id='grid-container-subraza-selector'></div>");
+        grid.append(descripcionRaza(nombreRaza));
+        let headerSeccion = $("<h2></h2>").text("Selecciona tu Subraza");
+        grid.append(headerSeccion);
+        grid.append(crearSelectRaza("subraza", nombreRaza));
 
-        /* Descripción */
+        $("#navegacionRaza").before(grid);
 
-        let gridItem = $("<div id='grid-item-1'></div>");
+        $("#subraza").on("change", function(){detallesRaza(this.value, nombreRaza);});
+
+    }
+
+    // Esta funcion crea el apartado descripcion de una raza
+
+    function descripcionRaza(nombreRaza) {
+        let gridItem = $("<div class='grid-item-1'></div>");
         let tituloSeccion = $("<h3></h3>").text("Descripción");
         gridItem.append(tituloSeccion);
         let descripcion = $("<p></p>").text(razas[nombreRaza]["descripcion"]);
         gridItem.append(descripcion);
-        grid.append(gridItem);
-
-        /* Header subraza */
-
-        let headerSeccion = $("<h2></h2>").text("Selecciona tu Subraza");
-        grid.append(headerSeccion);
-
-        /* Select Subraza */
-
-        let selectorRaza = $("<select id='subraza' name='subraza'></select>");
-        let opcionesRaza;
-                
-        opcionesRaza = $("<option hidden disabled selected>Selecciona tu Subraza</option>");
-        selectorRaza.append(opcionesRaza);
-                
-        $.each(razas, function(index, value){
-            if(razas[index]["raza_padre"] == nombreRaza) {
-                opcionesRaza = $("<option value='" + index + "'>" + index + "</option>");
-                selectorRaza.append(opcionesRaza);
-            }
-        });
-        
-        grid.append(selectorRaza);
-
-        $("#navegacionRaza").before(grid);
-
-        $("#subraza").on("change", function(){descripcionRaza(this.value, nombreRaza);});
-
+        return gridItem;
     }
 
     /* Esta funcion crea la descripcion de las razas que no tienen razas hijas ni razas padres */
 
-    function descripcionRaza(nombreRaza, nombreRazaPadre) {
+    function detallesRaza(nombreRaza, nombreRazaPadre) {
         
-        /* Elimina los otros containers */
         if (!nombreRazaPadre) {
             $("#grid-container-subraza-selector").remove();
         }
         $("#grid-container-raza").remove();
 
-        /* Grid */
-
         let grid = $("<div id='grid-container-raza'></div>");
 
-        /* Descripción */
+        grid.append(descripcionRaza(nombreRaza));
 
-        let gridItem = $("<div id='grid-item-1'></div>");
-        let tituloSeccion = $("<h3></h3>").text("Descripción");
-        gridItem.append(tituloSeccion);
-        let descripcion = $("<p></p>").text(razas[nombreRaza]["descripcion"]);
-        gridItem.append(descripcion);
-        grid.append(gridItem);
+        if (nombreRazaPadre){
+            grid.append(puntosEstadisticaRaza(nombreRaza, nombreRazaPadre));
+        } else {
+            grid.append(puntosEstadisticaRaza(nombreRaza));
+        }
 
-        /* Puntos de estadistica */
+        grid.append(velocidadMovimientoRaza(nombreRaza));
 
-        gridItem = $("<div id='grid-item-2'></div>");
+        grid.append(visionRaza(nombreRaza));
+
+        if(nombreRazaPadre) {
+            grid.append(habilidadesRacialesRaza(nombreRaza, nombreRazaPadre));
+        } else {
+            grid.append(habilidadesRacialesRaza(nombreRaza));
+        }
+       
+        if (nombreRazaPadre) {
+            grid.append(idiomasRaciales(nombreRaza, nombreRazaPadre));
+        } else {
+            grid.append(idiomasRaciales(nombreRaza));
+        }
+
+        $("#navegacionRaza").before(grid);
+
+        if (!botonExiste("#siguientePasoRaza")){
+            $("#navegacionRaza").append("<button id='siguientePasoRaza'>Siguiente Paso</button>");
+            $('#siguientePasoRaza').click(function () {
+                $('#raza').prop( "disabled", true );
+                $('#subraza').prop( "disabled", true );
+                $("#sectionRaza").after('<section id="habilidades"></section>');
+                $('#vuelveAtrasRaza').remove();
+                $('#siguientePasoRaza').remove();
+                formularioHabilidades();
+            })
+        }
+    };
+
+    // Devuelve para añadir al DOM la informacion de estadisticas
+
+    function puntosEstadisticaRaza(nombreRaza, nombreRazaPadre) {
+        let gridItem = $("<div class='grid-item-2'></div>");
         tituloSeccion = $("<h3></h3>").text("Puntos de estadística");
         gridItem.append(tituloSeccion);
-
         if (!nombreRazaPadre){
             descripcion = $("<p></p>").text("+" + razas[nombreRaza]["incremento_estadistica"] + " a la " + razas[nombreRaza]["estadistica_incrementada"] + ".");
         } else {
             descripcion = $("<p></p>").text("+" + razas[nombreRaza]["incremento_estadistica"] + " a la " + razas[nombreRaza]["estadistica_incrementada"] + " y +" + razas[nombreRazaPadre]["incremento_estadistica"] + " a la " + razas[nombreRazaPadre]["estadistica_incrementada"] + ".");
         }
-
         gridItem.append(descripcion);
-        grid.append(gridItem);
+        return gridItem;
+    }
 
-        /* Velocidad de movimiento */
+    // Devuelve para añadir al DOM la informacion de la velocidad
 
-        gridItem = $("<div id='grid-item-3'></div>");
+    function velocidadMovimientoRaza(nombreRaza) {
+        gridItem = $("<div class='grid-item-3'></div>");
         tituloSeccion = $("<h3></h3>").text("Velocidad de movimiento");
         gridItem.append(tituloSeccion);
         descripcion = $("<p></p>").text(razas[nombreRaza]["velocidad"] + " Pies.");
         gridItem.append(descripcion);
-        grid.append(gridItem);
+        return gridItem;
+    }
 
-        /* Vision */
+    // Devuelve para añadir al DOM la informacion de la vision
 
-        gridItem = $("<div id='grid-item-4'></div>");
+    function visionRaza(nombreRaza){
+        gridItem = $("<div class='grid-item-4'></div>");
         tituloSeccion = $("<h3></h3>").text("Visión");
         gridItem.append(tituloSeccion);
         descripcion = $("<p></p>").text(razas[nombreRaza]["vision"]);
         gridItem.append(descripcion);
-        grid.append(gridItem);
+        return gridItem;
+    }
 
-        /* Habilidades Raciales */
+    // Devuelve para añadir al DOM la informacion de las habilidades raciales
 
-        gridItem = $("<div id='grid-item-5'></div>");
+    function habilidadesRacialesRaza(nombreRaza, nombreRazaPadre) {
+        gridItem = $("<div class='grid-item-5'></div>");
         tituloSeccion = $("<h3></h3>").text("Habilidades Raciales");
         gridItem.append(tituloSeccion);
 
@@ -179,15 +245,15 @@ $(document).ready(function() {
             divSeccion.append(divSeccionInterior);
         });
 
-
-
         gridItem.append(divSeccion);
 
-        grid.append(gridItem);
+        return gridItem;
+    }
 
-        /* Idiomas Raciales */
+    // Devuelve para añadir al DOM la informacion de los idiomas raciales
 
-        gridItem = $("<div id='grid-item-6'></div>");
+    function idiomasRaciales(nombreRaza, nombreRazaPadre) {
+        gridItem = $("<div class='grid-item-6'></div>");
         tituloSeccion = $("<h3></h3>").text("Idiomas Raciales");
         gridItem.append(tituloSeccion);
 
@@ -217,22 +283,10 @@ $(document).ready(function() {
         descripcion = $("<p></p>").text(idiomas);
 
         gridItem.append(descripcion);
-        grid.append(gridItem);
 
-        $("#navegacionRaza").before(grid);
-        $("#navegacionRaza").prepend("<button id='siguientePasoRaza'>Siguiente Paso</button>");
-        $('#siguientePasoRaza').click(function () {
-            $('#raza').prop( "disabled", true );
-            $('#subraza').prop( "disabled", true );
-            $("#sectionRaza").after('<section id="habilidades"></section>');
-            $('#vuelveAtrasRaza').remove();
-            $('#siguientePasoRaza').remove();
-            formularioHabilidades();
+        return gridItem;
+    }
 
-        })
-
-        /* Fin del grid */
-    };
     function formularioHabilidades() {
         let andamio=$("#habilidades");
         let titulo= $("<h2></h2>").text("Puntos restantes");
@@ -310,12 +364,10 @@ $(document).ready(function() {
     
             })
             $("#sectionRaza").append($("<div id='navegacionRaza'><button id='vuelveAtrasRaza'>Vuelve atrás</button></div>"))
-            $("#vuelveAtrasRaza").on("click", function(){$("#sectionRaza").remove();});
+            $("#vuelveAtrasRaza").on("click", function(){$("#sectionRaza").remove();$('#nombreFicha').prop( "disabled", false);});
             
         })
         
-
-
         let habilidades= {"fuerza":8,"destreza":8,"constitucion":8,"inteligencia":8,"sabiduria":8,"carisma":8};
     
         selectFuerza.click(function () { 
@@ -518,6 +570,6 @@ $(document).ready(function() {
             }
         
     }
-
+    
 
 });

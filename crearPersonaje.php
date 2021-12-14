@@ -11,19 +11,17 @@
     <script src="functions.js"></script>
     <title>Crea tu Personaje</title>
 </head>
-<body>
+<body id="crearPersonaje">
     <?php include "header.php";?>
-    <form method="post"></form>
-    <div id="flexDiv">
-        <div id="nombreForm">
-                <label for="nombreFicha"><h2 id="escogerNombre">Escoge tu nombre</h2></label>
-                <input type="text" name="nombreFicha" id="nombreFicha">
-                <button id="botonNombre">Siguiente</button>
-        </div>
-        <section id="nombrePersonaje"></section>
-        
-    </div>
-    
+    <h1>Crea tu personaje</h1>
+    <form id="crearPersonajeForm" action="" method="get">
+        <section id="nombrePersonaje">
+            <h2>Introduce el nombre de tu personaje</h2>
+            <div id="nombreForm">
+                <input type="text" name="nombreFicha" id="nombreFicha" placeholder="Nombre">
+            </div>
+        </section>
+    </form>
     <?php include "footer.php";?>
 </body>
 </html>

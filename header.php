@@ -1,6 +1,6 @@
 <header>
     <div class="header-flex">
-        <a href="dashboard.php"><img src="imagenes/dnd.png" alt="logo de d&d"></a>
+        <a href="dashboard.php"><img src="imagenes/pagina/dnd.png" alt="logo de d&d"></a>
     </div>
 	<nav>
         <ul>
@@ -12,7 +12,7 @@
                 session_start();
                 if ($_SESSION["Nombre"]){
                     ?>
-                        <li><a href="/index.php">Logout</a></li>
+                        <li><a href="/logout.php">Logout</a></li>
                     <?php
                 }
             ?>

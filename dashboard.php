@@ -7,14 +7,41 @@
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	<title>Dashboard</title>
 </head>
-<body>
+<body id="dashboard">
 	<?php include "header.php";?>
-	<section id="dashboard">
+	<section id="section-dashboard">
 		<h1>Escoge una opción</h1>
 		<div class="dashboardButtons">
-			<a href="/crearPersonaje.php"><button>Crear Ficha</button></a>
-			<a href="/tusFichas.php"><button>Listar Fichas</button></a>
-			<a href="#"><button>Probar Ficha</button></a>
+			<a href="/crearPersonaje.php">
+				<div class="container-btn">
+					<div class="img-btn">
+						<img src="imagenes/pagina/crear_personaje.jpg" alt="Imagen de crear personaje" srcset="">
+					</div>
+					<div class="p-btn">
+						<p>Crea tu personaje</p>
+					</div>
+				</div>
+			</a>
+			<a href="/tusFichas.php">
+				<div class="container-btn">
+					<div class="img-btn">
+						<img src="imagenes/pagina/tusFichas.png" alt="Imagen de tus fichas" srcset="">
+					</div>
+					<div class="p-btn">
+						<p>Tus personajes</p>
+					</div>
+				</div>
+			</a>
+			<a href="#">
+				<div class="container-btn">
+					<div class="img-btn">
+						<img src="imagenes/pagina/prueba_ficha.jpg" alt="Imagen de probar tus fichas" srcset="">
+					</div>
+					<div class="p-btn">
+						<p>Prueba tus personajes</p>
+					</div>
+				</div>
+			</a>
 		</div>
 	</section>
 	<?php include "footer.php";?>

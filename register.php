@@ -7,46 +7,30 @@
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	<title></title>
 </head>
-<body>
-	<?php
-		include'header.php';
-		include'functions.php'; 
-	?>
+<body id="register">
 	<h1>Crear Usuario</h1>
-	<div class="registroFlex">
-		<div class="formularioRegistro">
-			<form method="post">
-				<div class="inputRegistro">
-					<label for="registerName" >Nombre:</label>
-					<input type="text" name="nombre" id="nombreRegistro">
-				</div>
-				<div class="inputRegistro">
-					<label for="correoRegistro">Correo Electronico:</label>
-					<input type="email" name="correo" id="correoRegistro">
-				</div>
-				<div class="inputRegistro">
-					<label for="fechaNatalRegistro">Fecha de Nacimiento:</label>
-					<input type="date" name="fechaNatal" id="fechaNatalRegistro">
-				</div>
-				<div class="inputRegistro">
-					<div class="inputContrasenaRegistro">
-					<label for="contrasenaRegistro">Contraseña:</label>
-					<input type="password" name="contrasena" id="contrasenaRegistro">
-					</div>
-					<div class="inputContrasenaRegistro">
-					<label for="confirmarContrasenaRegistro">Confirmar contraseña:</label>
-					<input type="password" name="confirmarContrasena" id="confirmarContrasenaRegistro">
-					</div>
-				</div>
-				<input type="submit" name="registro" value="Registrarse">
-			</form>
-			<?php
-				registro();	
-			?>
-		</div>
+	<div class="formularioRegistro">
+		<h2>¡Comencemos!</h2>
+		<form method="post">
+			<input type="text" name="nombre" id="nombreRegistro" placeholder="Nombre">
+			<input type="email" name="correo" id="correoRegistro" placeholder="Email">
+			<div>
+				<label for="fechaNatalRegistro">Fecha de Nacimiento:</label>
+				<input type="date" name="fechaNatal" id="fechaNatalRegistro" max="<?php echo date("Y-m-d");?>">
+			</div>
+			<input type="password" name="contrasena" id="contrasenaRegistro" placeholder="Contraseña">
+			<input type="password" name="confirmarContrasena" id="confirmarContrasenaRegistro" placeholder="Confirma tu contraseña">
+			<input type="submit" name="registro" value="Registrarse">
+		</form>
+		<p>¿Ya tienes una cuenta? <a href="index.php">¡Haz login!</a></p>
 	</div>
 	<?php
-		include 'footer.php';
+		session_start();
+		include "footer.php";
+		include 'functions.php'; 
+		if (isset($_POST["nombre"]) || isset($_POST["correo"]) || isset($_POST["fechaNatal"]) || isset($_POST["contrasena"]) || isset($_POST["confirmarContrasena"])){
+			registro();
+		}
 	?>
 </body>
 </html>
