@@ -18,7 +18,7 @@
     <div class="footer-colegio">
         <a href="https://agora.xtec.cat/iesesteveterradas/">
             <h3>Proyecto realizado por alumnos de</h3>
-            <img class="logo-ieti" src="imagenes/logoieti.jpg" alt="Logo Esteve Terradas">
+            <img class="logo-ieti" src="imagenes/pagina/logoieti.jpg" alt="Logo Esteve Terradas">
         </a>
     </div>
     <div class="footer-git">

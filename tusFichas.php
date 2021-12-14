@@ -32,7 +32,9 @@
                 foreach ($rows as $row) {
                     ?>
                         <div class="marco-personaje">
-                            <img src="imagenes/<?php echo $row["ruta"];?>" alt="">
+                            <div class="img-wrapper">
+                                <img src="imagenes/personajes/<?php echo $row["ruta"];?>" alt="">
+                            </div>
                             <div>
                                 <p>Nombre: <?php echo $row["personaje"];?></p>
                                 <p>Raza: <?php echo $row["raza"];?></p>

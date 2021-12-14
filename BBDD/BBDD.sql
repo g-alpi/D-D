@@ -2,7 +2,7 @@ drop database if exists dnd;
 create database dnd;
 use dnd;
 
-/* Informacion de usuarios */
+-- Informacion de usuarios
 
 create table usuarios (
 	id int primary key auto_increment,
@@ -11,7 +11,7 @@ create table usuarios (
     fecha_nacimiento date,
 	email varchar(100));
 
-/* Informacion de personajes */
+-- Informacion de personajes 
 
 create table personajes (
 	id int primary key auto_increment,
@@ -31,13 +31,9 @@ create table personajes (
 	inteligencia int,
 	sabiduria int,
 	carisma int
-/* idioma varchar(50), */
-/* armadura varchar(50), */
-/* arma varchar(50), */
-/* hechizos varchar(1000) */
 );
 
-/* Relacionamos los usuarios con sus personajes */
+-- Relacionamos los usuarios con sus personajes
 
 create table usuarios_personajes (
 	id_usuario int,
@@ -47,14 +43,14 @@ create table usuarios_personajes (
 alter table usuarios_personajes add foreign key(id_usuario) references usuarios(id);
 alter table usuarios_personajes add foreign key(id_personaje) references personajes(id);
 
-/* Tabla de idiomas */
+-- Tabla de idiomas
 
 create table idiomas (
 	id int primary key auto_increment,
 	idioma varchar(50)
 );
 
-/* Tabla de transfondos */
+-- Tabla de transfondos
 
 create table trasfondos (
 	id int primary key auto_increment,
@@ -64,11 +60,11 @@ create table trasfondos (
 	habilidad_adicional_2 varchar(20)
 );
 
-/* Relacionamos los personajes con su transfondo */
+-- Relacionamos los personajes con su transfondo
 
 alter table personajes add foreign key (trasfondo) references trasfondos(id);
 
-/* Relacionamos los transfondos con los idiomas que poseen */
+-- Relacionamos los transfondos con los idiomas que poseen
 
 create table idiomas_trasfondos (
 	id_idioma int,
@@ -78,7 +74,7 @@ create table idiomas_trasfondos (
 alter table idiomas_trasfondos add foreign key (id_idioma) references idiomas(id);
 alter table idiomas_trasfondos add foreign key (id_trasfondo) references trasfondos(id);
 
-/* Tabla habilidades */
+-- Tabla habilidades
 
 create table habilidades (
 	id int primary key auto_increment,
@@ -93,7 +89,7 @@ create table habilidades_trasfondos (
 alter table habilidades_trasfondos add foreign key (id_habilidad) references habilidades(id);
 alter table habilidades_trasfondos add foreign key (id_trasfondo) references trasfondos(id);
 
-/* Tabla de razas*/
+-- Tabla de razas
 
 create table razas ( 
 	id int primary key auto_increment,
@@ -108,15 +104,15 @@ create table razas (
 	id_razaPadre int
 );
 
-/* Relacionamos los personajes con su raza */
+-- Relacionamos los personajes con su raza
 
 alter table personajes add foreign key (raza) references razas (id);
 
-/* Relacionamos las las razas con su raza padre */
+-- Relacionamos las las razas con su raza padre
 
 alter table razas add foreign key (id_razaPadre) references razas (id);
 
-/* Relacionamos las razas con los idiomas */
+-- Relacionamos las razas con los idiomas 
 
 create table razas_idiomas (
 	id_raza int,
@@ -127,7 +123,7 @@ alter table razas_idiomas add foreign key(id_raza) references razas(id);
 alter table razas_idiomas add foreign key(id_idioma) references idiomas(id);
 
 
-/* Tabla de habilidades raciales */
+-- Tabla de habilidades raciales
 
 create table habilidadesRaciales (
 	id int primary key auto_increment,
@@ -135,7 +131,7 @@ create table habilidadesRaciales (
 	descripcion varchar(1000)
 );
 
-/* Relacionamos las habilidades raciales con las razas */
+-- Relacionamos las habilidades raciales con las razas
 
 create table habilidadesRaciales_razas (
 	id_habilidadRacial int,
@@ -145,17 +141,16 @@ create table habilidadesRaciales_razas (
 alter table habilidadesRaciales_razas add foreign key(id_habilidadRacial) references habilidadesRaciales(id);
 alter table habilidadesRaciales_razas add foreign key(id_raza) references razas(id);
 
-/* Tabla de clases */
-/* falta relacion con competencias armas y armaduras, con el equipo inicial con los conjuros, con los trucos */
+-- Tabla de clases
 
 create table clases(
 	id int primary key auto_increment,
 	nombre varchar(20),
 	DG varchar(4),
 	caracteristicaPrimaria1 varchar(20),
-  caracteristicaPrimaria2 varchar(20),
+	caracteristicaPrimaria2 varchar(20),
 	competenciaSalvacion1 varchar(30),
-  competenciaSalvacion2 varchar(30)
+	competenciaSalvacion2 varchar(30)
 );
 
 alter table personajes add foreign key (clase) references clases (id);
@@ -168,14 +163,14 @@ create table habilidades_clases (
 alter table habilidades_clases add foreign key (id_habilidad) references habilidades(id);
 alter table habilidades_clases add foreign key (id_clase) references clases(id);
 
-/*tablas competencias y rasgos*/
+-- Tabla competencias
 
 create table competencias (
 	id int primary key auto_increment,
 	nombre varchar(50)
 );
 
-/* Relacionamos las clases con sus competencias */
+-- Relacionamos las clases con sus competencias
 
 create table competencias_clases (
 	id_competencia int,
@@ -185,6 +180,8 @@ create table competencias_clases (
 alter table competencias_clases add foreign key (id_competencia) references competencias (id);
 alter table competencias_clases add foreign key (id_clase) references clases (id);
 
+-- Tabla Rasgos
+
 create table rasgos (
 	id int primary key auto_increment,
 	nombre varchar(50),
@@ -193,7 +190,7 @@ create table rasgos (
 
 alter table personajes add foreign key (rasgo) references rasgos(id);
 
-/* Tabla de habilidades claseas */
+-- Tabla de habilidades claseas
 
 create table habilidadesClaseas (
 	id int primary key auto_increment,
@@ -209,7 +206,7 @@ create table habilidadesClaseas_clases (
 alter table habilidadesClaseas_clases add foreign key(id_habilidadClasea) references habilidadesClaseas(id);
 alter table habilidadesClaseas_clases add foreign key(id_clase) references clases(id);
 
-/* Tabla de hechizos */
+-- Tabla de hechizos
 
 create table hechizos (
 	id int primary key auto_increment,
@@ -223,7 +220,7 @@ create table hechizos (
 	salvacion varchar(20)
 );
 
-/* Relacionamos los conjuros con los que conoce cada personaje */
+-- Relacionamos los conjuros con los que conoce cada personaje
 
 create table hechizos_personajes (
 	id_hechizo int,
@@ -256,7 +253,7 @@ create table clase_hechizosNivel(
 alter table clase_hechizosNivel add foreign key (id_clase) references clases (id);
 alter table clase_hechizosNivel add foreign key (id_hechizoNivel) references hechizosNivel (id);
 
-/* Tabla de armas */
+-- Tabla de armas
 
 create table armas (
 	id int primary key auto_increment,
@@ -269,7 +266,7 @@ create table armas (
 	costeEnPO int
 );
 
-/* Relacionamos a los personajes con las armas que poseen */
+-- Relacionamos a los personajes con las armas que poseen
 
 create table armas_personajes (
 	id_arma int,
@@ -285,7 +282,7 @@ create table propiedadesDeArma (
 	descripcion varchar(1000)
 );
 
-/* Relacionamos a las armas con sus propiedades */
+-- Relacionamos a las armas con sus propiedades
 
 create table propiedadesDeArma_armas (
 	id_propiedad int,
@@ -295,7 +292,7 @@ create table propiedadesDeArma_armas (
 alter table propiedadesDeArma_armas add foreign key(id_arma) references armas(id);
 alter table propiedadesDeArma_armas add foreign key(id_propiedad) references propiedadesDeArma(id);
 
-/*Tablas armaduras*/
+-- Tabla armaduras
 
 create table armaduras (
 	id int primary key auto_increment,
@@ -309,7 +306,7 @@ create table armaduras (
 	costeEnPO int
 );
 
-/* Relacionamos a los personajes con las armaduras que poseen */
+-- Relacionamos a los personajes con las armaduras que poseen
 
 create table armaduras_personajes (
 	id_armadura int,
@@ -319,7 +316,7 @@ create table armaduras_personajes (
 alter table armaduras_personajes add foreign key(id_armadura) references armaduras(id);
 alter table armaduras_personajes add foreign key(id_personaje) references personajes(id);
 
-/*Tabla de objetos*/
+-- Tabla de objetos 
 
 create table objetos (
 	id int primary key auto_increment,
@@ -329,7 +326,7 @@ create table objetos (
 	costeEnPO int
 );
 
-/* Relacionamos a los personajes con los objetos que poseen */
+-- Relacionamos a los personajes con los objetos que poseen
 
 create table objetos_personajes (
 	id_objeto int,
