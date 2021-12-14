@@ -7,58 +7,39 @@
 	<link rel="stylesheet" href="styles.css">
 	<title>Home</title>
 </head>
-<body id="bodyHomePage">
+
+<body id="index">
 	<?php include 'functions.php'; ?>
-	<div id="contenedorCuerpo">
-
-		<div class="contTitle">
-			<h1> Dungeons & Dragons </h1>
-		</div>
-
-		<div class="contenedorInfo">
-
-			<div class="divImgHomePage">
-
-				<img class="imgHomePage" src="imagenes/dnd.png" alt="Logotipo del juego">  </img>
-
-			</div>
-
-			<p class="txtDesc">
-				Los mundos de las aventuras en Dungeons & Dragons parten de la base de una fantasía medieval que se amplía con lugares, criaturas y magia, haciéndolos únicos y fantásticos.
-				Hay montones de mundos en Dungeons and Dragons, todos ellos están conectados entre sí y con otros planos de existencia formando todo un cosmos llamado Multiverso.
-				Adentrate en esta aventura y create una ficha de personaje!!!
+	<h1> Dungeons & Dragons </h1>
+	<div class="row">
+		<div class="descripcion-dnd">
+			<img id="logo-dnd" src="imagenes/pagina/dnd.png" alt="Logotipo del juego"></img>
+			<p>
+				Los mundos y aventuras en <strong><em>Dungeons & Dragons</em></strong> parten de una base de fantasía medieval, que se amplía con lugares, criaturas y magia, haciendo este universo único y fantástico.<br><br>Hay incontables de mundos en <strong><em>Dungeons and Dragons</em></strong> y todos ellos están conectados entre sí, además de estar conectados con otros planos de existencia, formando así todo un cosmos llamado <em>Multiverso</em>.<br><br><strong>¡Adéntrate en esta magnífica aventura creándote una <em>ficha de personaje</em>!</strong>
 			</p>
-
 		</div>
 
-		<div class="contenedorInfo">
-			<h2 class="titleInfoHomePage">Login</h2>
-				<form class="homePagForm" method="POST">
-
-					<p class="titleInpForm">Nombre</p>
-					<input type="text" name="Nombre" id="Nombre">
-
-					<p class="titleInpForm">Contraseña</p>
-					<input type="password" name="Contra" ><br>
-
-					<p class="linkPswForgot"><a href="#">Olvidaste la contraseña?</a></p>
-
-				
-
-				<div class="loginButton">
-					<input type="submit" value="Aceptar" name="Enviar">
-					
-				</div>
-				</form>
-
-				<div class="newAccBtn">
-					<a href="register.php">Crear cuenta nueva</a>
-				</div>
-				<?php
-					session_start();
+		<div class="form-login">
+			<h2>Login</h2>
+			<form method="post">
+				<input type="text" name="Nombre" id="Nombre" placeholder="Nombre">
+				<input type="password" name="Contra" placeholder="Contraseña">
+				<a href="#">Olvidaste la contraseña?</a>
+				<input type="submit" value="Aceptar" name="Enviar">
+			</form>
+			<a href="register.php">Créate una cuenta gratuita</a>
+			<?php
+				session_start();
+				if (isset($_POST["Nombre"]) || isset($_POST["Contra"])){
 					login();
-				     
-				?>
+				}
+				if (isset($_SESSION["exito"])) {
+					unset($_SESSION["exito"]);
+					notificacion("Cuenta creada.", "success");
+				}
+			?>
 		</div>
+	</div>
+	<?php include "footer.php" ?>	
 </body>
 </html>
