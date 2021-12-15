@@ -366,6 +366,48 @@ a.borrar {
 #navegacionRaza{
   display:flex;
 }
+
+/* ficha.php */
+
+#ficha div{
+  border: 1px solid black ;
+  margin: 3px;
+  padding: 3px;
+}
+
+#ficha h1{
+  font-size: 44px;
+  letter-spacing: 1px;
+}
+
+#cabeceraFicha{
+  display: flex;
+  flex-wrap: wrap;
+}
+#nombreFicha{
+ width: 49%;
+}
+
+#cabeceroDerecho{
+ width: 48%;
+}
+.flexHorizontal{
+  display: flex;
+}
+div#cabeceraFicha div.flexHorizontal{
+  width: 100%;
+}
+#estadisticas{
+  display: flex;
+  justify-content: space-around;
+  width: 49%;
+}
+#estadisticas div{
+  width: 60px;
+  height: 60px;
+}
+
+
 /* Componentes CSS */
 
 .alert {
@@ -529,3 +571,6 @@ i {
   color: var(--amarillo_oscuro);
   transition: color 1s;
 }
+
+
+
