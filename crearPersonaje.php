@@ -21,6 +21,7 @@
                 <input type="text" name="nombreFicha" id="nombreFicha" placeholder="Nombre">
             </div>
         </section>
+        <section id='trasfondo'></section>
     </form>
     <?php include "footer.php";?>
 </body>
