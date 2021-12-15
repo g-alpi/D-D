@@ -287,8 +287,10 @@ $(document).ready(function() {
         return gridItem;
     }
 
+
+    /*---------------------------------*/ 
     function formularioHabilidades() {
-        let andamio=$("#habilidades");
+        let andamio=$("#selec");
         let titulo= $("<h2></h2>").text("Puntos restantes");
         andamio.append(titulo);
     
@@ -354,39 +356,50 @@ $(document).ready(function() {
     
         $('#fuerza').click(function () { 
                 puntos+=selectValor('#fuerza',puntos,habilidades);
-                generarBotonSiguiente('#vuelveAtrasHabilidad','siguientePasoHabilidad',puntos)
+                if(puntos==0){crearBoton('siguientePasoHabilidad','#vuelveAtrasHabilidad','Siguiente Paso',siguientePasoHabilidad)}
         })
     
         $('#destreza').click(function () {    
                 puntos+=selectValor('#destreza',puntos,habilidades);  
-                generarBotonSiguiente('#vuelveAtrasHabilidad','siguientePasoHabilidad',puntos)     
+                if(puntos==0){crearBoton('siguientePasoHabilidad','#vuelveAtrasHabilidad','Siguiente Paso',siguientePasoHabilidad)}     
         })
     
         $('#constitucion').click(function () {       
                 puntos+=selectValor('#constitucion',puntos,habilidades);
-                generarBotonSiguiente('#vuelveAtrasHabilidad','siguientePasoHabilidad',puntos)
+                if(puntos==0){crearBoton('siguientePasoHabilidad','#vuelveAtrasHabilidad','Siguiente Paso',siguientePasoHabilidad)}
         })
     
         $('#inteligencia').click(function () {     
                 puntos+=selectValor('#inteligencia',puntos,habilidades);
-                generarBotonSiguiente('#vuelveAtrasHabilidad','siguientePasoHabilidad',puntos)
+                if(puntos==0){crearBoton('siguientePasoHabilidad','#vuelveAtrasHabilidad','Siguiente Paso',siguientePasoHabilidad)}
         })
     
         $('#sabiduria').click(function () {        
                 puntos+=selectValor('#sabiduria',puntos,habilidades);
-                generarBotonSiguiente('#vuelveAtrasHabilidad','siguientePasoHabilidad',puntos)    
+                if(puntos==0){crearBoton('siguientePasoHabilidad','#vuelveAtrasHabilidad','Siguiente Paso',siguientePasoHabilidad)}    
         })
     
         $('#carisma').click(function () { 
                 puntos+=selectValor('#carisma',puntos,habilidades);
-                generarBotonSiguiente('#vuelveAtrasHabilidad','siguientePasoHabilidad',puntos)
+                if(puntos==0){crearBoton('siguientePasoHabilidad','#vuelveAtrasHabilidad','Siguiente Paso',siguientePasoHabilidad)}
         })    
     
     }
-    function generarBotonSiguiente(btnAtras,btnSiguiente,puntos){
-        if (puntos==0){
-            $(btnAtras).before("<button id="+btnSiguiente+">Siguiente Paso</button>");
-        }
+    
+    function volverAtrasHabilidad(){
+        $('#sectionHabilidades').remove();
+        $('#raza').prop('disabled',false);
+        $('#subraza').prop('disabled',false);
+    }
+    function siguientePasoHabilidad(){
+        $('#raza').prop('disabled',true);
+        $('#subraza').prop('disabled',true);
+        formularioTrasfondo();
+        $("#sectionHabilidades").after('<section id="sectionHabilidades"></section>');
+        $("#sectionHabilidades").after('<section id="sectionTrasfondo"></section>');
+        $('#vuelveAtrasHabilidad').remove();
+        $('#siguientePasoHabilidad').remove();
+        formularioTrasfondo();
     }
         
     function selectValor(habilidad,puntos,diccionario){
@@ -520,11 +533,14 @@ $(document).ready(function() {
         });
 
         sectionTrasfondo.append(selectorTrasfondo);
-        sectionTrasfondo.append($("<div id='navegacionRaza'><button id='vuelveAtrasRaza'>Vuelve atrás</button></div>"));
+        crearBoton('siguientePasoHabilidad','#vuelveAtrasHabilidad',"Vuelve atrás",volverAtrasTrasfondo);
         selectorTrasfondo.change(function () { descripcionTrasfondo(this.value); })
     
         
         
+    }
+    function volverAtrasTrasfondo(){
+        console.log('')
     }
 
     function descripcionTrasfondo(nombreTrasfondo) {
@@ -561,15 +577,14 @@ $(document).ready(function() {
         $("#navegacionTrasfondo").before(grid);
         $("#navegacionTrasfondo").prepend("<button id='siguienteTrasfondo'>Siguiente Paso</button>");
         $('#siguientePasoTrasfondo').click(function () {
-            $('#raza').prop( "disabled", true );
-            $('#subraza').prop( "disabled", true );
-            $("#sectionRaza").after('<section id="habilidades"></section>');
-            $('#vuelveAtrasRaza').remove();
-            $('#siguientePasoRaza').remove();
-            formularioHabilidades();
+        // $("#sectionHabilidades").after('<section id="sectionTrasfondo"></section>');
+        // $('#vuelveAtrasHabilidades').remove();
+        // $('#siguientePasoRaza').remove();
+        
 
         })
     }
+
     
 
 });
