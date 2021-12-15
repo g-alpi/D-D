@@ -21,7 +21,7 @@
                 <button id="botonNombre">Siguiente</button>
         </div>
         <section id="nombrePersonaje"></section>
-        
+        <section id="trasfondo"></section> <!-- eliminar al implementar trasfondo  -->
     </div>
     
     <?php include "footer.php";?>
