@@ -1,151 +1,177 @@
 <?php
 
-    /* Esta funcion te permite el acceso a BBDD */
+  // Esta funcion te permite el acceso a BBDD y te devuelve el pdo
 
-    function accesoBBDD() {
-      try {
-        $hostname = "localhost";
-        $dbname = "dnd";
-        $username = "Master";
-        $pw = "Master1234!";
-        $pdo = new PDO ("mysql:host=$hostname;dbname=$dbname","$username","$pw");
-        return $pdo;
-      } catch (PDOException $e) {
+  function accesoBBDD() {
+    try {
+      $hostname = "localhost";
+      $dbname = "dnd";
+      $username = "Master";
+      $pw = "Master1234!";
+      $pdo = new PDO ("mysql:host=$hostname;dbname=$dbname","$username","$pw");
+      return $pdo;
+    } catch (PDOException $e) {
         echo "Failed to get DB handle: " . $e -> getMessage() . "\n";
-        exit;
-      }
+      exit;
     }
+  }
 
-    function login(){ 
-      if(!isset($_POST["Nombre"])){
-                    
-                    die();
-                }
-          
-              $pdo = accesoBBDD();
+  // Esta funcion te permite hacer el login 
 
-              //encriptació de la contrasenya amb SHA256
-              $encriptedPwd = hash("sha256", $_POST["Contra"]);
+  function login() {  
+    $pdo = accesoBBDD();
+    $encriptedPwd = hash("sha256", $_POST["Contra"]);
 
-              //preparem i executem la consulta
-              $query = $pdo->prepare("select * FROM usuarios where usuario= :user and password= :password");
+    $query = $pdo->prepare("select * FROM usuarios where usuario= :user and password= :password");
 
-              $query->bindParam(':user', $_POST["Nombre"]);
-              $query->bindParam(':password',$encriptedPwd);
+    $query->bindParam(':user', $_POST["Nombre"]);
+    $query->bindParam(':password',$encriptedPwd);
 
-              $query->execute();      
+    $query->execute();      
 
-
-              //comprovo errors:
-              $e= $query->errorInfo();
-              if ($e[0]!='00000') {
-                echo "\nPDO::errorInfo():\n";
-                die("Error accedint a dades: " . $e[2]);
-              }  
+    $e= $query->errorInfo();
+    if ($e[0]!='00000') {
+      echo "\nPDO::errorInfo():\n";
+      die("Error accedint a dades: " . $e[2]);
+    }  
             
+    $row = $query->fetch();
 
-              //anem agafant les fileres d'amb una amb una
-              $row = $query->fetch();
+    if($row){
+      $_SESSION['Nombre'] = $row['usuario'];
+      $_SESSION["IDUsuario"] = $row["id"];
+      header('Location:dashboard.php');
+    } else {
+        notificacion("No hemos podido verificar tu cuenta con la información proporcionada.", "error");
+    }
+  }
 
-              if($row){
-                  $_SESSION['Nombre'] = $row['usuario'];
-                  $_SESSION["IDUsuario"] = $row["id"];
-                  header('Location:dashboard.php');
+  // Esta funcion te permite registrar una cuenta nueva
 
-              }else{
-                echo '<div class="alert">
-        <span class="closebtn" onclick="this.parentElement.style.display=\'none\';">&times;</span> 
-        <strong>ERROR!</strong> El nombre de usuario o la contraseña que has introducido no es correcto.
-        </div>';
-              }
-              //eliminem els objectes per alliberar memòria 
-              unset($pdo); 
-              unset($query);
-            }
-            /* header('Location:dashboard.php');)*/
-    //Función de registro de cuenta
-    function registro(){
-      /*
-      if (!formularioLleno()) {
-        echo '<div class="alert">
-        <span class="closebtn" onclick="this.parentElement.style.display=\'none\';">&times;</span> 
-        <strong>ERROR!</strong> Rellena todos los campos.
-        </div>';
-        die();
-      }
-      */
-      $pdo = accesoBBDD();
+  function registro(){
+    $pdo = accesoBBDD();
 
-      //Usamos la funcion para verificar que las dos contraseñas son iguales.
-      if(!verificarContrasena()){
-        unset($pdo); 
-        unset($query);
-       die(); 
-      } else {
-        //encriptació de la contrasenya amb SHA256
-        $encriptedPwd = hash("sha256", $_POST["contrasena"]);
-        
-        //preparem i executem la consulta
-        $query = $pdo->prepare("insert into usuarios values(null, :user, :password, :fecha, :correo)");
-
-        $query->bindParam(':user', $_POST["nombre"]);
-        $query->bindParam(':password', $encriptedPwd);
-        $query->bindParam(':correo', $_POST["correo"]);
-        $query->bindParam(':fecha',$_POST["fechaNatal"]);
-
-        //Usamos la funcion para verificar que las dos contraseñas son iguales.
-        $query->execute();      
-          //Compruebo errores
-        
-        $e= $query->errorInfo();
-        if ($e[0]!='00000') {
-          echo '<div class="alert">
-          <span class="closebtn" onclick="this.parentElement.style.display=\'none\';">&times;</span> 
-          <strong>ERROR!</strong> PDO::errorInfo():';
-          die("Error: " . $e[2]);
-          echo'</div>';
-          
-        } 
-        if ($_POST["nombre"]){
-          usuarioCreado($pdo, $_POST["nombre"], $encriptedPwd);
-        }
-        
-
-        //eliminem els objectes per alliberar memòria 
-        unset($pdo);
-        unset($query);
-
-      }
+    if (usuarioexistente($pdo, $_POST["nombre"])){
+      notificacion("Ya existe un usuario con ese nombre.", "warning");
+      return;
     }
 
-    //Funcion para verificar que el usuario ha sido creado
-    function usuarioCreado($pdo, $user, $encriptedPwd){
-      $query = $pdo->prepare("select * from usuarios where usuario = :user AND password = :password");
+    if(verificarContrasena() && formularioLleno()){
+      
+      $encriptedPwd = hash("sha256", $_POST["contrasena"]);
+        
+      $query = $pdo->prepare("insert into usuarios values(null, :user, :password, :fecha, :correo)");
 
-      $query->bindParam(':user', $user);
+      $query->bindParam(':user', $_POST["nombre"]);
       $query->bindParam(':password', $encriptedPwd);
+      $query->bindParam(':correo', $_POST["correo"]);
+      $query->bindParam(':fecha',$_POST["fechaNatal"]);
 
-      $query->execute();
+      $query->execute();      
 
-      //Compruebo errores
       $e= $query->errorInfo();
       if ($e[0]!='00000') {
         echo "\nPDO::errorInfo():\n";
-        die("Error: " . $e[2]);
+        die("Error accedint a dades: " . $e[2]);  
       } 
 
-      //Cogemos las filas una a una
-      $row = $query->fetch();
-      if($row){
-        header('Location:dashboard');
-      }
-      else{
-        echo '<div class="alert">
-        <span class="closebtn" onclick="this.parentElement.style.display=\'none\';">&times;</span> 
-        <strong>ERROR!</strong> Registro Incorrecto.
-        </div>';
+      if ($_POST["nombre"]){
+        usuarioCreado($pdo, $_POST["nombre"], $encriptedPwd);
       }
     }
+  }
+
+  // Funcion para verificar que el usuario ha sido creado
+
+  function usuarioCreado($pdo, $user, $encriptedPwd){
+    $query = $pdo->prepare("select * from usuarios where usuario = :user AND password = :password");
+
+    $query->bindParam(':user', $user);
+    $query->bindParam(':password', $encriptedPwd);
+
+    $query->execute();
+
+    $e= $query->errorInfo();
+    if ($e[0]!='00000') {
+      echo "\nPDO::errorInfo():\n";
+      die("Error: " . $e[2]);
+    } 
+
+    $row = $query->fetch();
+    if($row){
+      $_SESSION["exito"] = true;
+      header('Location:dashboard');
+    }
+    else{
+      notificacion("No se ha podido finalizar el registro, inténtalo más tarde.", "error");
+    }
+  }
+
+  // Esta función te comprueba que el formulario de registro de usuarios este completo
+
+  function formularioLleno(){      
+    if(empty($_POST['nombre'])){
+      notificacion("Por favor, introduce un nombre de usuario.", "error");
+      return false; 
+    }
+    if(empty($_POST['correo'])){
+      notificacion("Por favor, introduce un Email.", "error");
+      return false; 
+    }
+    if(empty($_POST['fechaNatal'])){
+      notificacion("Por favor, introduce una fecha de nacimiento.", "error");
+      return false; 
+    }
+    if(empty($_POST['contrasena'])){
+      notificacion("Por favor, introduce una contraseña.", "error");
+      return false; 
+    }
+    return true;
+  }
+
+  // Funcion para verificar la contraseña
+
+  function verificarContrasena(){
+    $contrasena = $_POST['contrasena'];
+    $confirmarContrasena = $_POST['confirmarContrasena'];
+    if($confirmarContrasena != $contrasena){
+      notificacion("Las contraseñas tienen que ser las mismas.", "error");
+      return false;
+    }
+    return true;
+  }
+
+  // Si existe el usuario devuelve true
+
+  function usuarioExistente($pdo, $nombre){
+    $query = $pdo->prepare("select * from usuarios where usuario = :nombre");
+
+    $query->bindParam(':nombre', $nombre);
+    $query->execute();
+    $row = $query -> fetch();
+
+    if ($row) {
+      return true;
+    }
+
+    return false;
+  }
+
+  // Esta función genera mensajes de error ($tipoDeMensaje = error), avisos ($tipoDeMensaje = warning), información($tipoDeMensaje = info) y exito ($tipoDeMensaje = success)
+
+  function notificacion($texto, $tipoDeMensaje) {
+    if ($tipoDeMensaje == "error") { $informacionTipoDeMensaje = "¡ERROR!";}
+    if ($tipoDeMensaje == "warning") { $informacionTipoDeMensaje = "¡ATENCIÓN!";}
+    if ($tipoDeMensaje == "info") { $informacionTipoDeMensaje = "Información:";}
+    if ($tipoDeMensaje == "success") { $informacionTipoDeMensaje = "¡Éxito!";}
+    echo 
+    '<div class="alert '.$tipoDeMensaje.'">
+    <span class="closebtn" onclick="this.parentElement.style.display=\'none\';">&times;</span> 
+    <strong>'.$informacionTipoDeMensaje.'</strong> '.$texto.'
+    </div>';
+  }
+
+  // Esta funcion recupera las razas de la BBDD
 
     function recuperarDatosBBDD(){
       $pdo = accesoBBDD();
@@ -235,57 +261,7 @@
           }  
           <?php
         }?>
-    </script> 
-
-    <?php 
-    }
-
-    //Formulario lleno
-    function formularioLleno(){      
-      if(isset($_POST['nombre'])){
-        if(isset($_POST['contrasena'])){
-          if(isset($_POST['correo'])){
-            if(isset($_POST['fechaNatal'])){
-              return true;
-              echo"<p>Todo correcto</p>";
-            }
-            else{
-              echo "<p>Fecha Vacia<z/p>";
-              return false;
-            }
-          }
-          else{
-            echo "<p>Correo vacio</p>";
-            return false;
-          }
-          
-          }
-        else{
-          echo "<p>Contraseña vacia</p>";
-          return false;
-        }
-      }
-      else{
-        echo "<p>Nombre vacio</p>";
-        return false;
-      }
-    }
-
-
-    //Funcion para verificar la contraseña
-    function verificarContrasena(){
-      $contrasena = $_POST['contrasena'];
-      $confirmarContrasena = $_POST['confirmarContrasena'];
-      if($confirmarContrasena != $contrasena){
-        echo '<div class="alert">
-        <span class="closebtn" onclick="this.parentElement.style.display=\'none\';">&times;</span> 
-        <strong>ERROR!</strong> Las contraseñas no coinciden.
-        </div>';
-        return false;
-      }
-      else{
-        return true;
-      }
-    }
+    </script>  <?php 
+}
   ?>
 
