@@ -166,17 +166,20 @@ $(document).ready(function() {
         $("#navegacionRaza").before(grid);
 
         if (!botonExiste("#siguientePasoRaza")){
-            $("#navegacionRaza").append("<button id='siguientePasoRaza'>Siguiente Paso</button>");
-            $('#siguientePasoRaza').click(function () {
-                $('#raza').prop( "disabled", true );
-                $('#subraza').prop( "disabled", true );
-                $("#sectionRaza").after('<section id="habilidades"></section>');
-                $('#vuelveAtrasRaza').remove();
-                $('#siguientePasoRaza').remove();
-                formularioHabilidades();
-            })
+            crearBoton("siguientePasoRaza", "#navegacionRaza", "Siguiente Paso", siguienteRaza);
         }
     };
+
+    // Crea la funcionalidad del siguiente de raza
+
+    function siguienteRaza() {
+        $('#raza').prop( "disabled", true );
+        $('#subraza').prop( "disabled", true );
+        $("#sectionRaza").after('<section id="habilidades"></section>');
+        $('#vuelveAtrasRaza').remove();
+        $('#siguientePasoRaza').remove();
+        formularioSeleccionClase();
+    }
 
     // Devuelve para añadir al DOM la informacion de estadisticas
 
@@ -285,6 +288,108 @@ $(document).ready(function() {
         gridItem.append(descripcion);
 
         return gridItem;
+    }
+
+    // Crea el formulario de seleccion de clases
+
+    function formularioSeleccionClase() {
+        $("#botonNombre").remove();
+        $("#raza").prop('disabled',true);
+        $("#subraza").prop('disabled',true);
+        let sectionClase = $("<section id='sectionClase'></section>");
+        let headerSeccion = $("<h2></h2>").text("Selecciona tu clase");
+        sectionClase.append(headerSeccion);
+        sectionClase.append(crearSelectClase());
+        sectionClase.append($("<div id='navegacionClase'></div>"))
+        $("#sectionRaza").after(sectionClase);
+        crearBoton("vuelveAtrasclase", "#navegacionClase", "Vuelve atrás",volverAtrasClase);
+        $("#clase").on("change", function(){detallesClase(this.value);});
+    }
+
+    // Crea el boton de volver atras de la clase
+
+    function volverAtrasClase() {
+        $("#sectionClase").remove();
+        $("#raza").prop('disabled',false);
+        $("#subraza").prop('disabled',false);
+        crearBoton("vuelveAtrasRaza", "#navegacionRaza", "Vuelve atrás",volverAtrasRaza);
+        crearBoton("siguientePasoRaza", "#navegacionRaza", "Siguiente Paso", siguienteRaza);
+    }
+
+    // Crear Select Clase
+
+    function crearSelectClase() {
+        let selectorClase = $("<select id='clase' name='clase'></select>");        
+        let opcionesClase = $("<option hidden disabled selected>Selecciona tu clase</option>");
+        selectorClase.append(opcionesClase);
+        
+        $.each(clases, function(index, value){
+            opcionesClase = $("<option value='" + index + "'>" + index + "</option>");
+            selectorClase.append(opcionesClase);
+        });
+        
+        return selectorClase;
+    }
+
+    // Tiene la logica de los documentos de los elementos del DOM
+
+    function detallesClase(nombreClase) {
+        $("#container-clase").remove();
+
+        let flex = $("<div id='container-clase'></div>");
+
+        flex.append(dgClase(nombreClase));
+        flex.append(estadisticasPrincipalesClase(nombreClase));
+        flex.append(salvacionesClase(nombreClase));
+
+        $("#navegacionClase").before(flex);
+
+        if (!botonExiste("#siguientePasoClase")){
+            crearBoton("siguientePasoClase", "#navegacionClase", "Siguiente Paso", siguienteRaza);
+        }
+    }
+
+    // Devuelve el elemento del DOM para mostrar los dg de la clase
+
+    function dgClase(nombreClase) {
+        let flexItem = $("<div></div>");
+        tituloSeccion = $("<h3></h3>").text("Dado de golpe");
+        flexItem.append(tituloSeccion);
+        descripcion = $("<p></p>").text(clases[nombreClase]["dg"]);
+        flexItem.append(descripcion);
+        return flexItem;
+    }
+
+    // Devuelve el elemento del DOM para mostrar las caracteristicas principales
+
+    function estadisticasPrincipalesClase(nombreClase) {
+        let flexItem = $("<div></div>");
+        tituloSeccion = $("<h3></h3>").text("Estadística Principal");
+        flexItem.append(tituloSeccion);
+        let texto = clases[nombreClase]["caracteristicaPrimaria1"];
+        if (nombreClase == "guerrero") {
+            texto += " o " + clases[nombreClase]["caracteristicaPrimaria2"]; 
+        } else if (clases[nombreClase]["caracteristicaPrimaria2"] != "") {
+            texto += " y " + clases[nombreClase]["caracteristicaPrimaria2"]; 
+        }
+        descripcion = $("<p></p>").text(texto);
+        flexItem.append(descripcion);
+        return flexItem;
+    }
+
+    // Devuelve el elemento del DOM para crear las salvaciones
+
+    function salvacionesClase(nombreClase) {
+        let flexItem = $("<div></div>");
+        tituloSeccion = $("<h3></h3>").text("Salvaciones");
+        flexItem.append(tituloSeccion);
+        let texto = clases[nombreClase]["competenciaSalvacion1"];
+        if (clases[nombreClase]["competenciaSalvacion2"] != "") {
+            texto += " y " + clases[nombreClase]["competenciaSalvacion2"]; 
+        }
+        descripcion = $("<p></p>").text(texto);
+        flexItem.append(descripcion);
+        return flexItem;
     }
 
     function formularioHabilidades() {

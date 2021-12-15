@@ -287,6 +287,7 @@ a.borrar {
 }
 
 /* crearPersonaje.php */
+
 #crearPersonajeForm {
   margin: 0 10%;
   padding: 50px;
@@ -333,7 +334,7 @@ a.borrar {
 #crearPersonajeForm select:hover, #crearPersonajeForm button:hover {
   cursor: pointer;
 }
-#sectionRaza select {
+#sectionRaza select, #sectionClase select {
   width: 70%;
   background-color: var(--amarillo_claro);
   color: var(--marron_oscuro);
@@ -363,9 +364,19 @@ a.borrar {
   width: 350px;
   flex-grow: 1;
 }
-#navegacionRaza{
+#navegacionRaza, #navegacionClase{
   display:flex;
 }
+#container-clase {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 100px 0;
+}
+#container-clase > div {
+  width: 400px;
+  flex-grow: 1;
+}
+
 /* Componentes CSS */
 
 .alert {
