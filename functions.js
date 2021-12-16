@@ -604,7 +604,11 @@ $(document).ready(function() {
         sectionIdiomas.append(headerSeccion);
 
         let stringIdiomasRaza=$('.grid-item-6 p:first-of-type').text();
-        let idiomasRaza=stringIdiomasRaza.split(',');
+        console.log(stringIdiomasRaza);
+        let texto=$(stringIdiomasRaza).substring(0,stringIdiomasRaza.lenght-1);
+        console.log(texto);
+        let idiomasRaza=texto.split(',');
+        console.log(idiomasRaza);
 
         for (let i = 0; i < idiomasRaza.length; i++) {
             var index = idiomas.indexOf(idiomasRaza[i]);
@@ -613,6 +617,12 @@ $(document).ready(function() {
             }
                     
         }
+        console.log(idiomas);
+
+        $.each(idiomas, function (i, value) { 
+             sectionIdiomas.append('<input type="checkbox" id="idioma'+(i+1)+'" name="idioma'+(i+1)+'" value="'+value+'">  <label for="idioma'+(i+1)+'">'+value+'</label>')
+        });
+
         
         //codigo para limite
         // limit=2
@@ -629,6 +639,6 @@ $(document).ready(function() {
 
 
 
-    // formularioTrasfondo();
+    // formularioIdiomas();
 
 });

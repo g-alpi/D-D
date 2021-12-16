@@ -242,45 +242,38 @@
             ?>
 
           <?php
-        }
+      }
       ?> 
-
-<?php
-      $queryTrasfondos = $pdo->prepare("select trasfondos.nombre,trasfondos.descripcion ,trasfondos.habilidad_adicional_1, trasfondos.habilidad_adicional_2 from trasfondos;");
-
-      $queryTrasfondos -> execute();
-      $rowsTrasfondos = $queryTrasfondos -> fetchAll();
-    ?>
-    var trasfondos= {};
-    <?php
-        foreach ($rowsTrasfondos as $rowTrasfondos) {
-          ?>
-          trasfondos["<?php echo $rowTrasfondos["nombre"]?>"]  ={
-            "descripcion":"<?php echo $rowTrasfondos["descripcion"];?>",
-            "habilidad_adicional_1": "<?php echo $rowTrasfondos["habilidad_adicional_1"];?>",
-            "habilidad_adicional_2": "<?php echo $rowTrasfondos["habilidad_adicional_2"];?>"
-          }  
           <?php
-        }
+            $queryTrasfondos = $pdo->prepare("select nombre,descripcion ,habilidad_adicional_1, habilidad_adicional_2 from trasfondos;");
+            $queryTrasfondos -> execute();
+            $rowsTrasfondos = $queryTrasfondos -> fetchAll();
+            ?>
+            var trasfondos= {};
+            <?php
+            foreach ($rowsTrasfondos as $rowTrasfondos) {
+              ?>
+              trasfondos["<?php echo $rowTrasfondos["nombre"]?>"]  ={
+                "descripcion":"<?php echo $rowTrasfondos["descripcion"];?>",
+                "habilidad_adicional_1": "<?php echo $rowTrasfondos["habilidad_adicional_1"];?>",
+                "habilidad_adicional_2": "<?php echo $rowTrasfondos["habilidad_adicional_2"];?>"
+              };
+              <?php
+            }
+          ?>
+            var idiomas=[];
+          <?php
+            $queryIdiomas= $pdo -> prepare("select idioma  from idiomas;");
+            $queryIdiomas -> execute();
+            $rowsIdiomas = $queryIdiomas -> fetchAll();
+            foreach ($rowsIdiomas as $rowIdiomas) {
+              ?>
+                idiomas.push("<?php echo $rowIdiomas["idioma"]?>");
+              <?php
+            }
         ?>
-        <?php
-        $queryIdiomasRazas= $pdo -> prepare("select razas.nombre as nombre, idiomas.idioma as idioma from idiomas 
-        inner join razas_idiomas on razas_idiomas.id_idioma=idiomas.id 
-        inner join razas on razas.id=razas_idiomas.id_raza ;");
-        $queryIdiomasRazas -> execute();
-        $rowsIdiomasRazas = $queryIdiomasRazas -> fetchAll();
-        ?>
-          var idiomas=[];
-        <?php
-        $queryIdiomas= $pdo -> prepare("select idioma  from idiomas;");
-        $queryIdiomas -> execute();
-        $rowsIdiomas = $queryIdiomas -> fetchAll();
-        foreach ($rowsIdiomas as $rowIdiomas) {
-        ?>
-          idiomas.push("<?php echo $rowIdiomas["idioma"]?>");
-        <?php
-        }
-      ?>
+
+
     </script>  <?php 
 }    
-  ?>
+?>
