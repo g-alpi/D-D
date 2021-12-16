@@ -10,7 +10,7 @@
             <li><a href="/tusFichas.php">Tus Fichas</a></li>
             <?php
                 session_start();
-                if ($_SESSION["Nombre"]){
+                if (isset($_SESSION["Nombre"])){
                     ?>
                         <li><a href="/logout.php">Logout</a></li>
                     <?php
@@ -21,7 +21,7 @@
     </nav>
 	<div class="header-flex">
         <?php
-            if ($_SESSION["Nombre"]){
+            if (isset($_SESSION["Nombre"])){
                 ?>
                     <p><?php echo $_SESSION['Nombre']; ?></p>
                 <?php
