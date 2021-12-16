@@ -12,56 +12,73 @@
 			<h1 id="nombreFicha">Nombre Ficha</h1>
 		</div>
 		<div id="cabeceroDerecho">
-			<div><h3>Nombre Jugador</h3></div>
-			<div><h3>Trasfondo</h3></div>
-			<div><h3>Raza</h3></div>
-			<div><h3>Clase</h3></div>
+			<div class="cabeceroDerecho">
+				
+					<div><h3>Nombre:</h3></div>
+					<div><h3>Raza</h3></div>
+			</div>
+
+			<div class="cabeceroDerecho">
+					<div style="margin: 0; padding: 0;">
+						<div><h3>Trasfondo</h3></div>
+						<div><h3>Clase</h3></div>
+					</div>
+			</div>
 		</div>
 		<div id="cabeceroInferior">
 			<div id="estadisticas"> 
-				<div></div> 
-				<div></div>
-				<div></div>
-				<div></div>
-				<div></div>
-				<div></div>
+				<div><h3>0</h3><p>Fuerza</p></div>
+				<div><h3>0</h3><p>Destreza</p></div> 
+				<div><h3>0</h3><p>Constitucion</p></div> 
+				<div><h3>0</h3><p>Inteligencia</p></div> 
+				<div><h3>0</h3><p>Sabiduria</p></div> 
+				<div><h3>0</h3><p>Carisma</p></div> 
 			</div>
-			<div>Proficiencia</div>
-			<div>Velocidad</div>
-			<div id="hitPoints">Hit Points</div>
+			<div><h3>Proficiencia</h3><h3>0</h3></div>
+			<div><h3>Velocidad</h3><h3>0</h3></div>
+			<div id="hitPoints"><h3>Hit Points</h3><h3>0</h3></div>
 		</div>
 	</div>
 	<div id="centroFicha">
 		<div id="colIzquierdaFicha">
-			<div id="tiradasSalvacion">
-				<div><p>Fuerza</p></div>
-				<div><p>Destreza</p></div>
-				<div><p>Constitucion</p></div>
-				<div><p>Inteligencia</p></div>
-				<div><p>Sabiduria</p></div>
-				<div><p>Carisma</p></div>
+			<div>
+				<h3>Tiradas de Salvacion</h3>
+				<div id="tiradasSalvacion">
+					<div><p>Fuerza:</p></div>
+					<div><p>Destreza:</p></div>
+					<div><p>Constitucion:</p></div>
+					<div><p>Inteligencia:</p></div>
+					<div><p>Sabiduria:</p></div>
+					<div><p>Carisma:</p></div>
+				</div>
 			</div>
-			<div class="listaColIzquierdaFicha">
-				<ul title="Rasgos y Atributos">
-					<li>Ejemplo 1</li>
-					<li>Ejemplo 2</li>
-					<li>Ejemplo 3</li>
-				</ul>
+			<div>
+				<h3>Rasgos y Atributos</h3>
+				<div class="listaColIzquierdaFicha">
+					<ul title="Rasgos y Atributos">
+						<li>Ejemplo 1</li>
+						<li>Ejemplo 2</li>
+						<li>Ejemplo 3</li>
+					</ul>
+				</div>
 			</div>
-			<div class="listaColIzquierdaFicha">
-				<ul title="Idiomas y proficiencias">
-					<li>Ejemplo 1</li>
-					<li>Ejemplo 2</li>
-					<li>Ejemplo 3</li>
-				</ul>
+			<div>
+				<h3>Idiomas y proficiencias</h3>
+				<div class="listaColIzquierdaFicha">
+					<ul title="Idiomas y proficiencias">
+						<li>Ejemplo 1</li>
+						<li>Ejemplo 2</li>
+						<li>Ejemplo 3</li>
+					</ul>
+				</div>
 			</div>
 		</div>
 		<div id="centroDerechaFicha">
 			<div id="centroDerechaInferiorFicha">
-				<div>Armadura</div>
+				<div id="armadura"><h3>Armadura</h3><h3>0</h3></div>
 				<div id="defensasCondiciones">
-					<div>Defensas</div>
-					<div>Condiciones</div>
+					<div><h3>Defensas</h3><h3>0</h3></div>
+					<div><h3>Condiciones</h3><h3>0</h3></div>
 				</div>
 			</div>
 			<div id="habilidades">
@@ -190,21 +207,30 @@
 	</div>
 	<div id="pieFicha">
 		<div>
-			Historia
+			<h3>Historia</h3>
 			<ul>
-			
+				<li>holaaaaaaaa</li>
+				<li>holaaaaaaaa</li>
+				<li>holaaaaaaaa</li>
+				<li>holaaaaaaaa</li>
 			</ul>
 		</div>
 		<div>
-			Hechizos
+			<h3>Hechizos</h3>
 			<ul>
-				
+				<li>holaaaaaaaa</li>
+				<li>holaaaaaaaa</li>
+				<li>holaaaaaaaa</li>
+				<li>holaaaaaaaa</li>
 			</ul>
 		</div>
 		<div>
-			Equipo
+			<h3>Equipo</h3>
 			<ul>
-				
+				<li>holaaaaaaaa</li>
+				<li>holaaaaaaaa</li>
+				<li>holaaaaaaaa</li>
+				<li>holaaaaaaaa</li>
 			</ul>
 		</div>
 	</div>
