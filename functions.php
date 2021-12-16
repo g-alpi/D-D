@@ -237,6 +237,7 @@
                 razas["<?php echo $row["nombre"]?>"]["habilidades_raciales"].push(["<?php echo $rowHabilidadRacial["habilidadRacial"] ?>", "<?php echo $rowHabilidadRacial["descripcion"] ?>"]);
               <?php
             }
+            
 
             ?>
 
@@ -260,8 +261,26 @@
             "habilidad_adicional_2": "<?php echo $rowTrasfondos["habilidad_adicional_2"];?>"
           }  
           <?php
-        }?>
+        }
+        ?>
+        <?php
+        $queryIdiomasRazas= $pdo -> prepare("select razas.nombre as nombre, idiomas.idioma as idioma from idiomas 
+        inner join razas_idiomas on razas_idiomas.id_idioma=idiomas.id 
+        inner join razas on razas.id=razas_idiomas.id_raza ;");
+        $queryIdiomasRazas -> execute();
+        $rowsIdiomasRazas = $queryIdiomasRazas -> fetchAll();
+        ?>
+          var idiomas=[];
+        <?php
+        $queryIdiomas= $pdo -> prepare("select idioma  from idiomas;");
+        $queryIdiomas -> execute();
+        $rowsIdiomas = $queryIdiomas -> fetchAll();
+        foreach ($rowsIdiomas as $rowIdiomas) {
+        ?>
+          idiomas.push("<?php echo $rowIdiomas["idioma"]?>");
+        <?php
+        }
+      ?>
     </script>  <?php 
-}
+}    
   ?>
-
