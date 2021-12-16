@@ -12,7 +12,7 @@
 </head>
 <body id="crearPersonaje">
     <?php include "header.php";?>
-    <?php include "functions.php"; recuperarDatosBBDD();?>
+    <?php include "functions.php"; recuperarRazasBBDD(); recuperarClasesBBDD();?>
     <h1>Crea tu personaje</h1>
     <form id="crearPersonajeForm" action="" method="get">
         <section id="nombrePersonaje">
