@@ -389,10 +389,26 @@ a.borrar {
 }
 
 #cabeceroDerecho{
- width: 48%;
-}
-.flexHorizontal{
+  box-sizing: border-box;
   display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  width: 48%;
+}
+#cabeceroDerecho div{
+  width: 200px;
+}
+#cabeceroDerecho div h3{
+  font-size: 16px;
+  text-align: center;
+}
+#cabeceroInferior{
+  width: 100% ;
+  display: flex;
+}
+#hitPoints{
+  width: 30%;
+  justify-self: flex-end;
 }
 div#cabeceraFicha div.flexHorizontal{
   width: 100%;
@@ -406,6 +422,60 @@ div#cabeceraFicha div.flexHorizontal{
   width: 60px;
   height: 60px;
 }
+#centroFicha{
+  display: flex;
+  justify-content: space-around;
+  width: 99%;
+}
+#colIzquierdaFicha{
+  display: flex;
+  flex-direction: column;
+  width: 33%;
+}
+
+.listaColIzquierdaFicha{
+  display: flex;
+  justify-content: center;
+}
+.listaColIzquierdaFicha ul{
+  list-style-type: none;
+  width: 100%;
+
+}
+.listaColIzquierdaFicha li{
+  border: 1px solid black;
+  margin: 5px;
+}
+#tiradasSalvacion{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+#tiradasSalvacion div{
+  width: 30%;
+}
+#centroDerechaFicha{
+  display: flex;
+  flex-direction: column;
+  width: 66%;
+}
+#centroDerechaInferiorFicha{
+  display: flex;
+  flex-direction: row;
+}
+#defensasCondiciones{
+  display: flex;
+}
+#habilidades{
+  display: flex;
+  justify-content: center;
+}
+#habilidades table{
+  width: 100%;
+}
+
+
+
 
 
 /* Componentes CSS */
