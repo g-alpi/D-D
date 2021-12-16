@@ -2,6 +2,35 @@ $(document).ready(function() {
 
     inicializar();
 
+    $('header').hover(function () {
+            asignarTeclas();
+            
+        }, function () {
+            // out
+        }
+    );
+
+    function asignarTeclas(){
+        $('html').keypress(function (e) { 
+
+            if (String.fromCharCode(e.which).toUpperCase=="H") {
+                window.location.href= $("li:first-of-type a").attr('href');
+            }
+            else if (String.fromCharCode(e.which).toUpperCase=="D") {
+                window.location.href= $("li:nth-of-type(2) a").attr('href');
+            }
+            else if (String.fromCharCode(e.which).toUpperCase=="C") {
+                window.location.href= $("li:nth-of-type(3) a").attr('href');
+            }
+            else if (String.fromCharCode(e.which).toUpperCase=="T") {
+                window.location.href= $("li:nth-of-type(4) a").attr('href');
+            }
+            else if (String.fromCharCode(e.which).toUpperCase=="L") {
+                window.location.href= $("li:nth-of-type(5) a").attr('href');
+            }
+        });
+    }
+
     // Esta funcion asigna todos los eventos necesarios
     
     function inicializar() {
