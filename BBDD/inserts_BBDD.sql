@@ -116,6 +116,16 @@ insert into trasfondos values
 (null,"soldado","La guerra ha sido su vida desde que quiere recordar. Te entrenaste cuando eras joven, estudiaste el uso de armas y armaduras, aprendiste técnicas básicas de supervivencia, incluido cómo mantenerte con vida en el campo de batalla. Es posible que haya sido parte de un ejército nacional permanente o una compañía de mercenarios, o quizás un miembro de una milicia local que saltó a la fama durante una guerra reciente. Cuando elija estos antecedentes, trabaje con su DM para determinar de qué organización militar formaba parte, cuánto progresó en sus filas y qué tipo de experiencias tuvo durante su carrera militar. ¿Era un ejército permanente, una guardia de la ciudad o una milicia de la aldea? O podría haber sido el ejército privado de un noble o un comerciante, o una compañía de mercenarios. "
 ,"atletismo","intimidacion");
 
+insert into idiomas_trasfondos values
+(1,1),(1,2),(1,3),
+(2,1),(2,2),(2,3),
+(3,1),(3,2),(3,3),
+(4,1),(4,2),(4,3),
+(5,1),(5,2),(5,3),
+(6,1),(6,2),(6,3),
+(7,1),(7,2),(7,3),
+(8,1),(8,2),(8,3);
+
 /* Usuario + personaje de prueba */ 
 insert into usuarios (usuario, password) values ("Carlos", "ac9c2c34c9f7ad52528c3422af40a66e2e24aaf2a727831255413c9470158984");
 set foreign_key_checks=0;
