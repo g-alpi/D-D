@@ -351,35 +351,66 @@ $(document).ready(function() {
 
 
         let habilidades= {"fuerza":8,"destreza":8,"constitucion":8,"inteligencia":8,"sabiduria":8,"carisma":8};
-    
+        
         $('#fuerza').click(function () { 
                 puntos+=selectValor('#fuerza',puntos,habilidades);
-                generarBotonSiguiente('#vuelveAtrasHabilidad','siguientePasoHabilidad',puntos)
+                selectValor("#destreza", puntos, habilidades, "repeat");
+                selectValor("#constitucion", puntos, habilidades, "repeat");
+                selectValor("#inteligencia", puntos, habilidades, "repeat");
+                selectValor("#sabiduria", puntos, habilidades, "repeat");
+                selectValor("#carisma", puntos, habilidades, "repeat");
+                
+                generarBotonSiguiente('#vuelveAtrasHabilidad','siguientePasoHabilidad',puntos);
         })
     
         $('#destreza').click(function () {    
-                puntos+=selectValor('#destreza',puntos,habilidades);  
-                generarBotonSiguiente('#vuelveAtrasHabilidad','siguientePasoHabilidad',puntos)     
+                puntos+=selectValor('#destreza',puntos,habilidades);
+                selectValor("#fuerza", puntos, habilidades, "repeat");
+                selectValor("#constitucion", puntos, habilidades, "repeat");
+                selectValor("#inteligencia", puntos, habilidades, "repeat");
+                selectValor("#sabiduria", puntos, habilidades, "repeat");
+                selectValor("#carisma", puntos, habilidades, "repeat");  
+                generarBotonSiguiente('#vuelveAtrasHabilidad','siguientePasoHabilidad',puntos); 
         })
     
         $('#constitucion').click(function () {       
                 puntos+=selectValor('#constitucion',puntos,habilidades);
-                generarBotonSiguiente('#vuelveAtrasHabilidad','siguientePasoHabilidad',puntos)
+                selectValor("#destreza", puntos, habilidades, "repeat");
+                selectValor("#fuerza", puntos, habilidades, "repeat");
+                selectValor("#inteligencia", puntos, habilidades, "repeat");
+                selectValor("#sabiduria", puntos, habilidades, "repeat");
+                selectValor("#carisma", puntos, habilidades, "repeat");
+                generarBotonSiguiente('#vuelveAtrasHabilidad','siguientePasoHabilidad',puntos);
         })
     
         $('#inteligencia').click(function () {     
                 puntos+=selectValor('#inteligencia',puntos,habilidades);
-                generarBotonSiguiente('#vuelveAtrasHabilidad','siguientePasoHabilidad',puntos)
+                selectValor("#destreza", puntos, habilidades, "repeat");
+                selectValor("#constitucion", puntos, habilidades, "repeat");
+                selectValor("#fuerza", puntos, habilidades, "repeat");
+                selectValor("#sabiduria", puntos, habilidades, "repeat");
+                selectValor("#carisma", puntos, habilidades, "repeat");
+                generarBotonSiguiente('#vuelveAtrasHabilidad','siguientePasoHabilidad',puntos);
         })
     
         $('#sabiduria').click(function () {        
                 puntos+=selectValor('#sabiduria',puntos,habilidades);
-                generarBotonSiguiente('#vuelveAtrasHabilidad','siguientePasoHabilidad',puntos)    
+                selectValor("#destreza", puntos, habilidades, "repeat");
+                selectValor("#constitucion", puntos, habilidades, "repeat");
+                selectValor("#inteligencia", puntos, habilidades, "repeat");
+                selectValor("#fuerza", puntos, habilidades, "repeat");
+                selectValor("#carisma", puntos, habilidades, "repeat");
+                generarBotonSiguiente('#vuelveAtrasHabilidad','siguientePasoHabilidad',puntos);  
         })
     
         $('#carisma').click(function () { 
                 puntos+=selectValor('#carisma',puntos,habilidades);
-                generarBotonSiguiente('#vuelveAtrasHabilidad','siguientePasoHabilidad',puntos)
+                selectValor("#destreza", puntos, habilidades, "repeat");
+                selectValor("#constitucion", puntos, habilidades, "repeat");
+                selectValor("#inteligencia", puntos, habilidades, "repeat");
+                selectValor("#sabiduria", puntos, habilidades, "repeat");
+                selectValor("#fuerza", puntos, habilidades, "repeat");
+                generarBotonSiguiente('#vuelveAtrasHabilidad','siguientePasoHabilidad',puntos);
         })    
     
     }
@@ -389,7 +420,7 @@ $(document).ready(function() {
         }
     }
         
-    function selectValor(habilidad,puntos,diccionario){
+    function selectValor(habilidad,puntos,diccionario, repeat){
         
         lvlHabilidad=$(habilidad).val();
         $(habilidad+' option').remove();
@@ -445,11 +476,12 @@ $(document).ready(function() {
        }
     
         $(habilidad+' option[value="'+lvlHabilidad+'"]').attr('selected',"");
-    
-        
+       
+
+
         if (diccionario[texto]==8) {
             diccionario[texto]=lvlHabilidad;
-            $("#puntos").text(puntos+costePuntos8[lvlHabilidad]+"/27"); 
+            $("#puntos").text(puntos+costePuntos8[lvlHabilidad]+"/27");
             return costePuntos8[lvlHabilidad];
         }
         else if (diccionario[texto]==9) {
@@ -488,6 +520,8 @@ $(document).ready(function() {
             return costePuntos15[lvlHabilidad];
         }
         
+
+
         
     }
     
