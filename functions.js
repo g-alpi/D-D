@@ -334,31 +334,69 @@ $(document).ready(function() {
     
         $('#fuerza').click(function () { 
                 puntos+=selectValor('#fuerza',puntos,habilidades);
+                selectValor("#destreza", puntos, habilidades, "repeat");
+                selectValor("#constitucion", puntos, habilidades, "repeat");
+                selectValor("#inteligencia", puntos, habilidades, "repeat");
+                selectValor("#sabiduria", puntos, habilidades, "repeat");
+                selectValor("#carisma", puntos, habilidades, "repeat");
+                
                 if(puntos==0 && !botonExiste("#siguientePasoHabilidad")){crearBoton('siguientePasoHabilidad','#navegacionHabilidad','Siguiente Paso',siguientePasoHabilidad)}
+                
         })
     
         $('#destreza').click(function () {    
                 puntos+=selectValor('#destreza',puntos,habilidades);  
-                if(puntos==0 && !botonExiste("#siguientePasoHabilidad")){crearBoton('siguientePasoHabilidad','#navegacionHabilidad','Siguiente Paso',siguientePasoHabilidad)}     
+                selectValor("#fuerza", puntos, habilidades, "repeat");
+                selectValor("#constitucion", puntos, habilidades, "repeat");
+                selectValor("#inteligencia", puntos, habilidades, "repeat");
+                selectValor("#sabiduria", puntos, habilidades, "repeat");
+                selectValor("#carisma", puntos, habilidades, "repeat"); 
+
+                if(puntos=0 && !botonExiste("#siguientePasoHabilidad")){crearBoton('siguientePasoHabilidad','#navegacionHabilidad','Siguiente Paso',siguientePasoHabilidad)}     
         })
     
         $('#constitucion').click(function () {       
                 puntos+=selectValor('#constitucion',puntos,habilidades);
+                selectValor("#destreza", puntos, habilidades, "repeat");
+                selectValor("#fuerza", puntos, habilidades, "repeat");
+                selectValor("#inteligencia", puntos, habilidades, "repeat");
+                selectValor("#sabiduria", puntos, habilidades, "repeat");
+                selectValor("#carisma", puntos, habilidades, "repeat");
+
                 if(puntos==0 && !botonExiste("#siguientePasoHabilidad")){crearBoton('siguientePasoHabilidad','#navegacionHabilidad','Siguiente Paso',siguientePasoHabilidad)}
         })
     
         $('#inteligencia').click(function () {     
                 puntos+=selectValor('#inteligencia',puntos,habilidades);
+                selectValor("#destreza", puntos, habilidades, "repeat");
+                selectValor("#constitucion", puntos, habilidades, "repeat");
+                selectValor("#fuerza", puntos, habilidades, "repeat");
+                selectValor("#sabiduria", puntos, habilidades, "repeat");
+                selectValor("#carisma", puntos, habilidades, "repeat");
+
                 if(puntos==0 && !botonExiste("#siguientePasoHabilidad")){crearBoton('siguientePasoHabilidad','#navegacionHabilidad','Siguiente Paso',siguientePasoHabilidad)}
         })
     
         $('#sabiduria').click(function () {        
                 puntos+=selectValor('#sabiduria',puntos,habilidades);
-                if(puntos==0 && !botonExiste("#siguientePasoHabilidad")){crearBoton('siguientePasoHabilidad','#navegacionHabilidad','Siguiente Paso',siguientePasoHabilidad)}    
+                selectValor("#destreza", puntos, habilidades, "repeat");
+                selectValor("#constitucion", puntos, habilidades, "repeat");
+                selectValor("#inteligencia", puntos, habilidades, "repeat");
+                selectValor("#fuerza", puntos, habilidades, "repeat");
+                selectValor("#carisma", puntos, habilidades, "repeat");
+                if(puntos==0 && !botonExiste("#siguientePasoHabilidad")){crearBoton('siguientePasoHabilidad','#navegacionHabilidad','Siguiente Paso',siguientePasoHabilidad)}
+                else if(botonExiste("#siguientePasoHabilidad")){
+                    $("#siguientePasoHabilidad").remove()
+                }    
         })
     
         $('#carisma').click(function () { 
                 puntos+=selectValor('#carisma',puntos,habilidades);
+                selectValor("#destreza", puntos, habilidades, "repeat");
+                selectValor("#constitucion", puntos, habilidades, "repeat");
+                selectValor("#inteligencia", puntos, habilidades, "repeat");
+                selectValor("#sabiduria", puntos, habilidades, "repeat");
+                selectValor("#fuerza", puntos, habilidades, "repeat");
                 if(puntos==0 && !botonExiste("#siguientePasoHabilidad")){crearBoton('siguientePasoHabilidad','#navegacionHabilidad','Siguiente Paso',siguientePasoHabilidad)}
         })    
     
@@ -399,7 +437,7 @@ $(document).ready(function() {
         formularioTrasfondo();
     }
         
-    function selectValor(habilidad,puntos,diccionario){
+    function selectValor(habilidad,puntos,diccionario,repeat){
         
         lvlHabilidad=$(habilidad).val();
         $(habilidad+' option').remove();
@@ -549,6 +587,7 @@ $(document).ready(function() {
         $('#inteligencia').prop('disabled',false);
         $('#sabiduria').prop('disabled',false);
         $('#carisma').prop('disabled',false);
+        crearBoton("vuelveAtrasHabilidad","#navegacionHabilidad","Vuelve atrás",vuelveAtrasHabilidad);
 
 
     }
@@ -604,10 +643,8 @@ $(document).ready(function() {
         sectionIdiomas.append(headerSeccion);
 
         let stringIdiomasRaza=$('.grid-item-6 p:first-of-type').text();
-        console.log(stringIdiomasRaza);
-        let texto=$(stringIdiomasRaza).substring(0,stringIdiomasRaza.lenght-1);
-        console.log(texto);
-        let idiomasRaza=texto.split(',');
+        stringIdiomasRaza=stringIdiomasRaza.substring(0,stringIdiomasRaza.length-1);
+        let idiomasRaza=stringIdiomasRaza.split(', ');
         console.log(idiomasRaza);
 
         for (let i = 0; i < idiomasRaza.length; i++) {
@@ -620,18 +657,26 @@ $(document).ready(function() {
         console.log(idiomas);
 
         $.each(idiomas, function (i, value) { 
-             sectionIdiomas.append('<input type="checkbox" id="idioma'+(i+1)+'" name="idioma'+(i+1)+'" value="'+value+'">  <label for="idioma'+(i+1)+'">'+value+'</label>')
+             sectionIdiomas.append('<input type="checkbox" id="idioma'+(i+1)+'" name="idioma'+(i+1)+'" value="'+value+'" class="checkbox">  <label for="idioma'+(i+1)+'">'+value+'</label>')
         });
 
         
-        //codigo para limite
-        // limit=2
-        // $('input.single-checkbox').on('change', function(evt) {
-        //     if($(this).siblings(':checked').length >= limit) {
-        //         this.checked = false;
-        //     }
-        //  });
-        sectionIdiomas.append($("<div id='navegacionTrasfondo'></div>"));
+        // codigo para limite
+        limite=2
+        $('input.checkbox').on('change', function(evt) {
+            if($(this).siblings(':checked').length >= limite) {
+                this.checked = false;
+                
+            }
+         });
+        sectionIdiomas.append($("<div id='navegacionIdioma'></div>"));
+        crearBoton("vuelveAtrasIdioma", "#navegacionIdioma", "Vuelve atrás",vuelveAtrasIdioma);
+
+    }
+
+    function vuelveAtrasIdioma(){
+        $("#sectionIdioma").remove();
+        $('#selectTrasfondo').prop('disabled',false);
         crearBoton("vuelveAtrasTrasfondo", "#navegacionTrasfondo", "Vuelve atrás",volverAtrasTrasfondo);
 
     }
