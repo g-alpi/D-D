@@ -173,9 +173,9 @@
 
   // Esta funcion recupera las razas de la BBDD
 
-    function recuperarDatosBBDD(){
+    function recuperarRazasBBDD(){
       $pdo = accesoBBDD();
-      $query = $pdo->prepare("select razas.nombre, razas.descripcion, razas.ruta_imagen, razas.incremento_estadistica, razas.estadistica_incrementada, razas.tamano, razas.velocidad, razas.vision, razaPadre.nombre as razaPadre 
+      $query = $pdo->prepare("select razas.id as idRaza, razas.nombre, razas.descripcion, razas.ruta_imagen, razas.incremento_estadistica, razas.estadistica_incrementada, razas.tamano, razas.velocidad, razas.vision, razaPadre.nombre as razaPadre 
       from razas 
       left join razas as razaPadre on razas.id_razaPadre = razaPadre.id;");
 
@@ -185,6 +185,7 @@
       foreach ($rows as $row) {
           ?>
             razas["<?php echo $row["nombre"]?>"] = {
+              "idRaza"                    : "<?php echo $row["idRaza"];?>",
               "incremento_estadistica"    : "<?php echo $row["incremento_estadistica"];?>",
               "estadistica_incrementada"  : "<?php echo $row["estadistica_incrementada"];?>",
               "tamaño"                    : "<?php echo $row["tamano"];?>",
@@ -237,12 +238,77 @@
                 razas["<?php echo $row["nombre"]?>"]["habilidades_raciales"].push(["<?php echo $rowHabilidadRacial["habilidadRacial"] ?>", "<?php echo $rowHabilidadRacial["descripcion"] ?>"]);
               <?php
             }
+            
 
             ?>
 
           <?php
       }
-      ?> </script> <?php 
+      ?> 
+          <?php
+            $queryTrasfondos = $pdo->prepare("select id, nombre,descripcion ,habilidad_adicional_1, habilidad_adicional_2 from trasfondos;");
+            $queryTrasfondos -> execute();
+            $rowsTrasfondos = $queryTrasfondos -> fetchAll();
+            ?>
+            var trasfondos= {};
+            <?php
+            foreach ($rowsTrasfondos as $rowTrasfondos) {
+              ?>
+              trasfondos["<?php echo $rowTrasfondos["nombre"]?>"]  ={
+                "idTrasfondo"           : "<?php echo $rowTrasfondos["id"];?>",
+                "descripcion"           : "<?php echo $rowTrasfondos["descripcion"];?>",
+                "habilidad_adicional_1" : "<?php echo $rowTrasfondos["habilidad_adicional_1"];?>",
+                "habilidad_adicional_2" : "<?php echo $rowTrasfondos["habilidad_adicional_2"];?>"
+              };
+              <?php
+            }
+          ?>
+            var idiomas=[];
+          <?php
+            $queryIdiomas= $pdo -> prepare("select idioma  from idiomas;");
+            $queryIdiomas -> execute();
+            $rowsIdiomas = $queryIdiomas -> fetchAll();
+            foreach ($rowsIdiomas as $rowIdiomas) {
+              ?>
+                idiomas.push("<?php echo $rowIdiomas["idioma"]?>");
+              <?php
+            }
+        ?> </script> <?php 
     }
+
+  // Esta funcion recupera las clases de la BBDD
+
+  function recuperarClasesBBDD(){
+    $pdo = accesoBBDD();
+    $query = $pdo->prepare("select clases.id as idClase, clases.nombre, clases.DG, clases.caracteristicaPrimaria1, clases.caracteristicaPrimaria2, clases.competenciaSalvacion1, clases.competenciaSalvacion2,
+    clases.armaBase, clases.armaduraBase, clases.POInicial, armas.nombre as nombreArma, armaduras.nombre as nombreArmadura
+    from clases
+    left join armas on clases.armaBase = armas.id
+    left join armaduras on clases.armaduraBase = armaduras.id;");
+
+    $query -> execute();
+    $rows = $query -> fetchAll();
+    ?> <script> var clases = {}; <?php 
+    foreach ($rows as $row) {
+        ?>
+          clases["<?php echo $row["nombre"]?>"] = {
+            "id"                      : "<?php echo $row["idClase"]?>",
+            "nombre"                  : "<?php echo $row["nombre"];?>",
+            "dg"                      : "<?php echo $row["DG"];?>",
+            "caracteristicaPrimaria1" : "<?php echo $row["caracteristicaPrimaria1"];?>",
+            "caracteristicaPrimaria2" : "<?php echo $row["caracteristicaPrimaria2"];?>",
+            "competenciaSalvacion1"   : "<?php echo $row["competenciaSalvacion1"];?>",
+            "competenciaSalvacion2"   : "<?php echo $row["competenciaSalvacion2"];?>",
+            "armaInicial"             : "<?php echo $row["nombreArma"];?>",
+            "armaduraInicial"         : "<?php echo $row["nombreArmadura"];?>",
+            "oroInicial"              : "<?php echo $row["POInicial"];?>"
+          };
+
+        <?php
+    }
+    ?> </script> <?php 
+  }
+
   ?>
 
+    </script>  <?php 
