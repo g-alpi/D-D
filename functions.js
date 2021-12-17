@@ -69,6 +69,7 @@ $(document).ready(function() {
     function volverAtrasRaza() {
         $("#sectionRaza").remove();
         $("#nombreFicha").prop('disabled',false);
+        crearBoton("botonNombre", "#nombreForm", "Siguiente Paso", formularioSeleccionRaza);
     }
 
     // Esta funcion crea el formulario de select de la raza
@@ -462,17 +463,19 @@ $(document).ready(function() {
                 selectValor("#sabiduria", puntos, habilidades, "repeat");
                 selectValor("#carisma", puntos, habilidades, "repeat");
                 
-                generarBotonSiguiente('#vuelveAtrasHabilidad','siguientePasoHabilidad',puntos);
+                if(puntos==0 && !botonExiste("#siguientePasoHabilidad")){crearBoton('siguientePasoHabilidad','#navegacionHabilidades','Siguiente Paso',siguientePasoHabilidad)}
+                
         })
     
         $('#destreza').click(function () {    
-                puntos+=selectValor('#destreza',puntos,habilidades);
+                puntos+=selectValor('#destreza',puntos,habilidades);  
                 selectValor("#fuerza", puntos, habilidades, "repeat");
                 selectValor("#constitucion", puntos, habilidades, "repeat");
                 selectValor("#inteligencia", puntos, habilidades, "repeat");
                 selectValor("#sabiduria", puntos, habilidades, "repeat");
-                selectValor("#carisma", puntos, habilidades, "repeat");  
-                generarBotonSiguiente('#vuelveAtrasHabilidad','siguientePasoHabilidad',puntos); 
+                selectValor("#carisma", puntos, habilidades, "repeat"); 
+
+                if(puntos==0 && !botonExiste("#siguientePasoHabilidad")){crearBoton('siguientePasoHabilidad','#navegacionHabilidades','Siguiente Paso',siguientePasoHabilidad)}     
         })
     
         $('#constitucion').click(function () {       
@@ -482,7 +485,8 @@ $(document).ready(function() {
                 selectValor("#inteligencia", puntos, habilidades, "repeat");
                 selectValor("#sabiduria", puntos, habilidades, "repeat");
                 selectValor("#carisma", puntos, habilidades, "repeat");
-                generarBotonSiguiente('#vuelveAtrasHabilidad','siguientePasoHabilidad',puntos);
+
+                if(puntos==0 && !botonExiste("#siguientePasoHabilidad")){crearBoton('siguientePasoHabilidad','#navegacionHabilidades','Siguiente Paso',siguientePasoHabilidad)}
         })
     
         $('#inteligencia').click(function () {     
@@ -492,7 +496,8 @@ $(document).ready(function() {
                 selectValor("#fuerza", puntos, habilidades, "repeat");
                 selectValor("#sabiduria", puntos, habilidades, "repeat");
                 selectValor("#carisma", puntos, habilidades, "repeat");
-                generarBotonSiguiente('#vuelveAtrasHabilidad','siguientePasoHabilidad',puntos);
+
+                if(puntos==0 && !botonExiste("#siguientePasoHabilidad")){crearBoton('siguientePasoHabilidad','#navegacionHabilidades','Siguiente Paso',siguientePasoHabilidad)}
         })
     
         $('#sabiduria').click(function () {        
@@ -502,7 +507,10 @@ $(document).ready(function() {
                 selectValor("#inteligencia", puntos, habilidades, "repeat");
                 selectValor("#fuerza", puntos, habilidades, "repeat");
                 selectValor("#carisma", puntos, habilidades, "repeat");
-                generarBotonSiguiente('#vuelveAtrasHabilidad','siguientePasoHabilidad',puntos);  
+                if(puntos==0 && !botonExiste("#siguientePasoHabilidad")){crearBoton('siguientePasoHabilidad','#navegacionHabilidades','Siguiente Paso',siguientePasoHabilidad)}
+                else if(botonExiste("#siguientePasoHabilidad")){
+                    $("#siguientePasoHabilidad").remove()
+                }    
         })
     
         $('#carisma').click(function () { 
@@ -512,17 +520,33 @@ $(document).ready(function() {
                 selectValor("#inteligencia", puntos, habilidades, "repeat");
                 selectValor("#sabiduria", puntos, habilidades, "repeat");
                 selectValor("#fuerza", puntos, habilidades, "repeat");
-                generarBotonSiguiente('#vuelveAtrasHabilidad','siguientePasoHabilidad',puntos);
+                if(puntos==0 && !botonExiste("#siguientePasoHabilidad")){crearBoton('siguientePasoHabilidad','#navegacionHabilidades','Siguiente Paso',siguientePasoHabilidad)}
         })    
     
     }
-    function generarBotonSiguiente(btnAtras,btnSiguiente,puntos){
-        if (puntos==0){
-            $(btnAtras).after("<button id="+btnSiguiente+">Siguiente Paso</button>");
-        }
+    function vuelveAtrasHabilidad(){
+        $("#container-habilidades").remove();
+        $('#raza').prop( "disabled", false );
+        $('#subraza').prop( "disabled", false );
+        crearBoton("vuelveAtrasClase", "#navegacionClase", "Vuelve atrás",volverAtrasClase);
+        crearBoton("siguientePasoClase", "#navegacionClase", "Siguiente Paso", siguienteClase);
+    }
+    
+
+    function siguientePasoHabilidad(){
+        $('#fuerza').prop('disabled',true);
+        $('#destreza').prop('disabled',true);
+        $('#constitucion').prop('disabled',true);
+        $('#inteligencia').prop('disabled',true);
+        $('#sabiduria').prop('disabled',true);
+        $('#carisma').prop('disabled',true);
+        $("#container-habilidades").after('<section id="sectionTrasfondo"></section>');
+        $('#vuelveAtrasHabilidad').remove();
+        $('#siguientePasoHabilidad').remove();
+        formularioTrasfondo();
     }
         
-    function selectValor(habilidad,puntos,diccionario, repeat){
+    function selectValor(habilidad,puntos,diccionario,repeat){
         
         lvlHabilidad=$(habilidad).val();
         $(habilidad+' option').remove();
@@ -637,9 +661,8 @@ $(document).ready(function() {
 
     function formularioTrasfondo() {
         
-
         let headerSeccion = $("<h2></h2>").text("Selecciona tu trasfondo");
-        sectionTrasfondo=$("#trasfondo");
+        sectionTrasfondo=$("#sectionTrasfondo");
         sectionTrasfondo.append(headerSeccion);
 
         let selectorTrasfondo =$("<select id='selectTrasfondo' name='trasfondo'></select>") ;
@@ -647,6 +670,8 @@ $(document).ready(function() {
         
         opcionesTrasfondo = $("<option hidden disabled selected>Selecciona tu Trasfondo</option>");
         selectorTrasfondo.append(opcionesTrasfondo);
+
+        
         
         $.each(trasfondos, function(index, value){
             opcionesTrasfondo = $("<option value='" + index + "'>" + index + "</option>");
@@ -655,17 +680,34 @@ $(document).ready(function() {
         });
 
         sectionTrasfondo.append(selectorTrasfondo);
-        sectionTrasfondo.append($("<div id='navegacionRaza'><button id='vuelveAtrasRaza'>Vuelve atrás</button></div>"));
+        sectionTrasfondo.append($("<div id='navegacionTrasfondo'></div>"));
+        crearBoton("vuelveAtrasTrasfondo", "#navegacionTrasfondo", "Vuelve atrás",volverAtrasTrasfondo);
+        
+        
+        
         selectorTrasfondo.change(function () { descripcionTrasfondo(this.value); })
-    
+        
         
         
     }
+    function volverAtrasTrasfondo(){
+        $('#sectionTrasfondo').remove();
+        $('#fuerza').prop('disabled',false);
+        $('#destreza').prop('disabled',false);
+        $('#constitucion').prop('disabled',false);
+        $('#inteligencia').prop('disabled',false);
+        $('#sabiduria').prop('disabled',false);
+        $('#carisma').prop('disabled',false);
+        crearBoton("vuelveAtrasHabilidad","#navegacionHabilidades","Vuelve atrás",vuelveAtrasHabilidad);
+        crearBoton('siguientePasoHabilidad','#navegacionHabilidades','Siguiente Paso',siguientePasoHabilidad);
+
+
+    }
 
     function descripcionTrasfondo(nombreTrasfondo) {
-        $("#siguientePasoRaza").remove();
         $("#grid-descripcion-trasfondo").remove();
         $("#grid-habilidades").remove();
+        
         /* Grid */
         let grid = $("<div id='grid-container-trasfondo'></div>");
 
@@ -678,7 +720,7 @@ $(document).ready(function() {
         gridItem.append(descripcion);
         grid.append(gridItem);
 
-        /* Puntos de estadistica */
+        /* Habilidades potenciadas */
 
         gridItem = $("<div id='grid-habilidades'></div>");
         tituloSeccion = $("<h3></h3>").text("Habilidades potenciadas");
@@ -694,17 +736,74 @@ $(document).ready(function() {
         
 
         $("#navegacionTrasfondo").before(grid);
-        $("#navegacionTrasfondo").prepend("<button id='siguienteTrasfondo'>Siguiente Paso</button>");
-        $('#siguientePasoTrasfondo').click(function () {
-            $('#raza').prop( "disabled", true );
-            $('#subraza').prop( "disabled", true );
-            $("#sectionRaza").after('<section id="habilidades"></section>');
-            $('#vuelveAtrasRaza').remove();
-            $('#siguientePasoRaza').remove();
-            formularioHabilidades();
-
-        })
+        if(!botonExiste('#siguientePasoTrasfondo')){
+            crearBoton("siguientePasoTrasfondo", "#navegacionTrasfondo", "Siguiente Paso",siguientePasoTrasfondo);
+        }
     }
-    
+
+    function siguientePasoTrasfondo(){
+        $('#selectTrasfondo').prop('disabled',true);
+        $("#sectionTrasfondo").after('<section id="sectionIdioma"></section>');
+        $('#vuelveAtrasTrasfondo').remove();
+        $('#siguientePasoTrasfondo').remove();
+        formularioIdiomas();
+    }
+
+    function formularioIdiomas(){
+        let headerSeccion = $("<h2></h2>").text("Selecciona los dos idiomas de tu trasfondo");
+        sectionIdiomas=$("#sectionIdioma");
+        sectionIdiomas.append(headerSeccion);
+
+        let stringIdiomasRaza=$('.grid-item-6 p:first-of-type').text();
+        stringIdiomasRaza=stringIdiomasRaza.substring(0,stringIdiomasRaza.length-1);
+        let idiomasRaza=stringIdiomasRaza.split(', ');
+
+        for (let i = 0; i < idiomasRaza.length; i++) {
+            var index = idiomas.indexOf(idiomasRaza[i]);
+            if (index !== -1) {
+                idiomas.splice(index, 1);
+            }
+                    
+        }
+        
+        let divIdiomas = $("<div id='divIdiomas'></div>");
+
+        $.each(idiomas, function (i, value) { 
+             divIdiomas.append('<div><input type="checkbox" id="idioma'+(i+1)+'" name="idioma'+(i+1)+'" value="'+value+'" class="checkbox">  <label for="idioma'+(i+1)+'">'+value+'</label></div>')
+        });
+
+        sectionIdiomas.append(divIdiomas);
+
+        // codigo para limite
+        limite=2
+        $('input.checkbox').on('change', function(evt) {
+            console.log($(this).siblings(":checked"));
+            if($("input.checkbox:checked").length > limite) {
+                this.checked = false;
+
+            } else if ($("input.checkbox:checked").length == limite){
+                if (!botonExiste("#siguienteIdioma")){
+                    crearBoton("siguienteIdioma", "#navegacionIdioma", "Siguiente Paso",vuelveAtrasIdioma);
+                };  
+            } else if($("input.checkbox:checked").length < limite) {
+                $("#siguienteIdioma").remove();
+            }
+         });
+        sectionIdiomas.append($("<div id='navegacionIdioma'></div>"));
+        crearBoton("vuelveAtrasIdioma", "#navegacionIdioma", "Vuelve atrás",vuelveAtrasIdioma);
+
+    }
+
+    function vuelveAtrasIdioma(){
+        $("#sectionIdioma").remove();
+        $('#selectTrasfondo').prop('disabled',false);
+        crearBoton("vuelveAtrasTrasfondo", "#navegacionTrasfondo", "Vuelve atrás",volverAtrasTrasfondo);
+        crearBoton("siguientePasoTrasfondo", "#navegacionTrasfondo", "Siguiente Paso",siguientePasoTrasfondo);
+    }
+
+
+
+
+    // formularioIdiomas();
 
 });

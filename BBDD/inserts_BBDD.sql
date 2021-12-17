@@ -109,20 +109,26 @@ insert into clases values
 (null,"picaro","1d8","destreza",null,"destreza","inteligencia");
 
 insert into trasfondos values
-(null,"acolito","Has pasado tu vida al servicio de un templo para un dios específico o panteón de dioses. Actúas como intermediario entre el reino del mundo sagrado y el mundo mortal, realizando ritos sagrados y ofreciendo sacrificios para llevar a los adoradores a la presencia de lo divino. No es necesariamente un clérigo; realizar ritos sagrados no es lo mismo que canalizar el poder divino.
-
-Elija un dios, un panteón de dioses o algún otro ser cuasi divino, y trabaje con su DM para detallar la naturaleza de su servicio religioso. La sección Gods of the Multiverse contiene un panteón de muestra, del escenario Forgotten Realms. ¿Fue usted un funcionario menor en un templo, criado desde la niñez para ayudar a los sacerdotes en los ritos sagrados? ¿O eras un sumo sacerdote que de repente experimentó un llamado a servir a tu dios de una manera diferente? Quizás eras el líder de un pequeño culto fuera de cualquier estructura de templo establecida, o incluso un grupo oculto que servía a un maestro diabólico que ahora niegas."
+(null,"acolito","Has pasado tu vida al servicio de un templo para un dios específico o panteón de dioses. Actúas como intermediario entre el reino del mundo sagrado y el mundo mortal, realizando ritos sagrados y ofreciendo sacrificios para llevar a los adoradores a la presencia de lo divino. No es necesariamente un clérigo; realizar ritos sagrados no es lo mismo que canalizar el poder divino. Elija un dios, un panteón de dioses o algún otro ser cuasi divino, y trabaje con su DM para detallar la naturaleza de su servicio religioso. La sección Gods of the Multiverse contiene un panteón de muestra, del escenario Forgotten Realms. ¿Fue usted un funcionario menor en un templo, criado desde la niñez para ayudar a los sacerdotes en los ritos sagrados? ¿O eras un sumo sacerdote que de repente experimentó un llamado a servir a tu dios de una manera diferente? Quizás eras el líder de un pequeño culto fuera de cualquier estructura de templo establecida, o incluso un grupo oculto que servía a un maestro diabólico que ahora niegas."
 ,"visión","religion"),
 (null,"criminal","Es un criminal experimentado con un historial de infringir la ley. Has pasado mucho tiempo entre otros criminales y todavía tienes contactos dentro del inframundo criminal. Estás mucho más cerca que la mayoría de la gente del mundo de asesinatos, robos y violencia que invade la parte más vulnerable de la civilización, y has sobrevivido hasta este punto burlando las reglas y regulaciones de la sociedad. "
 ,"engaño","sigilo"),
-(null,"soldado","La guerra ha sido su vida desde que quiere recordar. Te entrenaste cuando eras joven, estudiaste el uso de armas y armaduras, aprendiste técnicas básicas de supervivencia, incluido cómo mantenerte con vida en el campo de batalla. Es posible que haya sido parte de un ejército nacional permanente o una compañía de mercenarios, o quizás un miembro de una milicia local que saltó a la fama durante una guerra reciente.
-
-Cuando elija estos antecedentes, trabaje con su DM para determinar de qué organización militar formaba parte, cuánto progresó en sus filas y qué tipo de experiencias tuvo durante su carrera militar. ¿Era un ejército permanente, una guardia de la ciudad o una milicia de la aldea? O podría haber sido el ejército privado de un noble o un comerciante, o una compañía de mercenarios. "
+(null,"soldado","La guerra ha sido su vida desde que quiere recordar. Te entrenaste cuando eras joven, estudiaste el uso de armas y armaduras, aprendiste técnicas básicas de supervivencia, incluido cómo mantenerte con vida en el campo de batalla. Es posible que haya sido parte de un ejército nacional permanente o una compañía de mercenarios, o quizás un miembro de una milicia local que saltó a la fama durante una guerra reciente. Cuando elija estos antecedentes, trabaje con su DM para determinar de qué organización militar formaba parte, cuánto progresó en sus filas y qué tipo de experiencias tuvo durante su carrera militar. ¿Era un ejército permanente, una guardia de la ciudad o una milicia de la aldea? O podría haber sido el ejército privado de un noble o un comerciante, o una compañía de mercenarios. "
 ,"atletismo","intimidacion");
+
+insert into idiomas_trasfondos values
+(1,1),(1,2),(1,3),
+(2,1),(2,2),(2,3),
+(3,1),(3,2),(3,3),
+(4,1),(4,2),(4,3),
+(5,1),(5,2),(5,3),
+(6,1),(6,2),(6,3),
+(7,1),(7,2),(7,3),
+(8,1),(8,2),(8,3);
 
 /* Usuario + personaje de prueba */ 
 insert into usuarios (usuario, password) values ("Carlos", "ac9c2c34c9f7ad52528c3422af40a66e2e24aaf2a727831255413c9470158984");
 set foreign_key_checks=0;
-insert into personajes (nombre, raza, clase) values("Arghenom", 1, 1);
+insert into personajes (nombre, raza, clase) values("Arghenom", 2, 1);
 insert into usuarios_personajes (id_usuario, id_personaje) values(1, 1);
 set foreign_key_checks=1;

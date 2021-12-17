@@ -11,6 +11,7 @@
     <title>Crea tu Personaje</title>
 </head>
 <body id="crearPersonaje">
+
     <?php include "header.php";?>
     <?php include "functions.php"; recuperarRazasBBDD(); recuperarClasesBBDD();?>
     <h1>Crea tu personaje</h1>

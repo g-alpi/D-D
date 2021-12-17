@@ -237,12 +237,41 @@
                 razas["<?php echo $row["nombre"]?>"]["habilidades_raciales"].push(["<?php echo $rowHabilidadRacial["habilidadRacial"] ?>", "<?php echo $rowHabilidadRacial["descripcion"] ?>"]);
               <?php
             }
+            
 
             ?>
 
           <?php
       }
-      ?> </script> <?php 
+      ?> 
+          <?php
+            $queryTrasfondos = $pdo->prepare("select nombre,descripcion ,habilidad_adicional_1, habilidad_adicional_2 from trasfondos;");
+            $queryTrasfondos -> execute();
+            $rowsTrasfondos = $queryTrasfondos -> fetchAll();
+            ?>
+            var trasfondos= {};
+            <?php
+            foreach ($rowsTrasfondos as $rowTrasfondos) {
+              ?>
+              trasfondos["<?php echo $rowTrasfondos["nombre"]?>"]  ={
+                "descripcion":"<?php echo $rowTrasfondos["descripcion"];?>",
+                "habilidad_adicional_1": "<?php echo $rowTrasfondos["habilidad_adicional_1"];?>",
+                "habilidad_adicional_2": "<?php echo $rowTrasfondos["habilidad_adicional_2"];?>"
+              };
+              <?php
+            }
+          ?>
+            var idiomas=[];
+          <?php
+            $queryIdiomas= $pdo -> prepare("select idioma  from idiomas;");
+            $queryIdiomas -> execute();
+            $rowsIdiomas = $queryIdiomas -> fetchAll();
+            foreach ($rowsIdiomas as $rowIdiomas) {
+              ?>
+                idiomas.push("<?php echo $rowIdiomas["idioma"]?>");
+              <?php
+            }
+        ?> </script> <?php 
     }
 
   // Esta funcion recupera las clases de la BBDD
@@ -272,3 +301,4 @@
 
   ?>
 
+    </script>  <?php 
