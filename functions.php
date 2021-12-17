@@ -173,7 +173,7 @@
 
   // Esta funcion recupera las razas de la BBDD
 
-    function recuperarDatosBBDD(){
+    function recuperarRazasBBDD(){
       $pdo = accesoBBDD();
       $query = $pdo->prepare("select razas.nombre, razas.descripcion, razas.ruta_imagen, razas.incremento_estadistica, razas.estadistica_incrementada, razas.tamano, razas.velocidad, razas.vision, razaPadre.nombre as razaPadre 
       from razas 
@@ -271,9 +271,34 @@
                 idiomas.push("<?php echo $rowIdiomas["idioma"]?>");
               <?php
             }
-        ?>
+        ?> </script> <?php 
+    }
 
+  // Esta funcion recupera las clases de la BBDD
+
+  function recuperarClasesBBDD(){
+    $pdo = accesoBBDD();
+    $query = $pdo->prepare("select * from clases;");
+
+    $query -> execute();
+    $rows = $query -> fetchAll();
+    ?> <script> var clases = {}; <?php 
+    foreach ($rows as $row) {
+        ?>
+          clases["<?php echo $row["nombre"]?>"] = {
+            "nombre"                  : "<?php echo $row["nombre"];?>",
+            "dg"                      : "<?php echo $row["DG"];?>",
+            "caracteristicaPrimaria1" : "<?php echo $row["caracteristicaPrimaria1"];?>",
+            "caracteristicaPrimaria2" : "<?php echo $row["caracteristicaPrimaria2"];?>",
+            "competenciaSalvacion1"   : "<?php echo $row["competenciaSalvacion1"];?>",
+            "competenciaSalvacion2"   : "<?php echo $row["competenciaSalvacion2"];?>",
+          };
+
+        <?php
+    }
+    ?> </script> <?php 
+  }
+
+  ?>
 
     </script>  <?php 
-}    
-?>

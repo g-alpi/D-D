@@ -69,6 +69,7 @@ $(document).ready(function() {
     function volverAtrasRaza() {
         $("#sectionRaza").remove();
         $("#nombreFicha").prop('disabled',false);
+        crearBoton("botonNombre", "#nombreForm", "Siguiente Paso", formularioSeleccionRaza);
     }
 
     // Esta funcion crea el formulario de select de la raza
@@ -166,17 +167,19 @@ $(document).ready(function() {
         $("#navegacionRaza").before(grid);
 
         if (!botonExiste("#siguientePasoRaza")){
-            $("#navegacionRaza").append("<button id='siguientePasoRaza'>Siguiente Paso</button>");
-            $('#siguientePasoRaza').click(function () {
-                $('#raza').prop( "disabled", true );
-                $('#subraza').prop( "disabled", true );
-                $("#sectionRaza").after('<section id="sectionHabilidades"></section>');
-                $('#vuelveAtrasRaza').remove();
-                $('#siguientePasoRaza').remove();
-                formularioHabilidades();
-            })
+            crearBoton("siguientePasoRaza", "#navegacionRaza", "Siguiente Paso", siguienteRaza);
         }
     };
+
+    // Crea la funcionalidad del siguiente de raza
+
+    function siguienteRaza() {
+        $('#raza').prop( "disabled", true );
+        $('#subraza').prop( "disabled", true );
+        $('#vuelveAtrasRaza').remove();
+        $('#siguientePasoRaza').remove();
+        formularioSeleccionClase();
+    }
 
     // Devuelve para añadir al DOM la informacion de estadisticas
 
@@ -287,51 +290,171 @@ $(document).ready(function() {
         return gridItem;
     }
 
+    // Crea el formulario de seleccion de clases
 
-    /*---------------------------------*/ 
+    function formularioSeleccionClase() {
+        $("#botonNombre").remove();
+        $("#raza").prop('disabled',true);
+        $("#subraza").prop('disabled',true);
+        let sectionClase = $("<section id='sectionClase'></section>");
+        let headerSeccion = $("<h2></h2>").text("Selecciona tu clase");
+        sectionClase.append(headerSeccion);
+        sectionClase.append(crearSelectClase());
+        sectionClase.append($("<div id='navegacionClase'></div>"))
+        $("#sectionRaza").after(sectionClase);
+        crearBoton("vuelveAtrasClase", "#navegacionClase", "Vuelve atrás",volverAtrasClase);
+        $("#clase").on("change", function(){detallesClase(this.value);});
+    }
+
+    // Crea el boton de volver atras de la clase
+
+    function volverAtrasClase() {
+        $("#sectionClase").remove();
+        $("#raza").prop('disabled',false);
+        $("#subraza").prop('disabled',false);
+        crearBoton("vuelveAtrasRaza", "#navegacionRaza", "Vuelve atrás",volverAtrasRaza);
+        crearBoton("siguientePasoRaza", "#navegacionRaza", "Siguiente Paso", siguienteRaza);
+    }
+
+    // Crear Select Clase
+
+    function crearSelectClase() {
+        let selectorClase = $("<select id='clase' name='clase'></select>");        
+        let opcionesClase = $("<option hidden disabled selected>Selecciona tu clase</option>");
+        selectorClase.append(opcionesClase);
+        
+        $.each(clases, function(index, value){
+            opcionesClase = $("<option value='" + index + "'>" + index + "</option>");
+            selectorClase.append(opcionesClase);
+        });
+        
+        return selectorClase;
+    }
+
+    // Tiene la logica de los documentos de los elementos del DOM
+
+    function detallesClase(nombreClase) {
+        $("#container-clase").remove();
+
+        let flex = $("<div id='container-clase'></div>");
+
+        flex.append(dgClase(nombreClase));
+        flex.append(estadisticasPrincipalesClase(nombreClase));
+        flex.append(salvacionesClase(nombreClase));
+
+        $("#navegacionClase").before(flex);
+
+        if (!botonExiste("#siguientePasoClase")){
+            crearBoton("siguientePasoClase", "#navegacionClase", "Siguiente Paso", siguienteClase);
+        }
+    }
+
+    // Devuelve el elemento del DOM para mostrar los dg de la clase
+
+    function dgClase(nombreClase) {
+        let flexItem = $("<div></div>");
+        tituloSeccion = $("<h3></h3>").text("Dado de golpe");
+        flexItem.append(tituloSeccion);
+        descripcion = $("<p></p>").text(clases[nombreClase]["dg"]);
+        flexItem.append(descripcion);
+        return flexItem;
+    }
+
+    // Devuelve el elemento del DOM para mostrar las caracteristicas principales
+
+    function estadisticasPrincipalesClase(nombreClase) {
+        let flexItem = $("<div></div>");
+        tituloSeccion = $("<h3></h3>").text("Estadística Principal");
+        flexItem.append(tituloSeccion);
+        let texto = clases[nombreClase]["caracteristicaPrimaria1"];
+        if (nombreClase == "guerrero") {
+            texto += " o " + clases[nombreClase]["caracteristicaPrimaria2"]; 
+        } else if (clases[nombreClase]["caracteristicaPrimaria2"] != "") {
+            texto += " y " + clases[nombreClase]["caracteristicaPrimaria2"]; 
+        }
+        descripcion = $("<p></p>").text(texto);
+        flexItem.append(descripcion);
+        return flexItem;
+    }
+
+    // Devuelve el elemento del DOM para crear las salvaciones
+
+    function salvacionesClase(nombreClase) {
+        let flexItem = $("<div></div>");
+        tituloSeccion = $("<h3></h3>").text("Salvaciones");
+        flexItem.append(tituloSeccion);
+        let texto = clases[nombreClase]["competenciaSalvacion1"];
+        if (clases[nombreClase]["competenciaSalvacion2"] != "") {
+            texto += " y " + clases[nombreClase]["competenciaSalvacion2"]; 
+        }
+        descripcion = $("<p></p>").text(texto);
+        flexItem.append(descripcion);
+        return flexItem;
+    }
+
+    function siguienteClase() {
+        $('#clase').prop( "disabled", true );
+        $('#vuelveAtrasClase').remove();
+        $('#siguientePasoClase').remove();
+        formularioHabilidades();
+    }
+
     function formularioHabilidades() {
-        let andamio=$("#sectionHabilidades");
-        let titulo= $("<h2></h2>").text("Puntos restantes");
+        let andamio=$("<section id='container-habilidades'></section>");
+        $("#crearPersonajeForm").append(andamio);
+        let titulo= $("<h2></h2>").text("Reparte los puntos de Estadística");
         andamio.append(titulo);
     
         let puntos=27;
     
         andamio.append("<div id='puntos'>"+puntos+"/27</div>");
+        andamio.append("<div id='container-select'></div>");
     
-    
-        let divFuerza=$("<div id='div_fuerza'>Fuerza  <select id='fuerza' name='fuerza'></select>   <p class='puntosHabilidad'>8</p>  </div>");
-        andamio.append(divFuerza);
+        let divFuerza=$("<div id='div_fuerza'><p>Fuerza</p>  <select id='fuerza' name='fuerza'></select>   </div>");
+        $("#container-select").append(divFuerza);
         generarOptions('#fuerza');
         
     
-        divDestreza=$("<div id='div_destreza'>Destreza  <select id='destreza' name='destreza'></select>  <p class='puntosHabilidad'>8</p> </div>");
-        andamio.append(divDestreza);
+        divDestreza=$("<div id='div_destreza'><p>Destreza</p>   <select id='destreza' name='destreza'></select>  </div>");
+        $("#container-select").append(divDestreza);
         generarOptions('#destreza');
     
-        divConstitucion=$("<div id='div_constitucion'>Constitucion <select id='constitucion' name='constitucion'></select>   <p class='puntosHabilidad'>8</p> </div>");
-        andamio.append(divConstitucion)
+        divConstitucion=$("<div id='div_constitucion'><p> Constitucion</p>  <select id='constitucion' name='constitucion'></select>    </div>");
+        $("#container-select").append(divConstitucion)
         generarOptions('#constitucion');
         
     
-        divInteligencia=$("<div id='div_inteligencia'>Inteligencia  <select id='inteligencia' name='inteligencia'></select>  <p class='puntosHabilidad'>8</p> </div>");
-        andamio.append(divInteligencia);
+        divInteligencia=$("<div id='div_inteligencia'><p> Inteligencia </p>  <select id='inteligencia' name='inteligencia'></select>  </div>");
+        $("#container-select").append(divInteligencia);
         generarOptions('#inteligencia');
         
     
-        divSabiduria=$("<div id='div_sabiduria'>Sabiduria  <select id='sabiduria' name='sabiduria'></select>  <p class='puntosHabilidad'>8</p> </div>");
-        andamio.append(divSabiduria);
+        divSabiduria=$("<div id='div_sabiduria'><p> Sabiduria</p>   <select id='sabiduria' name='sabiduria'></select>   </div>");
+        $("#container-select").append(divSabiduria);
         generarOptions('#sabiduria');
         
     
-        divCarisma=$("<div id='div_carisma'>Carisma  <select id='carisma' name='carisma'></select>  <p class='puntosHabilidad'>8</p> </div>");
-        andamio.append(divCarisma);
+        divCarisma=$("<div id='div_carisma'><p> Carisma </p>  <select id='carisma' name='carisma'></select>   </div>");
+        $("#container-select").append(divCarisma);
         generarOptions('#carisma');
+        
+        
+        andamio.append($("<div id='navegacionHabilidades'><button id='vuelveAtrasHabilidad'>Vuelve atrás</button></div>"));
 
-        andamio.append("<div id='navegacionHabilidad'></div>")
-        crearBoton("vuelveAtrasHabilidad","#navegacionHabilidad","Vuelve atrás",vuelveAtrasHabilidad)
+        
+
+        $('#vuelveAtrasHabilidad').click(function () {
+            $(andamio).remove();
+            $('#clase').prop( "disabled", false );
+
+            crearBoton("vuelveAtrasClase", "#navegacionClase", "Vuelve atrás",volverAtrasClase);      
+            crearBoton("siguientePasoClase", "#navegacionClase", "Siguiente Paso", siguienteClase);
+        })
+        
+
 
         let habilidades= {"fuerza":8,"destreza":8,"constitucion":8,"inteligencia":8,"sabiduria":8,"carisma":8};
-    
+        
         $('#fuerza').click(function () { 
                 puntos+=selectValor('#fuerza',puntos,habilidades);
                 selectValor("#destreza", puntos, habilidades, "repeat");
@@ -340,7 +463,7 @@ $(document).ready(function() {
                 selectValor("#sabiduria", puntos, habilidades, "repeat");
                 selectValor("#carisma", puntos, habilidades, "repeat");
                 
-                if(puntos==0 && !botonExiste("#siguientePasoHabilidad")){crearBoton('siguientePasoHabilidad','#navegacionHabilidad','Siguiente Paso',siguientePasoHabilidad)}
+                if(puntos==0 && !botonExiste("#siguientePasoHabilidad")){crearBoton('siguientePasoHabilidad','#navegacionHabilidades','Siguiente Paso',siguientePasoHabilidad)}
                 
         })
     
@@ -352,7 +475,7 @@ $(document).ready(function() {
                 selectValor("#sabiduria", puntos, habilidades, "repeat");
                 selectValor("#carisma", puntos, habilidades, "repeat"); 
 
-                if(puntos=0 && !botonExiste("#siguientePasoHabilidad")){crearBoton('siguientePasoHabilidad','#navegacionHabilidad','Siguiente Paso',siguientePasoHabilidad)}     
+                if(puntos==0 && !botonExiste("#siguientePasoHabilidad")){crearBoton('siguientePasoHabilidad','#navegacionHabilidades','Siguiente Paso',siguientePasoHabilidad)}     
         })
     
         $('#constitucion').click(function () {       
@@ -363,7 +486,7 @@ $(document).ready(function() {
                 selectValor("#sabiduria", puntos, habilidades, "repeat");
                 selectValor("#carisma", puntos, habilidades, "repeat");
 
-                if(puntos==0 && !botonExiste("#siguientePasoHabilidad")){crearBoton('siguientePasoHabilidad','#navegacionHabilidad','Siguiente Paso',siguientePasoHabilidad)}
+                if(puntos==0 && !botonExiste("#siguientePasoHabilidad")){crearBoton('siguientePasoHabilidad','#navegacionHabilidades','Siguiente Paso',siguientePasoHabilidad)}
         })
     
         $('#inteligencia').click(function () {     
@@ -374,7 +497,7 @@ $(document).ready(function() {
                 selectValor("#sabiduria", puntos, habilidades, "repeat");
                 selectValor("#carisma", puntos, habilidades, "repeat");
 
-                if(puntos==0 && !botonExiste("#siguientePasoHabilidad")){crearBoton('siguientePasoHabilidad','#navegacionHabilidad','Siguiente Paso',siguientePasoHabilidad)}
+                if(puntos==0 && !botonExiste("#siguientePasoHabilidad")){crearBoton('siguientePasoHabilidad','#navegacionHabilidades','Siguiente Paso',siguientePasoHabilidad)}
         })
     
         $('#sabiduria').click(function () {        
@@ -384,7 +507,7 @@ $(document).ready(function() {
                 selectValor("#inteligencia", puntos, habilidades, "repeat");
                 selectValor("#fuerza", puntos, habilidades, "repeat");
                 selectValor("#carisma", puntos, habilidades, "repeat");
-                if(puntos==0 && !botonExiste("#siguientePasoHabilidad")){crearBoton('siguientePasoHabilidad','#navegacionHabilidad','Siguiente Paso',siguientePasoHabilidad)}
+                if(puntos==0 && !botonExiste("#siguientePasoHabilidad")){crearBoton('siguientePasoHabilidad','#navegacionHabilidades','Siguiente Paso',siguientePasoHabilidad)}
                 else if(botonExiste("#siguientePasoHabilidad")){
                     $("#siguientePasoHabilidad").remove()
                 }    
@@ -397,30 +520,16 @@ $(document).ready(function() {
                 selectValor("#inteligencia", puntos, habilidades, "repeat");
                 selectValor("#sabiduria", puntos, habilidades, "repeat");
                 selectValor("#fuerza", puntos, habilidades, "repeat");
-                if(puntos==0 && !botonExiste("#siguientePasoHabilidad")){crearBoton('siguientePasoHabilidad','#navegacionHabilidad','Siguiente Paso',siguientePasoHabilidad)}
+                if(puntos==0 && !botonExiste("#siguientePasoHabilidad")){crearBoton('siguientePasoHabilidad','#navegacionHabilidades','Siguiente Paso',siguientePasoHabilidad)}
         })    
     
     }
     function vuelveAtrasHabilidad(){
-        $("#sectionHabilidades").remove();
+        $("#container-habilidades").remove();
         $('#raza').prop( "disabled", false );
         $('#subraza').prop( "disabled", false );
-        $("#navegacionRaza").prepend("<button id='siguientePasoRaza'>Siguiente Paso</button>");
-        $('#siguientePasoRaza').click(function () {
-            $('#raza').prop( "disabled", true );
-            $('#subraza').prop( "disabled", true );
-            $("#sectionRaza").after('<section id="sectionHabilidades"></section>');
-            $('#vuelveAtrasRaza').remove();
-            $('#siguientePasoRaza').remove();
-            formularioHabilidades();
-
-        });
-        $("#sectionRaza").append($("<div id='navegacionRaza'><button id='vuelveAtrasRaza'>Vuelve atrás</button></div>"))
-        $("#vuelveAtrasRaza").on("click", function(){
-            $("#sectionRaza").remove();
-            $('#nombreFicha').prop( "disabled", false );
-        });
-
+        crearBoton("vuelveAtrasClase", "#navegacionClase", "Vuelve atrás",volverAtrasClase);
+        crearBoton("siguientePasoClase", "#navegacionClase", "Siguiente Paso", siguienteClase);
     }
     
 
@@ -431,7 +540,7 @@ $(document).ready(function() {
         $('#inteligencia').prop('disabled',true);
         $('#sabiduria').prop('disabled',true);
         $('#carisma').prop('disabled',true);
-        $("#sectionHabilidades").after('<section id="sectionTrasfondo"></section>');
+        $("#container-habilidades").after('<section id="sectionTrasfondo"></section>');
         $('#vuelveAtrasHabilidad').remove();
         $('#siguientePasoHabilidad').remove();
         formularioTrasfondo();
@@ -443,7 +552,6 @@ $(document).ready(function() {
         $(habilidad+' option').remove();
         
         let texto=habilidad.substring(1, habilidad.lenght);
-        $('#div_'+texto+' p').text(lvlHabilidad);
     
         
         let costePuntos8= {8: 0, 9: -1, 10: -2, 11: -3, 12: -4, 13: -5, 14: -7, 15: -9};
@@ -493,11 +601,12 @@ $(document).ready(function() {
        }
     
         $(habilidad+' option[value="'+lvlHabilidad+'"]').attr('selected',"");
-    
-        
+       
+
+
         if (diccionario[texto]==8) {
             diccionario[texto]=lvlHabilidad;
-            $("#puntos").text(puntos+costePuntos8[lvlHabilidad]+"/27"); 
+            $("#puntos").text(puntos+costePuntos8[lvlHabilidad]+"/27");
             return costePuntos8[lvlHabilidad];
         }
         else if (diccionario[texto]==9) {
@@ -536,6 +645,8 @@ $(document).ready(function() {
             return costePuntos15[lvlHabilidad];
         }
         
+
+
         
     }
     
@@ -587,7 +698,8 @@ $(document).ready(function() {
         $('#inteligencia').prop('disabled',false);
         $('#sabiduria').prop('disabled',false);
         $('#carisma').prop('disabled',false);
-        crearBoton("vuelveAtrasHabilidad","#navegacionHabilidad","Vuelve atrás",vuelveAtrasHabilidad);
+        crearBoton("vuelveAtrasHabilidad","#navegacionHabilidades","Vuelve atrás",vuelveAtrasHabilidad);
+        crearBoton('siguientePasoHabilidad','#navegacionHabilidades','Siguiente Paso',siguientePasoHabilidad);
 
 
     }
@@ -638,14 +750,13 @@ $(document).ready(function() {
     }
 
     function formularioIdiomas(){
-        let headerSeccion = $("<h2></h2>").text("Selecciona dos idiomas");
+        let headerSeccion = $("<h2></h2>").text("Selecciona los dos idiomas de tu trasfondo");
         sectionIdiomas=$("#sectionIdioma");
         sectionIdiomas.append(headerSeccion);
 
         let stringIdiomasRaza=$('.grid-item-6 p:first-of-type').text();
         stringIdiomasRaza=stringIdiomasRaza.substring(0,stringIdiomasRaza.length-1);
         let idiomasRaza=stringIdiomasRaza.split(', ');
-        console.log(idiomasRaza);
 
         for (let i = 0; i < idiomasRaza.length; i++) {
             var index = idiomas.indexOf(idiomasRaza[i]);
@@ -654,19 +765,28 @@ $(document).ready(function() {
             }
                     
         }
-        console.log(idiomas);
+        
+        let divIdiomas = $("<div id='divIdiomas'></div>");
 
         $.each(idiomas, function (i, value) { 
-             sectionIdiomas.append('<input type="checkbox" id="idioma'+(i+1)+'" name="idioma'+(i+1)+'" value="'+value+'" class="checkbox">  <label for="idioma'+(i+1)+'">'+value+'</label>')
+             divIdiomas.append('<div><input type="checkbox" id="idioma'+(i+1)+'" name="idioma'+(i+1)+'" value="'+value+'" class="checkbox">  <label for="idioma'+(i+1)+'">'+value+'</label></div>')
         });
 
-        
+        sectionIdiomas.append(divIdiomas);
+
         // codigo para limite
         limite=2
         $('input.checkbox').on('change', function(evt) {
-            if($(this).siblings(':checked').length >= limite) {
+            console.log($(this).siblings(":checked"));
+            if($("input.checkbox:checked").length > limite) {
                 this.checked = false;
-                
+
+            } else if ($("input.checkbox:checked").length == limite){
+                if (!botonExiste("#siguienteIdioma")){
+                    crearBoton("siguienteIdioma", "#navegacionIdioma", "Siguiente Paso",vuelveAtrasIdioma);
+                };  
+            } else if($("input.checkbox:checked").length < limite) {
+                $("#siguienteIdioma").remove();
             }
          });
         sectionIdiomas.append($("<div id='navegacionIdioma'></div>"));
@@ -678,7 +798,7 @@ $(document).ready(function() {
         $("#sectionIdioma").remove();
         $('#selectTrasfondo').prop('disabled',false);
         crearBoton("vuelveAtrasTrasfondo", "#navegacionTrasfondo", "Vuelve atrás",volverAtrasTrasfondo);
-
+        crearBoton("siguientePasoTrasfondo", "#navegacionTrasfondo", "Siguiente Paso",siguientePasoTrasfondo);
     }
 
 
