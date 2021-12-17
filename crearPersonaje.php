@@ -15,7 +15,7 @@
     <?php include "header.php";?>
     <?php include "functions.php"; recuperarRazasBBDD(); recuperarClasesBBDD();?>
     <h1>Crea tu personaje</h1>
-    <form id="crearPersonajeForm" action="" method="get">
+    <form id="crearPersonajeForm" action="guardarPersonaje.php" method="post">
         <section id="nombrePersonaje">
             <h2>Introduce el nombre de tu personaje</h2>
             <div id="nombreForm">
