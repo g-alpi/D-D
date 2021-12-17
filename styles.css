@@ -794,4 +794,59 @@ i {
   transition: color 1s;
 }
 
+/*Transition*/
+#transition{
+  position: relative;
+  width: 100%;
+}
+
+.sprites{
+  position: absolute;
+  top :-21px;
+}
+.enano{
+  background-image: url(imagenes/transition/enano.gif);
+  background-size: cover;
+  height: 370px;
+  width: 340px;
+  transform: scale(0.2);
+  left: -150px;
+  animation: movimiento 2s ease-in-out infinite alternate;
+
+}
+.goblin{
+  background-image: url(imagenes/transition/goblin.gif);
+  background-size: cover;
+  height: 440px;
+  width: 220px;
+  top: -40px;
+  transform: scale(0.2) scaleX(-1);
+  left: -50px;
+  animation: movimiento 2s ease-in-out infinite alternate-reverse;
+}
+.barista{
+  background-image: url(imagenes/transition/barista.gif);
+  background-size: cover;
+  height: 370px;
+  width: 340px;
+  left: 0px;
+  transform: scale(0.2);
+  animation: movimiento 30s normal infinite alternate;
+}
+.lenadora{
+  background-image: url(imagenes/transition/lenadora.gif);
+  background-size: cover;
+  height: 370px;
+  width: 340px;
+  left: 100px;
+  transform: scale(0.2);
+  animation: movimiento 60s normal infinite alternate;
+}
+
+@keyframes movimiento{
+  from {left: -150px}
+  to {left: 480px;}
+
+}
+
 

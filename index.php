@@ -11,14 +11,20 @@
 <body id="index">
 	<?php include 'functions.php'; ?>
 	<h1> Dungeons & Dragons </h1>
+	
 	<div class="row">
 		<div class="descripcion-dnd">
+			<div id="transicion">
+				<div class="sprites barista"></div>
+				<div class="sprites goblin"></div>
+				<div class="sprites enano"></div>
+				<div class="sprites lenadora"></div>
+			</div>
 			<img id="logo-dnd" src="imagenes/pagina/dnd.png" alt="Logotipo del juego"></img>
 			<p>
 				Los mundos y aventuras en <strong><em>Dungeons & Dragons</em></strong> parten de una base de fantasía medieval, que se amplía con lugares, criaturas y magia, haciendo este universo único y fantástico.<br><br>Hay incontables de mundos en <strong><em>Dungeons and Dragons</em></strong> y todos ellos están conectados entre sí, además de estar conectados con otros planos de existencia, formando así todo un cosmos llamado <em>Multiverso</em>.<br><br><strong>¡Adéntrate en esta magnífica aventura creándote una <em>ficha de personaje</em>!</strong>
 			</p>
 		</div>
-
 		<div class="form-login">
 			<h2>Login</h2>
 			<form method="post">
@@ -38,7 +44,7 @@
 					notificacion("Cuenta creada.", "success");
 				}
 			?>
-		</div>
+		</div>	
 	</div>
 	<?php include "footer.php" ?>	
 </body>
