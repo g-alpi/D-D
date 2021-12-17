@@ -8,8 +8,9 @@
 	<link rel="stylesheet" type="text/css" href="styles.css">
     <title>Tus fichas</title>
 </head>
-<body> 
+<body id="tusFichas"> 
     <?php include "header.php";?>
+    <div class="filAriadna" ><p>/<a href="dashboard.php">Inicio</a></p></div>
     <section class="section-personajes">
         <h1>TUS FICHAS</h1>
         <div>

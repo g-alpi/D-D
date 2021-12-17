@@ -13,6 +13,7 @@
 </head>
 <body id="crearPersonaje">
     <?php include "header.php";?>
+    <p>/<a href="dashboard.php">dashboard</a></p>
     <h1>Crea tu personaje</h1>
     <form id="crearPersonajeForm" action="" method="get">
         <section id="nombrePersonaje">

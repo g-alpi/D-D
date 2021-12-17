@@ -7,6 +7,8 @@
 	<title></title>
 </head>
 <body id="ficha">
+	<div class="filAriadna"><p><a href="dashboard.php">Inicio</a>/<a href="crearPersonaje.php">Crear Personaje</a></p></div>
+
 	<div id="cabeceraFicha">
 		<div id="nombreFicha">
 			<h1 id="nombreFicha">Nombre Ficha</h1>

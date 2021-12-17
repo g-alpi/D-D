@@ -130,6 +130,10 @@ input[type="date"]:hover {
 
 /* register.php */
 
+#register .filAriadna{
+  margin-top: 50px;
+  margin-left: 10%;
+}
 .formularioRegistro {
   background-color: var(--marron_oscuro);
   color: var(--amarillo_claro);
@@ -230,6 +234,10 @@ input[type="date"]:hover {
 
 /* tusFichas.php */
 
+#tusFichas .filAriadna{
+  margin-top: 50px;
+  margin-left: 10%;
+}
 .section-personajes > div {
   display: flex;
   flex-direction: row;
@@ -287,6 +295,12 @@ a.borrar {
 }
 
 /* crearPersonaje.php */
+
+#crearPersonaje .filAriadna{
+  margin-top: 50px;
+  margin-left: 10%;
+}
+
 #crearPersonajeForm {
   margin: 0 10%;
   padding: 50px;
@@ -369,13 +383,15 @@ a.borrar {
 
 /* ficha.php */
 
+#ficha .filAriadna{
+  margin-left: 10%;
+  margin-top: 50px;
+}
+
 #ficha div{
   margin: 3px;
   padding: 3px;
 }
-
-
-
 #ficha h1{
   font-size: 44px;
   letter-spacing: 1px;
@@ -777,6 +793,5 @@ i {
   color: var(--amarillo_oscuro);
   transition: color 1s;
 }
-
 
 
