@@ -44,6 +44,11 @@
 			</a>
 		</div>
 	</section>
+	
+	<a href="fichaPDF.php">Download</a>
+	
 	<?php include "footer.php";?>
+	
+	
 </body>
 </html>
