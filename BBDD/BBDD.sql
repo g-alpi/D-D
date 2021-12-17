@@ -30,7 +30,8 @@ create table personajes (
 	constitucion int,
 	inteligencia int,
 	sabiduria int,
-	carisma int
+	carisma int,
+    ruta_imagen varchar(100)
 );
 
 -- Relacionamos los usuarios con sus personajes
