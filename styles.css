@@ -875,7 +875,7 @@ i {
 
 .sprites{
   position: absolute;
-  top :-21px;
+  top :-20.5px;
 }
 .enano{
   background-image: url(imagenes/transition/enano.gif);
@@ -884,18 +884,19 @@ i {
   width: 340px;
   transform: scale(0.2);
   left: -150px;
-  animation: movimiento 2s ease-in-out infinite alternate;
+  top: -19.5px;
+  animation: movimiento 4s ease-in-out infinite alternate;
 
 }
 .goblin{
   background-image: url(imagenes/transition/goblin.gif);
   background-size: cover;
-  height: 440px;
+  height: 200px;
   width: 220px;
-  top: -40px;
+  top: 65.5px;
   transform: scale(0.2) scaleX(-1);
   left: -50px;
-  animation: movimiento 2s ease-in-out infinite alternate-reverse;
+  animation: movimientoGoblin 24s infinite alternate-reverse;
 }
 .barista{
   background-image: url(imagenes/transition/barista.gif);
@@ -904,7 +905,7 @@ i {
   width: 340px;
   left: 0px;
   transform: scale(0.2);
-  animation: movimiento 30s normal infinite alternate;
+  animation: movimiento 60s normal infinite alternate;
 }
 .lenadora{
   background-image: url(imagenes/transition/lenadora.gif);
@@ -913,12 +914,31 @@ i {
   width: 340px;
   left: 100px;
   transform: scale(0.2);
-  animation: movimiento 60s normal infinite alternate;
+  animation: movimiento 120s normal infinite alternate;
 }
 
 @keyframes movimiento{
-  from {left: -150px}
-  to {left: 480px;}
+  0% {left: -150px;
+    transform: scale(0.2) scaleX(1);}
+  50%{left: 480px;
+    transform: scale(0.2) scaleX(-1);}
+  100% {left: -150px;
+  transform: scale(0.2) scaleX(1);}
+
+}
+@keyframes movimientoGoblin{
+  0% {left: 480px;
+  transform: scale(0.2) scaleX(-1);}
+  49%{left: -100px;
+  transform: scale(0.2) scaleX(-1);
+  }
+  50%{left: -100px;
+    transform: scale(0.2) scaleX(1);}
+  99%{left: 480px;
+    transform: scale(0.2) scaleX(1);
+  }  
+  100%{left: 480px;
+  transform: scale(0.2) scaleX(-1);}
 
 }
 
