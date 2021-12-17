@@ -25,7 +25,7 @@
     $query->bindParam(':inteligencia', $_POST["inteligencia"]);
     $query->bindParam(':sabiduria', $_POST["sabiduria"]);
     $query->bindParam(':carisma', $_POST["carisma"]);
-    $query->bindParam(':rutaImagen', $_POST["nombre"]);
+    $query->bindParam(':rutaImagen', $_POST["imagen"]);
 
 
     $query->execute();      

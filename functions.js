@@ -844,6 +844,12 @@ $(document).ready(function() {
     
     function submitForm(event){
         event.preventDefault();
+        if($("#subraza option:selected").text() != ""){
+            $("#sectionRaza").append("<input id='imagen' name='imagen' type='hidden' value='" + razas[$("#subraza option:selected").text()]["ruta_imagen"]+ "'>");
+        } else {
+            $("#sectionRaza").append("<input id='imagen' name='imagen' type='hidden' value='" + razas[$("#raza option:selected").text()]["ruta_imagen"] + "'>");
+        }
+        
         $("#nombreFicha").prop('disabled',false);
         $("#raza").prop('disabled',false);
         $("#subraza").prop('disabled',false);
