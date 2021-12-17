@@ -333,7 +333,7 @@ a.borrar {
   padding: 10px;
   font-size: 24px;
 }
-#crearPersonajeForm select:hover, #crearPersonajeForm button:hover {
+#crearPersonajeForm select:hover, #crearPersonajeForm button:hover, input [type="submit"] {
   cursor: pointer;
 }
 #sectionRaza select, #sectionClase select, #selectTrasfondo {
@@ -407,8 +407,25 @@ a.borrar {
 #puntos:before {
   content: "Puntos restantes: ";
 }
-#navegacionHabilidades, #navegacionTrasfondo, #navegacionIdioma{
+#navegacionHabilidades, #navegacionTrasfondo, #navegacionIdioma, #navegacionObjetos{
   display: flex;
+}
+#navegacionObjetos input[type="submit"]{
+  width: 300px;
+  height: 75px;
+  font-size: 20px;
+  margin: 50px auto 0;
+  background-color: var(--marron_claro);
+  color: var(--amarillo_claro);
+  border-radius: 50px;
+  border: none;
+  font-family: RoundStyle-Book;
+  transition: color 1s, background-color 1s;
+}
+#navegacionObjetos input[type="submit"]:hover{
+  background-color: var(--amarillo_claro);
+  color: var(--marron_oscuro);
+  transition: color 1s, background-color 1s;
 }
 #divIdiomas {
   display:flex;
@@ -423,6 +440,9 @@ a.borrar {
   width: 300px;
   color: var(--amarillo_claro);
   font-size: 24px;
+}
+#equipamiento p {
+  font-size: 28px;
 }
 /* Componentes CSS */
 

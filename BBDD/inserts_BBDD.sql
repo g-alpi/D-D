@@ -93,21 +93,21 @@ insert into habilidadesRaciales_razas values
 (13, 6),
 (14, 6),
 (15, 7);
-set foreign_key_checks=1;
+
 
 insert into clases values
-(null,"barbaro","1d12","fuerza",null,"fuerza","constitucion"),
-(null,"bardo","1d8","carisma",null,"destreza","carisma"),
-(null,"brujo","1d8","carisma",null,"sabiduria","carisma"),
-(null,"clerigo","1d8","sabiduria",null,"inteligencia","sabiduria"),
-(null,"explorador","1d10","destreza","sabiduria","fuerza","destreza"),
-(null,"guerrero","1d10","fuerza","destreza","fuerza","constitucion"),
-(null,"hechicero","1d6","carisma",null,"constitucion","carisma"),
-(null,"mago","1d6","inteligencia",null,"inteligencia","sabiduria"),
-(null,"monje","1d8","destreza","sabiduria","fuerza","destreza"),
-(null,"paladin","1d10","fuerza","carisma","sabiduria","carisma"),
-(null,"picaro","1d8","destreza",null,"destreza","inteligencia");
-
+(null,"barbaro","1d12","fuerza",null,"fuerza","constitucion", 7, 2, 50),
+(null,"bardo","1d8","carisma",null,"destreza","carisma", 3, 1, 70),
+(null,"brujo","1d8","carisma",null,"sabiduria","carisma", 1, 1, 75),
+(null,"clerigo","1d8","sabiduria",null,"inteligencia","sabiduria", 2, 5, 40),
+(null,"explorador","1d10","destreza","sabiduria","fuerza","destreza", 6, 2, 60),
+(null,"guerrero","1d10","fuerza","destreza","fuerza","constitucion", 7, 6, 80),
+(null,"hechicero","1d6","carisma",null,"constitucion","carisma", 1, 1, 30),
+(null,"mago","1d6","inteligencia",null,"inteligencia","sabiduria", 1, 1, 50),
+(null,"monje","1d8","destreza","sabiduria","fuerza","destreza", null, null, 20),
+(null,"paladin","1d10","fuerza","carisma","sabiduria","carisma", 2, 6, 50),
+(null,"picaro","1d8","destreza",null,"destreza","inteligencia", 1, 2, 60);
+set foreign_key_checks=1;
 insert into trasfondos values
 (null,"acolito","Has pasado tu vida al servicio de un templo para un dios específico o panteón de dioses. Actúas como intermediario entre el reino del mundo sagrado y el mundo mortal, realizando ritos sagrados y ofreciendo sacrificios para llevar a los adoradores a la presencia de lo divino. No es necesariamente un clérigo; realizar ritos sagrados no es lo mismo que canalizar el poder divino. Elija un dios, un panteón de dioses o algún otro ser cuasi divino, y trabaje con su DM para detallar la naturaleza de su servicio religioso. La sección Gods of the Multiverse contiene un panteón de muestra, del escenario Forgotten Realms. ¿Fue usted un funcionario menor en un templo, criado desde la niñez para ayudar a los sacerdotes en los ritos sagrados? ¿O eras un sumo sacerdote que de repente experimentó un llamado a servir a tu dios de una manera diferente? Quizás eras el líder de un pequeño culto fuera de cualquier estructura de templo establecida, o incluso un grupo oculto que servía a un maestro diabólico que ahora niegas."
 ,"visión","religion"),
