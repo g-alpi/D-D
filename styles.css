@@ -2,11 +2,11 @@
 
 @font-face{
   font-family: D-Dtitle;
-  src: url(../fonts/BreatheFireIii-PKLOB.ttf);
+  src: url(./fonts/BreatheFireIii-PKLOB.ttf);
 }
 @font-face{
   font-family: RoundStyle-Book;
-  src: url(../fonts/RoundStyle-Book.ttf);
+  src: url(./fonts/RoundStyle-Book.ttf);
 }
 :root {
   --amarillo_claro: #FFFEBD;
@@ -61,7 +61,9 @@ input[type="date"]:hover {
   flex-direction: row;
   justify-content: space-around;
 }
-
+button:hover, input[type="checkbox"]:hover, label:hover {
+  cursor: pointer;
+}
 /* index.php */
 
 #logo-dnd {
@@ -218,7 +220,7 @@ input[type="date"]:hover {
 #section-dashboard .container-btn:hover {
   background-color: var(--amarillo_oscuro);
   border-color: var(--marron_claro);
-  box-shadow: 0px 0px 0px 10px var(--amarillo_oscuro), 0px 0px 20px 20px var(--marron_claro);;
+  box-shadow: 0px 0px 0px 10px var(--amarillo_oscuro), 0px 0px 20px 20px var(--marron_claro);
   transition: background-color 1s, border-color 1s, box-shadow 1s;
   animation: animacionBoton 4s 1s infinite;
 }
@@ -331,16 +333,17 @@ a.borrar {
   padding: 10px;
   font-size: 24px;
 }
-#crearPersonajeForm select:hover, #crearPersonajeForm button:hover {
+#crearPersonajeForm select:hover, #crearPersonajeForm button:hover, input [type="submit"] {
   cursor: pointer;
 }
-#sectionRaza select, #sectionClase select {
+#sectionRaza select, #sectionClase select, #selectTrasfondo {
   width: 70%;
   background-color: var(--amarillo_claro);
   color: var(--marron_oscuro);
   padding: 10px;
   font-size: 24px;
   border: none;
+  text-align: center;
 }
 #grid-container-raza {
   display: grid;
@@ -382,6 +385,7 @@ a.borrar {
   justify-content: center;
 }
 #container-select > div {
+  min-width: 30%;
   display: flex;
   flex-direction:row;
   margin-bottom: 50px;
@@ -403,8 +407,42 @@ a.borrar {
 #puntos:before {
   content: "Puntos restantes: ";
 }
-#navegacionHabilidades{
+#navegacionHabilidades, #navegacionTrasfondo, #navegacionIdioma, #navegacionObjetos{
   display: flex;
+}
+#navegacionObjetos input[type="submit"]{
+  width: 300px;
+  height: 75px;
+  font-size: 20px;
+  margin: 50px auto 0;
+  background-color: var(--marron_claro);
+  color: var(--amarillo_claro);
+  border-radius: 50px;
+  border: none;
+  font-family: RoundStyle-Book;
+  transition: color 1s, background-color 1s;
+}
+#navegacionObjetos input[type="submit"]:hover{
+  background-color: var(--amarillo_claro);
+  color: var(--marron_oscuro);
+  transition: color 1s, background-color 1s;
+}
+#divIdiomas {
+  display:flex;
+  flex-wrap:wrap;
+}
+#divIdiomas > div {
+  width: 30%;
+  flex-grow: 1;
+  margin-bottom: 50px;
+}
+#divIdiomas label {
+  width: 300px;
+  color: var(--amarillo_claro);
+  font-size: 24px;
+}
+#equipamiento p {
+  font-size: 28px;
 }
 /* Componentes CSS */
 
