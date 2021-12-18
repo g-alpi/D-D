@@ -299,6 +299,50 @@
     ?> </script> <?php 
   }
 
+  //Esta funcion cambia el Avatar del persnaje
+
+  function cambiarAvatar($pdo,$id){
+      $target_dir = "./imagenes/personajes/";
+      $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
+      $uploadOk = 1;
+      $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+
+
+      $id=intval($id);
+      // Allow certain file formats
+      if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
+          && $imageFileType != "gif" ) {
+          notificacion("Solo se puede subir ficheros con los siguientes formatops: JPG, JPEG, PNG & GIF ",'warning');
+      }
+      elseif (file_exists($target_file)) {
+          // notificacion('La imagen ya existe!','warning');
+          $data = ['ruta' => $target_file,
+                   'id' => $id];
+          $update= $pdo -> prepare('update personajes  set ruta_imagen= :ruta where id=:id'); 
+          $update-> execute($data);
+
+      }
+      if ($uploadOk == 0) {
+          notificacion('La imagen no se a podido subir al servidor','error');
+      // if everything is ok, try to upload file
+      } 
+      else if($uploadOk==1) {
+          if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
+              notificacion('La imagen se ha subido correctamente','success');
+              $data = ['ruta' => $target_file,
+                        'id' => $id];
+              $update= $pdo -> prepare('update personajes  set ruta_imagen= :ruta where id=:id');
+              $update-> execute($data);
+              unset($_POST["personajeID"]);              
+
+          } else {
+              notificacion('La imagen no se a podido subir al servidor','error');
+          }
+      }
+  }
+
+
+
   ?>
 
     </script>  <?php 

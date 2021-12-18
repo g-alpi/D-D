@@ -255,6 +255,9 @@ button:hover, input[type="checkbox"]:hover, label:hover {
   width: 300px;
   height: 300px;
 }
+.img-wrapper:hover {
+  cursor: pointer;
+}
 .marco-personaje img {
   width: 150%;
 }
@@ -267,7 +270,7 @@ button:hover, input[type="checkbox"]:hover, label:hover {
   flex-direction: row;
   justify-content: space-around;
 }
-.botones-ficha a {
+.botones-ficha a, .botones-ficha label {
   text-decoration: none;
   color: var(--amarillo_claro);
   background-color: var(--marron_claro);
@@ -282,10 +285,17 @@ button:hover, input[type="checkbox"]:hover, label:hover {
   background-color: var(--amarillo_oscuro);
   transition: color 1s, background-color 1s;
 }
-a.borrar {
+a.borrar  {
   pointer-events: none;
   color: white;
   background-color: black;
+}
+label.borrar{
+  color: white;
+  background-color: black;
+}
+#fileToUpload{
+  display: none;
 }
 
 /* crearPersonaje.php */
