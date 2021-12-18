@@ -15,10 +15,7 @@
 	<div class="row">
 		<div class="descripcion-dnd">
 			<div id="transicion">
-				<div class="sprites barista"></div>
-				<div class="sprites goblin"></div>
 				<div class="sprites enano"></div>
-				<div class="sprites lenadora"></div>
 			</div>
 			<img id="logo-dnd" src="imagenes/pagina/dnd.png" alt="Logotipo del juego"></img>
 			<p>

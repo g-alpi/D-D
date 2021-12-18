@@ -893,64 +893,16 @@ i {
   background-size: cover;
   height: 370px;
   width: 340px;
-  transform: scale(0.2);
-  left: -150px;
-  top: -19.5px;
-  animation: movimiento 4s ease-in-out infinite alternate;
+  transform: scale(0.2) scaleX(1);
+  left: 0;
+  top: -1%;
+  animation: movimiento 20s linear infinite;
 
-}
-.goblin{
-  background-image: url(imagenes/transition/goblin.gif);
-  background-size: cover;
-  height: 200px;
-  width: 220px;
-  top: 65.5px;
-  transform: scale(0.2) scaleX(-1);
-  left: -50px;
-  animation: movimientoGoblin 24s infinite alternate-reverse;
-}
-.barista{
-  background-image: url(imagenes/transition/barista.gif);
-  background-size: cover;
-  height: 370px;
-  width: 340px;
-  left: 0px;
-  transform: scale(0.2);
-  animation: movimiento 60s normal infinite alternate;
-}
-.lenadora{
-  background-image: url(imagenes/transition/lenadora.gif);
-  background-size: cover;
-  height: 370px;
-  width: 340px;
-  left: 100px;
-  transform: scale(0.2);
-  animation: movimiento 120s normal infinite alternate;
 }
 
 @keyframes movimiento{
-  0% {left: -150px;
-    transform: scale(0.2) scaleX(1);}
-  50%{left: 480px;
-    transform: scale(0.2) scaleX(-1);}
-  100% {left: -150px;
-  transform: scale(0.2) scaleX(1);}
-
+  0% {left: -7%; transform: scale(0.2) scaleX(1);}
+  49.99%{left: 38%;transform: scale(0.2) scaleX(1);}
+  50%{transform: scale(0.2) scaleX(-1);}
+  100% {left: -7%; transform: scale(0.2) scaleX(-1);}
 }
-@keyframes movimientoGoblin{
-  0% {left: 480px;
-  transform: scale(0.2) scaleX(-1);}
-  49%{left: -100px;
-  transform: scale(0.2) scaleX(-1);
-  }
-  50%{left: -100px;
-    transform: scale(0.2) scaleX(1);}
-  99%{left: 480px;
-    transform: scale(0.2) scaleX(1);
-  }  
-  100%{left: 480px;
-  transform: scale(0.2) scaleX(-1);}
-
-}
-
-
