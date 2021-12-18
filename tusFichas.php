@@ -6,11 +6,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" type="text/css" href="styles.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="functions.js"></script>
     <title>Tus fichas</title>
 </head>
 <body id="tusFichas"> 
     <?php include "header.php";?>
-    <div class="filAriadna" ><p>/<a href="dashboard.php">Inicio</a></p></div>
+    <nav class="breadcrumbs">
+		<ol>
+			<li><a href="dashboard.php">Dashboard</a></li>
+            <li><span>></span><a href="tusFichas.php">Tus Fichas</a></li>
+		</ol>
+	</nav>
     <section class="section-personajes">
         <h1>TUS FICHAS</h1>
         <div>

@@ -8,7 +8,6 @@
 	<title></title>
 </head>
 <body id="register">
-	<p id="filAriadna">/<a>Login</a></p>
 	<h1>Crear Usuario</h1>
 	<div class="formularioRegistro">
 		<h2>¡Comencemos!</h2>
