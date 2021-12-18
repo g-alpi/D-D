@@ -10,8 +10,14 @@
 	<script src="functions.js"></script>
     <title>Tus fichas</title>
 </head>
-<body> 
+<body id="tusFichas"> 
     <?php include "header.php";?>
+    <nav class="breadcrumbs">
+		<ol>
+			<li><a href="dashboard.php">Dashboard</a></li>
+            <li><span>></span><a href="tusFichas.php">Tus Fichas</a></li>
+		</ol>
+	</nav>
     <section class="section-personajes">
         <h1>TUS FICHAS</h1>
         <div>

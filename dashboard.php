@@ -11,6 +11,11 @@
 </head>
 <body id="dashboard">
 	<?php include "header.php";?>
+	<nav class="breadcrumbs">
+		<ol>
+			<li><a href="dashboard.php">Dashboard</a></li>
+		</ol>
+	</nav>
 	<section id="section-dashboard">
 		<h1>Escoge una opción</h1>
 		<div class="dashboardButtons">

@@ -44,14 +44,14 @@ h4 {
   font-size: 28px;
   letter-spacing: 3px;
 }
-p, input, a, select, div {
+p, input, a, select, li, td, th {
   font-family: RoundStyle-Book;
-  font-size: 20px;
+  font-size: 18px;
   text-decoration: none;
 }
 label {
   font-family: RoundStyle-Book;
-  color: (--amarillo_claro);
+  color: var(--amarillo_claro);
 }
 input[type="date"]:hover {
   cursor: pointer;
@@ -64,6 +64,35 @@ input[type="date"]:hover {
 button:hover, input[type="checkbox"]:hover, label:hover {
   cursor: pointer;
 }
+.breadcrumbs ol {
+  list-style-type: none;
+  display: flex;
+  flex-direction: row;
+  margin: 0;
+  padding-top: 16px;
+  padding-bottom: 16px;
+  background-color: var(--marron_oscuro);
+}
+.breadcrumbs span {
+ margin: 0 10px;
+ color: var(--amarillo_claro);
+}
+.breadcrumbs a {
+  color: var(--amarillo_claro);
+  transition: color 1s;
+}
+.breadcrumbs a:hover {
+  color: var(--marron_claro);
+  transition: color 1s;
+}
+.breadcrumbs li:last-child > a{
+  color: var(--amarillo_oscuro);
+  transition: color 1s;
+} 
+.breadcrumbs li:last-child > a:hover{
+  color: var(--marron_claro);
+  transition: color 1s;
+} 
 /* index.php */
 
 #logo-dnd {
@@ -370,6 +399,247 @@ a.borrar {
 #navegacionRaza, #navegacionClase{
   display:flex;
 }
+
+
+/* ficha.php */
+
+#ficha div{
+  margin: 3px;
+  padding: 3px;
+}
+#ficha h1{
+  font-size: 44px;
+  letter-spacing: 1px;
+  color: var(--marron_claro);
+  background-color: var(--marron_oscuro);
+  padding: 20px 0;
+  text-shadow: none;
+  text-align: center;
+  border: 5px solid var(--amarillo_claro);
+  box-shadow: 0px 0px 0px 10px var(--marron_oscuro);
+
+}
+
+#ficha li{
+  list-style: none;
+}
+
+#cabeceraFicha{
+  display: flex;
+  flex-wrap: wrap;
+}
+#nombreFicha{
+ box-shadow: none;
+ display: flex;
+ justify-content: center;
+}
+
+#cabeceroDerecho{
+  box-sizing: border-box;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  background-color: var(--marron_oscuro);
+  border: 5px solid var(--amarillo_claro);
+  box-shadow: 0px 0px 0px 10px var(--marron_oscuro);
+  width: 48%;
+}
+#cabeceroDerecho div{
+  width: 200px;
+}
+#cabeceroDerecho h3{
+  font-size: 16px;
+  text-align: center;
+  color:  var(--marron_oscuro);
+  background-color: var(--amarillo_claro);
+  padding: 10px 0;
+
+}
+.cabeceroDerecho{
+  flex-grow: 1;
+  border-style: none;
+}
+.cabeceroDerecho:nth-child(2){
+  display: flex; 
+  justify-content: center;
+}
+#cabeceroInferior{
+  width: 100% ;
+  display: flex;
+}
+#cabeceroInferior > div:nth-child(1n+2){
+  box-sizing: border-box;
+  box-shadow: 0px 0px 0px 10px var(--marron_oscuro);
+  background-color: var(--marron_oscuro);
+  border: 4px solid var(--amarillo_claro);
+  margin: 10px;
+
+}
+#cabeceroInferior > div:nth-child(1n+2) h3{
+  color: var(--amarillo_claro);
+}
+#cabeceroInferior > div > h3{
+  text-align: center;
+  font-size: 12px;
+}
+#hitPoints{
+  width: 30%;
+  justify-self: flex-end;
+}
+div#cabeceraFicha div.flexHorizontal{
+  width: 100%;
+}
+#estadisticas{
+  display: flex;
+  justify-content: space-around;
+  width: 49%;
+  background-color: var(--marron_oscuro);
+  border-radius: 5px;
+}
+#estadisticas h3{
+  text-align: center;
+  color: var(--marron_oscuro);
+  margin: 0;
+}
+#estadisticas p{
+  text-align: center;
+  font-size: 10px;
+  color: var(--marron_oscuro);
+}
+#estadisticas div{
+  border-radius: 10px;
+  width: 60px;
+  height: 60px;
+  background-color: var(--amarillo_claro);
+}
+#centroFicha{
+  display: flex;
+  justify-content: space-around;
+  width: 99%;
+}
+#colIzquierdaFicha{
+  display: flex;
+  flex-direction: column;
+  width: 33%;
+}
+#colIzquierdaFicha > div{
+  box-sizing: border-box;
+  box-shadow: 0px 0px 0px 10px var(--marron_oscuro);
+  border: 5px solid var(--amarillo_claro);
+  margin: 20px 0;
+  background-color: var(--marron_oscuro);
+  border-radius: 4px;
+}
+
+#colIzquierdaFicha > div h3{
+  color: var(--marron_claro);
+  margin: 0;
+}
+
+.listaColIzquierdaFicha{
+  display: flex;
+  flex-direction: column;
+
+}
+#colIzquierdaFicha h3{
+  font-size: 20px;
+  text-align: center;
+  margin: 0;
+}
+.listaColIzquierdaFicha ul{
+  list-style-type: none;
+  width: 90%;
+
+}
+.listaColIzquierdaFicha li{
+  border: 3px solid var(--marron_oscuro);
+  background-color: var(--amarillo_claro);
+  margin: 5px;
+}
+#tiradasSalvacion{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  
+}
+#tiradasSalvacion div{
+  width: 30%;
+  background-color: var(--amarillo_claro);
+  height: 30px;
+  margin: 10px;
+}
+#tiradasSalvacion p{
+  margin: 0;
+  font-size: 12px;
+}
+#centroDerechaFicha{
+  display: flex;
+  flex-direction: column;
+  width: 66%;
+}
+#centroDerechaInferiorFicha{
+  display: flex;
+  justify-content: center;
+
+}
+#armadura, #defensasCondiciones{
+  height: 85px;
+  background-color: var(--marron_oscuro);
+  border: 5px solid var(--amarillo_claro);
+  box-shadow: 0 0 0 10px var(--marron_oscuro);
+  color: var(--amarillo_claro);
+}
+#armadura h3, #defensasCondiciones h3{
+  font-size: 18px;
+  text-align: center;
+}
+#defensasCondiciones{
+  display: flex;
+}
+#habilidades{
+  display: flex;
+  justify-content: center;
+}
+#habilidades table{
+  width: 100%;
+}
+#habilidades table tr {
+  background-color: var(--marron_oscuro);
+  color: var(--amarillo_claro);
+}
+
+#habilidades table tr td:first-child{
+  text-align: center;
+}
+#habilidades table tr th:nth-child(3){
+  text-align: center;
+}
+#habilidades table tr td:nth-child(2){
+  text-align: center;
+}
+#habilidades table tr td:nth-child(4){
+  text-align: center;
+}
+#habilidades table tr th:nth-child(3){
+  text-align: center;
+}
+#pieFicha{
+  display: flex;
+  justify-content: space-around;
+}
+#pieFicha h3{
+  text-align: center;
+  color: var(--marron_claro);
+}
+#pieFicha div{
+  width: 30%;
+  background-color: var(--marron_oscuro);
+}
+#pieFicha li{
+  background-color: var(--amarillo_claro);
+  margin: 4px;
+}
+
 #container-clase {
   display: flex;
   flex-wrap: wrap;
@@ -546,7 +816,7 @@ header > nav li {
   list-style-type: none;
 }
 .header-flex {
-  padding: 50px;
+  padding: 0 50px;
 }
 footer {
   height: auto;
@@ -607,3 +877,80 @@ i {
   color: var(--amarillo_oscuro);
   transition: color 1s;
 }
+
+/*Transition*/
+#transition{
+  position: relative;
+  width: 100%;
+}
+
+.sprites{
+  position: absolute;
+  top :-20.5px;
+}
+.enano{
+  background-image: url(imagenes/transition/enano.gif);
+  background-size: cover;
+  height: 370px;
+  width: 340px;
+  transform: scale(0.2);
+  left: -150px;
+  top: -19.5px;
+  animation: movimiento 4s ease-in-out infinite alternate;
+
+}
+.goblin{
+  background-image: url(imagenes/transition/goblin.gif);
+  background-size: cover;
+  height: 200px;
+  width: 220px;
+  top: 65.5px;
+  transform: scale(0.2) scaleX(-1);
+  left: -50px;
+  animation: movimientoGoblin 24s infinite alternate-reverse;
+}
+.barista{
+  background-image: url(imagenes/transition/barista.gif);
+  background-size: cover;
+  height: 370px;
+  width: 340px;
+  left: 0px;
+  transform: scale(0.2);
+  animation: movimiento 60s normal infinite alternate;
+}
+.lenadora{
+  background-image: url(imagenes/transition/lenadora.gif);
+  background-size: cover;
+  height: 370px;
+  width: 340px;
+  left: 100px;
+  transform: scale(0.2);
+  animation: movimiento 120s normal infinite alternate;
+}
+
+@keyframes movimiento{
+  0% {left: -150px;
+    transform: scale(0.2) scaleX(1);}
+  50%{left: 480px;
+    transform: scale(0.2) scaleX(-1);}
+  100% {left: -150px;
+  transform: scale(0.2) scaleX(1);}
+
+}
+@keyframes movimientoGoblin{
+  0% {left: 480px;
+  transform: scale(0.2) scaleX(-1);}
+  49%{left: -100px;
+  transform: scale(0.2) scaleX(-1);
+  }
+  50%{left: -100px;
+    transform: scale(0.2) scaleX(1);}
+  99%{left: 480px;
+    transform: scale(0.2) scaleX(1);
+  }  
+  100%{left: 480px;
+  transform: scale(0.2) scaleX(-1);}
+
+}
+
+
