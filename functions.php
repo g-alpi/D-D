@@ -427,7 +427,7 @@
   }
   function recuperarAvatar($idPersonaje) {
     $pdo = accesoBBDD();
-    $query = $pdo->prepare("select ruta_imagen as ruta from personajes where id = 1;");
+    $query = $pdo->prepare("select ruta_imagen as ruta from personajes where id = :id_personaje;");
     $query->bindParam(':id_personaje', $idPersonaje);
     $query -> execute();
     $ruta = $query -> fetch();
