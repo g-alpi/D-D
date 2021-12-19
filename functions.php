@@ -175,7 +175,7 @@
 
     function recuperarRazasBBDD(){
       $pdo = accesoBBDD();
-      $query = $pdo->prepare("select razas.nombre, razas.descripcion, razas.ruta_imagen, razas.incremento_estadistica, razas.estadistica_incrementada, razas.tamano, razas.velocidad, razas.vision, razaPadre.nombre as razaPadre 
+      $query = $pdo->prepare("select razas.id as idRaza, razas.nombre, razas.descripcion, razas.ruta_imagen, razas.incremento_estadistica, razas.estadistica_incrementada, razas.tamano, razas.velocidad, razas.vision, razaPadre.nombre as razaPadre 
       from razas 
       left join razas as razaPadre on razas.id_razaPadre = razaPadre.id;");
 
@@ -185,6 +185,7 @@
       foreach ($rows as $row) {
           ?>
             razas["<?php echo $row["nombre"]?>"] = {
+              "idRaza"                    : "<?php echo $row["idRaza"];?>",
               "incremento_estadistica"    : "<?php echo $row["incremento_estadistica"];?>",
               "estadistica_incrementada"  : "<?php echo $row["estadistica_incrementada"];?>",
               "tamaño"                    : "<?php echo $row["tamano"];?>",
@@ -245,7 +246,7 @@
       }
       ?> 
           <?php
-            $queryTrasfondos = $pdo->prepare("select nombre,descripcion ,habilidad_adicional_1, habilidad_adicional_2 from trasfondos;");
+            $queryTrasfondos = $pdo->prepare("select id, nombre,descripcion ,habilidad_adicional_1, habilidad_adicional_2 from trasfondos;");
             $queryTrasfondos -> execute();
             $rowsTrasfondos = $queryTrasfondos -> fetchAll();
             ?>
@@ -254,21 +255,22 @@
             foreach ($rowsTrasfondos as $rowTrasfondos) {
               ?>
               trasfondos["<?php echo $rowTrasfondos["nombre"]?>"]  ={
-                "descripcion":"<?php echo $rowTrasfondos["descripcion"];?>",
-                "habilidad_adicional_1": "<?php echo $rowTrasfondos["habilidad_adicional_1"];?>",
-                "habilidad_adicional_2": "<?php echo $rowTrasfondos["habilidad_adicional_2"];?>"
+                "idTrasfondo"           : "<?php echo $rowTrasfondos["id"];?>",
+                "descripcion"           : "<?php echo $rowTrasfondos["descripcion"];?>",
+                "habilidad_adicional_1" : "<?php echo $rowTrasfondos["habilidad_adicional_1"];?>",
+                "habilidad_adicional_2" : "<?php echo $rowTrasfondos["habilidad_adicional_2"];?>"
               };
               <?php
             }
           ?>
             var idiomas=[];
           <?php
-            $queryIdiomas= $pdo -> prepare("select idioma  from idiomas;");
+            $queryIdiomas= $pdo -> prepare("select id, idioma  from idiomas;");
             $queryIdiomas -> execute();
             $rowsIdiomas = $queryIdiomas -> fetchAll();
             foreach ($rowsIdiomas as $rowIdiomas) {
               ?>
-                idiomas.push("<?php echo $rowIdiomas["idioma"]?>");
+                idiomas.push([<?php echo $rowIdiomas["id"]?>, "<?php echo $rowIdiomas["idioma"]?>"]);
               <?php
             }
         ?> </script> <?php 
@@ -278,7 +280,11 @@
 
   function recuperarClasesBBDD(){
     $pdo = accesoBBDD();
-    $query = $pdo->prepare("select * from clases;");
+    $query = $pdo->prepare("select clases.id as idClase, clases.nombre, clases.DG, clases.caracteristicaPrimaria1, clases.caracteristicaPrimaria2, clases.competenciaSalvacion1, clases.competenciaSalvacion2,
+    clases.armaBase, clases.armaduraBase, clases.POInicial, armas.nombre as nombreArma, armaduras.nombre as nombreArmadura
+    from clases
+    left join armas on clases.armaBase = armas.id
+    left join armaduras on clases.armaduraBase = armaduras.id;");
 
     $query -> execute();
     $rows = $query -> fetchAll();
@@ -286,12 +292,16 @@
     foreach ($rows as $row) {
         ?>
           clases["<?php echo $row["nombre"]?>"] = {
+            "id"                      : "<?php echo $row["idClase"]?>",
             "nombre"                  : "<?php echo $row["nombre"];?>",
             "dg"                      : "<?php echo $row["DG"];?>",
             "caracteristicaPrimaria1" : "<?php echo $row["caracteristicaPrimaria1"];?>",
             "caracteristicaPrimaria2" : "<?php echo $row["caracteristicaPrimaria2"];?>",
             "competenciaSalvacion1"   : "<?php echo $row["competenciaSalvacion1"];?>",
             "competenciaSalvacion2"   : "<?php echo $row["competenciaSalvacion2"];?>",
+            "armaInicial"             : "<?php echo $row["nombreArma"];?>",
+            "armaduraInicial"         : "<?php echo $row["nombreArmadura"];?>",
+            "oroInicial"              : "<?php echo $row["POInicial"];?>"
           };
 
         <?php
@@ -346,3 +356,85 @@
   ?>
 
     </script>  <?php 
+
+  // Esta funcion te devuelve todos los datos necesarios del personaje menos los idiomas
+
+  function recuperarFicha($idPersonaje){
+    $pdo = accesoBBDD();
+    $query = $pdo->prepare("select personajes.nombre, personajes.fuerza, personajes.destreza, personajes.constitucion, personajes.inteligencia, personajes.sabiduria, personajes.carisma,
+    razas.nombre as nombreRaza, razas.velocidad, clases.nombre as nombreClase, clases.dg, trasfondos.nombre as nombreTrasfondo, armas.nombre as nombreArma,
+    armaduras.nombre as nombreArmadura, clases.POInicial, armaduras.ca, armaduras.MaximoDestreza
+    from personajes
+    inner join razas on personajes.raza = razas.id
+    inner join clases on personajes.clase = clases.id
+    inner join trasfondos on personajes.trasfondo = trasfondos.id
+    inner join armas on clases.armaBase = armas.id
+    inner join armaduras on clases.armaduraBase = armaduras.id
+    where personajes.id = :id_personaje;");
+    $query->bindParam(':id_personaje', $idPersonaje);
+    $query -> execute();
+    $rows = $query -> fetchAll();
+    foreach ($rows as $row) {
+      $personaje = array(
+        "nombre"        => $row["nombre"],
+        "trasfondo"     => $row["nombreTrasfondo"],
+        "clase"         => $row["nombreClase"],
+        "raza"          => $row["nombreRaza"],
+        "fuerza"        => $row["fuerza"],
+        "destreza"      => $row["destreza"],
+        "constitucion"  => $row["constitucion"],
+        "inteligencia"  => $row["inteligencia"],
+        "sabiduria"     => $row["sabiduria"],
+        "carisma"       => $row["carisma"],
+        "velocidad"     => $row["velocidad"],
+        "dg"            => $row["dg"],
+        "po"            => $row["POInicial"],
+        "arma"          => $row["nombreArma"],
+        "armadura"      => $row["nombreArmadura"],
+        "ca"            => $row["ca"],
+        "maxDestreza"   => $row["MaximoDestreza"]
+      );
+    }
+    return $personaje;
+  }
+
+  // Esta funcion devuelve los idiomas de un personaje
+
+  function recuperarIdiomasPersonaje($idPersonaje) {
+    $pdo = accesoBBDD();
+    $query = $pdo->prepare("select idiomas.idioma
+    from personajes
+    inner join razas on personajes.raza = razas.id
+    inner join razas_idiomas on razas.id_razaPadre = razas_idiomas.id_raza
+    inner join idiomas on razas_idiomas.id_idioma = idiomas.id
+    where personajes.id = :id_personaje
+    union
+    select idiomas.idioma
+    from personajes
+    inner join personajes_idiomas on personajes.id = personajes_idiomas.id_personaje
+    inner join idiomas on idiomas.id = personajes_idiomas.id_idioma
+    where personajes.id = :id_personaje;");
+    $query->bindParam(':id_personaje', $idPersonaje);
+    $query -> execute();
+    $rows = $query -> fetchAll();
+    $idiomas = array();
+    foreach ($rows as $row) {
+      array_push($idiomas, $row["idioma"]);
+    }
+    return $idiomas;
+  }
+
+  // Esta funcion devuelve el modificador de una estadistica
+
+  function modificadorEstadistica($estadistica) {
+    return round((($estadistica - 10)/2), 0, PHP_ROUND_HALF_DOWN);
+  }
+
+  // Esta funcion te devuelve el modificador de destreza maximo aplicable
+
+  function maximoDestreza ($modificadorDestreza, $maximoDestreza) {
+    if($modificadorDestreza < $maximoDestreza) {
+      return $modificadorDestreza;
+    }
+    return $maximoDestreza;
+  }

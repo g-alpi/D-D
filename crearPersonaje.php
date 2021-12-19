@@ -11,11 +11,22 @@
     <title>Crea tu Personaje</title>
 </head>
 <body id="crearPersonaje">
-
     <?php include "header.php";?>
+    <?php
+		if (!isset($_SESSION["IDUsuario"])){
+            $_SESSION["noAcount"] = true;
+			header("location: register.php");
+		}
+	?>
     <?php include "functions.php"; recuperarRazasBBDD(); recuperarClasesBBDD();?>
+    <nav class="breadcrumbs">
+		<ol>
+			<li><a href="dashboard.php">Dashboard</a></li>
+            <li><span>></span><a href="crearPersonaje.php">Crear Personaje</a></li>
+		</ol>
+	</nav>
     <h1>Crea tu personaje</h1>
-    <form id="crearPersonajeForm" action="" method="get">
+    <form id="crearPersonajeForm" action="guardarPersonaje.php" method="post">
         <section id="nombrePersonaje">
             <h2>Introduce el nombre de tu personaje</h2>
             <div id="nombreForm">

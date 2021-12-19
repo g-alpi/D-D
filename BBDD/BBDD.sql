@@ -31,7 +31,9 @@ create table personajes (
 	inteligencia int,
 	sabiduria int,
 	carisma int,
-    ruta_imagen varchar(100)
+
+	ruta_imagen varchar(100)
+
 );
 
 -- Relacionamos los usuarios con sus personajes
@@ -123,6 +125,13 @@ create table razas_idiomas (
 alter table razas_idiomas add foreign key(id_raza) references razas(id);
 alter table razas_idiomas add foreign key(id_idioma) references idiomas(id);
 
+create table personajes_idiomas (
+	id_personaje int,
+    id_idioma int
+);
+
+alter table personajes_idiomas add foreign key(id_personaje) references personajes(id);
+alter table personajes_idiomas add foreign key(id_idioma) references idiomas(id);
 
 -- Tabla de habilidades raciales
 
@@ -151,7 +160,10 @@ create table clases(
 	caracteristicaPrimaria1 varchar(20),
 	caracteristicaPrimaria2 varchar(20),
 	competenciaSalvacion1 varchar(30),
-	competenciaSalvacion2 varchar(30)
+	competenciaSalvacion2 varchar(30),
+	armaBase int,
+	armaduraBase int,
+	POInicial int
 );
 
 alter table personajes add foreign key (clase) references clases (id);
@@ -274,6 +286,7 @@ create table armas_personajes (
     id_personaje int
 );
 
+alter table clases add foreign key (armaBase) references armas(id);
 alter table armas_personajes add foreign key(id_arma) references armas(id);
 alter table armas_personajes add foreign key(id_personaje) references personajes(id);
 
@@ -307,6 +320,7 @@ create table armaduras (
 	costeEnPO int
 );
 
+
 -- Relacionamos a los personajes con las armaduras que poseen
 
 create table armaduras_personajes (
@@ -314,6 +328,7 @@ create table armaduras_personajes (
     id_personaje int
 );
 
+alter table clases add foreign key (armaduraBase) references armaduras(id);
 alter table armaduras_personajes add foreign key(id_armadura) references armaduras(id);
 alter table armaduras_personajes add foreign key(id_personaje) references personajes(id);
 
