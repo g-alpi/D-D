@@ -4,18 +4,27 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" type="text/css" href="styles.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="functionsAvatar.js"></script>
 	<title></title>
 </head>
 <body id="ficha">
 	<?php
 		session_start();
 		include "functions.php";
-		$personaje = recuperarFicha($_GET["id_ficha"]);
-		$idiomas = recuperarIdiomasPersonaje($_GET["id_ficha"]);
+		$id_ficha=$_GET["id_ficha"];
+		$personaje = recuperarFicha($id_ficha);
+		$idiomas = recuperarIdiomasPersonaje($id_ficha);
+		cambiarAvatar($id_ficha);
+		$ruta=recuperarAvatar($id_ficha);
+		
+		
+
+
 	?>
-	<section id="cabeceraFicha">
+	<section id="cabeceraFicha" class="<?php echo $id_ficha?>">
 		<div id="logo">
-			<img src="imagenes/pagina/dnd.png" alt="logo dnd" srcset="">
+			<img src="<?php echo $ruta["ruta"]?>" alt="logo dnd" srcset="">
 		</div>
 		<div id="detallesPersonaje">
 			<div>

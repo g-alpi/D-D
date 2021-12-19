@@ -311,7 +311,10 @@
 
   //Esta funcion cambia el Avatar del persnaje
 
-  function cambiarAvatar($pdo,$id){
+  function cambiarAvatar($id){
+      $pdo = accesoBBDD();
+
+      if(isset($_FILES["fileToUpload"])){
       $target_dir = "./imagenes/personajes/";
       $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
       $uploadOk = 1;
@@ -323,27 +326,26 @@
       if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
           && $imageFileType != "gif" ) {
           notificacion("Solo se puede subir ficheros con los siguientes formatops: JPG, JPEG, PNG & GIF ",'warning');
+          $uploadOk = 2;
       }
       elseif (file_exists($target_file)) {
-          // notificacion('La imagen ya existe!','warning');
+          // notificacion('Se ha remplazado por una imagen existente!','warning');
           $data = ['ruta' => $target_file,
                    'id' => $id];
           $update= $pdo -> prepare('update personajes  set ruta_imagen= :ruta where id=:id'); 
           $update-> execute($data);
+          $uploadOk = 2;
 
       }
-      if ($uploadOk == 0) {
-          notificacion('La imagen no se a podido subir al servidor','error');
-      // if everything is ok, try to upload file
-      } 
-      else if($uploadOk==1) {
+      
+      if($uploadOk==1) {
           if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
-              notificacion('La imagen se ha subido correctamente','success');
+              
               $data = ['ruta' => $target_file,
                         'id' => $id];
               $update= $pdo -> prepare('update personajes  set ruta_imagen= :ruta where id=:id');
               $update-> execute($data);
-              unset($_POST["personajeID"]);              
+              notificacion('La imagen se ha subido correctamente','success');              
 
           } else {
               notificacion('La imagen no se a podido subir al servidor','error');
@@ -351,7 +353,7 @@
       }
   }
 
-
+  }
 
   ?>
 
@@ -422,6 +424,15 @@
       array_push($idiomas, $row["idioma"]);
     }
     return $idiomas;
+  }
+  function recuperarAvatar($idPersonaje) {
+    $pdo = accesoBBDD();
+    $query = $pdo->prepare("select ruta_imagen as ruta from personajes where id = 1;");
+    $query->bindParam(':id_personaje', $idPersonaje);
+    $query -> execute();
+    $ruta = $query -> fetch();
+
+    return $ruta;
   }
 
   // Esta funcion devuelve el modificador de una estadistica

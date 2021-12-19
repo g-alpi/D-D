@@ -524,6 +524,9 @@ label.borrar{
   align-items: center;
   margin-bottom: 30px;
 }
+#cabeceraFicha > #logo:hover {
+  cursor: pointer;
+}
 #cabeceraFicha img {
   width: 200px;
   height: 200px;
