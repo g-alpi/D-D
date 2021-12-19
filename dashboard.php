@@ -39,7 +39,7 @@
 					</div>
 				</div>
 			</a>
-			<a href="#">
+			<a href="/eligePJ.php">
 				<div class="container-btn">
 					<div class="img-btn">
 						<img src="imagenes/pagina/prueba_ficha.jpg" alt="Imagen de probar tus fichas" srcset="">
