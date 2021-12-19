@@ -46,7 +46,17 @@ insert into razas values
 (null,"elfo del bosque","Como elfo de los bosques, tu intuición y tus sentidos son agudos, y tus pies ligeros pueden transportarte rápida y sigilosamente a través de tus bosques natales. Esta categoría incluye a los elfos salvajes (grugach) de Greyhawk y a los Kagonesti de Dragonlance, al igual que a las razas conocidas como elfos de los bosques en Greyhawk y los Reinos Olvidados.","elfoBosque.jpg",
 1,"sabiduria","mediano","visión en la oscuridad",30,4),
 (null,"gnomo","Un zumbido constante de actividad impregna las madrigueras y vecindarios donde los gnomos forman sus estrechamente unidas comunidades. Sonidos más fuertes interrumpen el bullicio: el crujido de ruedas de moler por aquí, una pequeña explosión por allá, un aullido de sorpresa o triunfo y especialmente estallidos de risas. Los gnomos se toman la vida con deleite, disfrutando cada momento de invención, exploración, investigación, creación y juego.","gnomo.jpg",
-2,"inteligencia","pequeño","visión en la oscuridad",25,null);
+2,"inteligencia","pequeño","visión en la oscuridad",25,null),
+(null,"gnomo del bosque","Como gnomo del bosque, tienes una habilidad natural para las ilusiones, y una rapidez y cautela inherentes. En los mundos de D&D, los gnomos del bosque son raros y reservados.Se reúnen en comunidades ocultas en bosques selváticos,usando ilusiones y trucos para esconderse de las amenazas o para enmascarar sus huidas sin ser detectados. Los gnomos del bosque tienden a ser amistosos con otros habitantes de buen corazón del busque, y mantienen a los elfos y los seres feéricos buenos como sus aliados más importantes. Estos gnomos también son amigos de los animales pequeños del bosque y confían en ellos para que les informen de las amenazas que pueden rondar por sus tierras."
+,"gnomo.jpg", 1,"destreza","pequeño","visión en la oscuridad",25,7),
+(null,"gnomo de la roca","Como gnomo de la roca, posees una inventiva natural y resistencia más allá de la de los otros gnomos. La mayoría de los gnomos en los mundos de D&D son gnomos de las rocas, incluyendo a los gnomos hojalateros del mundo de Dragonlance."
+,"gnomo.jpg", 1,"destreza","pequeño","visión en la oscuridad",25,7),
+(null,"mediano","Las comodidades del hogar son las metas para la mayoría de las vidas de los medianos: un lugar donde asentarse en paz y tranquilidad, lejos de monstruos merodeadores y enfrentamientos de ejércitos, buena bebida y buena conversación. Aunque algunos medianos viven sus días en alejadas comunidades agrícolas, otros forman grupos nómadas que viajan constantemente, atraídos por los nuevos caminos y anchos horizontes, para descubrir las maravillas de las nuevas tierras y gentes. Pero incluso estos viajeros aman la paz, comida, el bienestar y el hogar, aunque el hogar sea un vagón empujado a tirones a través de un camino embarrado o una barcaza flotando río abajo."
+,"mediano.jpg", 2,"destreza","pequeño","visión en la oscuridad",25,null),
+(null,"mediano piesligeros","Como un mediano piesligeros, puedes pasar desapercibido fácilmente, incluso usando a otra persona como cobertura. Tiendes a ser amable y llevarte bien con los demás. En los Reinos Olvidados, los medianos piesligeros son los más extendidos por lo que son la variedad más común. Los piesligeros son más propensos al gusto por viajar que otros medianos, y siempre viven junto a otras razas o emprenden una vida nómada. En el mundo de Greyhawk, estos medianos son llamados piespeludos o compañerosaltos."
+,"mediano.jpg", 1,"carisma","pequeño","visión común",25,10),
+(null,"mediano fornido","Como mediano fornido eres más duro que la mayoría y tienes algo de resistencia al veneno. Algunos dicen que los fornidos tienen sangre enana. En los Reinos Olvidados, estos medianos son llamados corazonesfuertes y son más comunes en el sur."
+,"mediano.jpg", 1,"constitucion","pequeño","visión común",25,10);
 
 set foreign_key_checks=0;
 insert into razas_idiomas values
@@ -55,7 +65,9 @@ insert into razas_idiomas values
 (4, 1),
 (4, 2),
 (7, 1),
-(7, 5);
+(7, 5),
+(10,1),
+(10,7);
 set foreign_key_checks=1;
 
 insert into habilidadesRaciales values
@@ -73,7 +85,16 @@ insert into habilidadesRaciales values
 (null, "Idioma Adicional", "Sabes hablar, leer y escribir un idioma adicional de tu elección."),
 (null, "Ligero de Pies", "Tu velocidad base andando aumenta a 35 pies."),
 (null, "Mascara de la Espesura", "Puedes intentar esconderte incluso cuando sólo estás ligeramente cubierto por el follaje, una lluvia fuerte, la nieve que cae, niebla y otros fenómenos naturales."),
-(null, "Astucia Gnoma", "Obtienes ventaja en todas tus tiradas de salvación de Inteligencia, Sabiduría y Carisma contra magia.");
+(null, "Astucia Gnoma", "Obtienes ventaja en todas tus tiradas de salvación de Inteligencia, Sabiduría y Carisma contra magia."),
+(null,"Ilusionista Natural","Conoces el truco ilusión menor. Inteligencia es tu característica para realizar el conjuro"),
+(null,"Hablar con las Bestias Pequeñas","A través de sonidos y gestos, puedes comunicar ideas simples a bestias Pequeñas o más pequeñas. Los gnomos de los bosques aman a los animales y frecuentemente tienen ardillas, tejones, conejos, topos, pájaros carpinteros y otras criaturas como adoradas mascotas."),
+(null,"Conocimiento de Artífice","Siempre que hagas una tirada de Inteligencia (Historia) relacionada con objetos mágicos, objetos alquímicos o aparatos tecnológicos, puedes añadir dos veces tu bonificación de competencia en lugar del bonificador de competencia que aplicarías normalmente."),
+(null,"Hojalatero","Obtienes competencia con herramientas de artesano (herramientas de hojalatero). Usando estas herramientas, puedes gastar 1 hora y 10 po en materiales para construir un artefacto de cuerda diminuto (CA 5, 1 PG). El artefacto deja de funcionar tras 24 horas (a no ser que dediques 1 hora a repararlo para mantener el artefacto en funcionamiento), o cuando usas tu acción para desmantelarlo, momento en el cual puedes recuperar los materiales que usaste para crearlo. Puedes tener hasta tres de estos artefactos activos a la vez."),
+(null,"Suertudo","Cuando obtienes un 1 en una tirada de ataque, prueba de característica o tirada de salvación, puedes volver a tirar el dado y debes usar la puntuación obtenida en la nueva tirada."),
+(null,"Valiente","Tienes ventaja en las tiradas de salvación en contra de ser asustado."),
+(null,"Agilidad Mediana","Puedes moverte a través del espacio de cualquier criatura que sea de un tamaño mayor que el tuyo"),
+(null,"Sigiloso por Naturaleza","Puedes intentar esconderte incluso cuando solamente estás cubierto tras una criatura que es al menos un tamaño mayor que tú."),
+(null,"Resistencia Fornida","Tienes ventaja en tiradas de salvación contra veneno, y tienes resistencia contra daño de veneno.");
 
 set foreign_key_checks=0;
 insert into habilidadesRaciales_razas values
@@ -92,7 +113,16 @@ insert into habilidadesRaciales_razas values
 (10, 6),
 (13, 6),
 (14, 6),
-(15, 7);
+(15, 7),
+(16,8),
+(17,8),
+(18,9),
+(19,9),
+(20,10),
+(21,10),
+(22,10),
+(23,11),
+(24,12);
 
 
 insert into clases values
