@@ -8,6 +8,7 @@
 	<link rel="stylesheet" type="text/css" href="styles.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<script src="functions.js"></script>
+    <script src="functionsAvatar.js"></script>
     <title>Tus fichas</title>
 </head>
 <body id="tusFichas"> 
@@ -30,7 +31,12 @@
             <?php
                 include "functions.php";
                 $pdo = accesoBBDD();
-                $query = $pdo -> prepare("select usuarios.usuario as usuario, personajes.id as idPersonaje, personajes.nombre as personaje, clases.nombre as clase, razas.nombre as raza, razas.ruta_imagen as ruta 
+                if(isset($_POST["personajeID"])){
+                    cambiarAvatar($_POST["personajeID"]);
+                    unset($_POST["personajeID"]);
+                }
+
+                $query = $pdo -> prepare("select usuarios.usuario as usuario, personajes.nombre as personaje,personajes.id as idPersonaje, clases.nombre as clase, razas.nombre as raza, personajes.ruta_imagen as ruta 
                 from usuarios
                 inner join usuarios_personajes on usuarios.id = usuarios_personajes.id_usuario
                 inner join personajes on usuarios_personajes.id_personaje = personajes.id
@@ -46,8 +52,8 @@
                 foreach ($rows as $row) {
                     ?>
                         <div class="marco-personaje">
-                            <div class="img-wrapper">
-                                <img src="imagenes/personajes/<?php echo $row["ruta"];?>" alt="">
+                            <div class="img-wrapper" id='personaje<?php echo $row["idPersonaje"]?>'>
+                                <img src="<?php echo $row["ruta"];?>" alt="imagenPJ">
                             </div>
                             <div>
                                 <p>Nombre: <?php echo $row["personaje"];?></p>
