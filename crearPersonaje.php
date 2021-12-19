@@ -12,6 +12,12 @@
 </head>
 <body id="crearPersonaje">
     <?php include "header.php";?>
+    <?php
+		if (!isset($_SESSION["IDUsuario"])){
+            $_SESSION["noAcount"] = true;
+			header("location: register.php");
+		}
+	?>
     <?php include "functions.php"; recuperarRazasBBDD(); recuperarClasesBBDD();?>
     <nav class="breadcrumbs">
 		<ol>

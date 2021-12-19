@@ -123,6 +123,13 @@ create table razas_idiomas (
 alter table razas_idiomas add foreign key(id_raza) references razas(id);
 alter table razas_idiomas add foreign key(id_idioma) references idiomas(id);
 
+create table personajes_idiomas (
+	id_personaje int,
+    id_idioma int
+);
+
+alter table personajes_idiomas add foreign key(id_personaje) references personajes(id);
+alter table personajes_idiomas add foreign key(id_idioma) references idiomas(id);
 
 -- Tabla de habilidades raciales
 

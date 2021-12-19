@@ -265,12 +265,12 @@
           ?>
             var idiomas=[];
           <?php
-            $queryIdiomas= $pdo -> prepare("select idioma  from idiomas;");
+            $queryIdiomas= $pdo -> prepare("select id, idioma  from idiomas;");
             $queryIdiomas -> execute();
             $rowsIdiomas = $queryIdiomas -> fetchAll();
             foreach ($rowsIdiomas as $rowIdiomas) {
               ?>
-                idiomas.push("<?php echo $rowIdiomas["idioma"]?>");
+                idiomas.push([<?php echo $rowIdiomas["id"]?>, "<?php echo $rowIdiomas["idioma"]?>"]);
               <?php
             }
         ?> </script> <?php 
@@ -312,3 +312,85 @@
   ?>
 
     </script>  <?php 
+
+  // Esta funcion te devuelve todos los datos necesarios del personaje menos los idiomas
+
+  function recuperarFicha($idPersonaje){
+    $pdo = accesoBBDD();
+    $query = $pdo->prepare("select personajes.nombre, personajes.fuerza, personajes.destreza, personajes.constitucion, personajes.inteligencia, personajes.sabiduria, personajes.carisma,
+    razas.nombre as nombreRaza, razas.velocidad, clases.nombre as nombreClase, clases.dg, trasfondos.nombre as nombreTrasfondo, armas.nombre as nombreArma,
+    armaduras.nombre as nombreArmadura, clases.POInicial, armaduras.ca, armaduras.MaximoDestreza
+    from personajes
+    inner join razas on personajes.raza = razas.id
+    inner join clases on personajes.clase = clases.id
+    inner join trasfondos on personajes.trasfondo = trasfondos.id
+    inner join armas on clases.armaBase = armas.id
+    inner join armaduras on clases.armaduraBase = armaduras.id
+    where personajes.id = :id_personaje;");
+    $query->bindParam(':id_personaje', $idPersonaje);
+    $query -> execute();
+    $rows = $query -> fetchAll();
+    foreach ($rows as $row) {
+      $personaje = array(
+        "nombre"        => $row["nombre"],
+        "trasfondo"     => $row["nombreTrasfondo"],
+        "clase"         => $row["nombreClase"],
+        "raza"          => $row["nombreRaza"],
+        "fuerza"        => $row["fuerza"],
+        "destreza"      => $row["destreza"],
+        "constitucion"  => $row["constitucion"],
+        "inteligencia"  => $row["inteligencia"],
+        "sabiduria"     => $row["sabiduria"],
+        "carisma"       => $row["carisma"],
+        "velocidad"     => $row["velocidad"],
+        "dg"            => $row["dg"],
+        "po"            => $row["POInicial"],
+        "arma"          => $row["nombreArma"],
+        "armadura"      => $row["nombreArmadura"],
+        "ca"            => $row["ca"],
+        "maxDestreza"   => $row["MaximoDestreza"]
+      );
+    }
+    return $personaje;
+  }
+
+  // Esta funcion devuelve los idiomas de un personaje
+
+  function recuperarIdiomasPersonaje($idPersonaje) {
+    $pdo = accesoBBDD();
+    $query = $pdo->prepare("select idiomas.idioma
+    from personajes
+    inner join razas on personajes.raza = razas.id
+    inner join razas_idiomas on razas.id_razaPadre = razas_idiomas.id_raza
+    inner join idiomas on razas_idiomas.id_idioma = idiomas.id
+    where personajes.id = :id_personaje
+    union
+    select idiomas.idioma
+    from personajes
+    inner join personajes_idiomas on personajes.id = personajes_idiomas.id_personaje
+    inner join idiomas on idiomas.id = personajes_idiomas.id_idioma
+    where personajes.id = :id_personaje;");
+    $query->bindParam(':id_personaje', $idPersonaje);
+    $query -> execute();
+    $rows = $query -> fetchAll();
+    $idiomas = array();
+    foreach ($rows as $row) {
+      array_push($idiomas, $row["idioma"]);
+    }
+    return $idiomas;
+  }
+
+  // Esta funcion devuelve el modificador de una estadistica
+
+  function modificadorEstadistica($estadistica) {
+    return round((($estadistica - 10)/2), 0, PHP_ROUND_HALF_DOWN);
+  }
+
+  // Esta funcion te devuelve el modificador de destreza maximo aplicable
+
+  function maximoDestreza ($modificadorDestreza, $maximoDestreza) {
+    if($modificadorDestreza < $maximoDestreza) {
+      return $modificadorDestreza;
+    }
+    return $maximoDestreza;
+  }

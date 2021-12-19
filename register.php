@@ -28,6 +28,10 @@
 		session_start();
 		include "footer.php";
 		include 'functions.php'; 
+		if(isset($_SESSION["noAcount"])){
+			unset($_SESSION["noAcount"]);
+			notificacion("Para acceder a esta funcionalidad hazte una cuenta gratuita y logueate.", "info");
+		}
 		if (isset($_POST["nombre"]) || isset($_POST["correo"]) || isset($_POST["fechaNatal"]) || isset($_POST["contrasena"]) || isset($_POST["confirmarContrasena"])){
 			registro();
 		}

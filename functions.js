@@ -2,28 +2,29 @@ $(document).ready(function() {
 
     inicializar();
 
-    $('header').hover(function () { asignarTeclas(); console.log("hola");}, function () {console.log("holo");});
+    $('header').hover(function () { $(this).toggleClass("helpmode")});
+    $("body").keypress(asignarTeclas);
 
     function asignarTeclas(){
-        $('html').keypress(function (e) { 
-            console.log(String.fromCharCode(e.which));
-            if (String.fromCharCode(e.which).toUpperCase()=="H") {
-                window.location.href= $("li:first-of-type a").attr('href');
-                console.log(String.fromCharCode(e.which));
-            }
-            else if (String.fromCharCode(e.which).toUpperCase()=="D") {
-                window.location.href= $("li:nth-of-type(2) a").attr('href');
-            }
-            else if (String.fromCharCode(e.which).toUpperCase()=="C") {
-                window.location.href= $("li:nth-of-type(3) a").attr('href');
-            }
-            else if (String.fromCharCode(e.which).toUpperCase()=="T") {
-                window.location.href= $("li:nth-of-type(4) a").attr('href');
-            }
-            else if (String.fromCharCode(e.which).toUpperCase()=="L") {
-                window.location.href= $("li:nth-of-type(5) a").attr('href');
-            }
-        });
+        if ($(".helpmode").length == 1) {
+            $('html').keypress(function (e) { 
+                if (String.fromCharCode(e.which).toUpperCase()=="H") {
+                    window.location.href= $("li:first-of-type a").attr('href');
+                }
+                else if (String.fromCharCode(e.which).toUpperCase()=="D") {
+                    window.location.href= $("li:nth-of-type(2) a").attr('href');
+                }
+                else if (String.fromCharCode(e.which).toUpperCase()=="C") {
+                    window.location.href= $("li:nth-of-type(3) a").attr('href');
+                }
+                else if (String.fromCharCode(e.which).toUpperCase()=="T") {
+                    window.location.href= $("li:nth-of-type(4) a").attr('href');
+                }
+                else if (String.fromCharCode(e.which).toUpperCase()=="L") {
+                    window.location.href= $("li:nth-of-type(5) a").attr('href');
+                }
+            });
+        }
     }
 
     // Esta funcion asigna todos los eventos necesarios
@@ -781,19 +782,13 @@ $(document).ready(function() {
         let stringIdiomasRaza=$('.grid-item-6 p:first-of-type').text();
         stringIdiomasRaza=stringIdiomasRaza.substring(0,stringIdiomasRaza.length-1);
         let idiomasRaza=stringIdiomasRaza.split(', ');
-
-        for (let i = 0; i < idiomasRaza.length; i++) {
-            var index = idiomas.indexOf(idiomasRaza[i]);
-            if (index !== -1) {
-                idiomas.splice(index, 1);
-            }
-                    
-        }
         
         let divIdiomas = $("<div id='divIdiomas'></div>");
 
         $.each(idiomas, function (i, value) { 
-             divIdiomas.append('<div><input type="checkbox" id="idioma'+(i+1)+'" name="idioma'+(i+1)+'" value="'+value+'" class="checkbox">  <label for="idioma'+(i+1)+'">'+value+'</label></div>')
+            if(!idiomasRaza.includes(value[1])){
+                divIdiomas.append('<div><input type="checkbox" id="idioma'+(i+1)+'" name="idioma[]" value="'+value[0]+'" class="checkbox">  <label for="idioma'+(i+1)+'">'+value[1]+'</label></div>')
+            }
         });
 
         sectionIdiomas.append(divIdiomas);
