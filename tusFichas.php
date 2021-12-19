@@ -12,6 +12,12 @@
 </head>
 <body id="tusFichas"> 
     <?php include "header.php";?>
+    <?php
+		if (!isset($_SESSION["IDUsuario"])){
+            $_SESSION["noAcount"] = true;
+			header("location: register.php");
+		}
+	?>
     <nav class="breadcrumbs">
 		<ol>
 			<li><a href="dashboard.php">Dashboard</a></li>
@@ -24,7 +30,7 @@
             <?php
                 include "functions.php";
                 $pdo = accesoBBDD();
-                $query = $pdo -> prepare("select usuarios.usuario as usuario, personajes.nombre as personaje, clases.nombre as clase, razas.nombre as raza, razas.ruta_imagen as ruta 
+                $query = $pdo -> prepare("select usuarios.usuario as usuario, personajes.id as idPersonaje, personajes.nombre as personaje, clases.nombre as clase, razas.nombre as raza, razas.ruta_imagen as ruta 
                 from usuarios
                 inner join usuarios_personajes on usuarios.id = usuarios_personajes.id_usuario
                 inner join personajes on usuarios_personajes.id_personaje = personajes.id
@@ -49,7 +55,11 @@
                                 <p>Clase: <?php echo $row["clase"];?></p>
                             </div>
                             <div class="botones-ficha">
-                                <a href="#">Visualizar ficha</a>
+                                <form action="ficha.php" method="get">
+                                    <input type="hidden" name="id_ficha" value="<?php echo $row["idPersonaje"] ?>">
+                                    <input type="submit" value="Visualizar ficha">
+                                </form>
+                                
                                 <a class="borrar" href="#">Borrar ficha</a>
                             </div>
                         </div>
