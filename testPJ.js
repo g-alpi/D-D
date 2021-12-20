@@ -16,7 +16,7 @@ $(document).ready(function(){
     "<h3>Después de disiparse la niebla, divisas en la lejanía un árbol el cual llama tu atención y te acercas a él.</h3><h3>En árbol te encuentras unos simbolos extraños (UwU,0w0,¬.¬). </h3><br><h2>¿Qué vas ha hacer?</h2>",
     "<h3>Tras seguir un conejo blanco llegas ha una habitación, te recibe un tal Morfeo </h3><h3>Cual yonki te ofrece una pastilla azul y otra roja, porque eres el chosenone.</h3><br><h2>¿Qué vas ha hacer?</h2>"   
 ]
-    let index;
+
 
     $('#fuerza').click(function (e) { 
         
@@ -41,7 +41,8 @@ $(document).ready(function(){
             $('#juego').append('<div class="alert error"> <span class="closebtn" onclick="this.parentElement.style.display=\'none\';">&times;</span>No has podido golpiar al enemigo</div>');
             vida-=5;
             if (vida<=0){
-                window.alert("Has perdido");
+                $('#vida').text("0/15");
+                window.alert("Has perdido tu vida a llegado a 0 :c");
                 window.location.href = "dashboard.php";
             }
             else{
@@ -52,7 +53,7 @@ $(document).ready(function(){
         }
         ronda++;
         if(ronda>5 && vida>0){
-            window.alert("Has ganado");
+            window.alert("Has ganado! Has superado todos los eventos");
             window.location.href = "dashboard.php";
         }
         $('#ronda').text("Encuentro "+ronda+"/5");
@@ -83,7 +84,8 @@ $(document).ready(function(){
             $('#juego').append('<div class="alert error"> <span class="closebtn" onclick="this.parentElement.style.display=\'none\';">&times;</span>No has podido dominar la situación</div>');
             vida-=5;
             if (vida<=0){
-                window.alert("Has perdido");
+                $('#vida').text("0/15");
+                window.alert("Has perdido tu vida a llegado a 0 :c");
                 window.location.href = "dashboard.php";
             }
             else{
@@ -92,13 +94,13 @@ $(document).ready(function(){
         }
         ronda++;
         if(ronda>5 && vida>0){
-            window.alert("Has ganado");
+            window.alert("Has ganado! Has superado todos los eventos");
             window.location.href = "dashboard.php";
         }
         $('#ronda').text("Encuentro "+ronda+"/5");
         $('#evento *').remove();
         
-        $('#evento').append(eventos[index]);
+        $('#evento').append(eventos[ronda-2]);
         
     });
     $('#constitucion').click(function (e) { 
@@ -122,7 +124,9 @@ $(document).ready(function(){
             $('#juego').append('<div class="alert error"> <span class="closebtn" onclick="this.parentElement.style.display=\'none\';">&times;</span>No mantenido el ritmo, te has cansado</div>');
             vida-=5;
             if (vida<=0){
-                window.alert("Has perdido");
+                $('#vida').text("0/15");
+                window.alert("Has perdido tu vida a llegado a 0 :c");
+                window.location.href = "dashboard.php";
             }
             else{
             $('#vida').text((vida)+"/15");
@@ -131,12 +135,12 @@ $(document).ready(function(){
         }
         ronda++;
         if(ronda>5 && vida>0){
-            window.alert("Has ganado");
+            window.alert("Has ganado! Has superado todos los eventos");
             window.location.href = "dashboard.php";
         }
         $('#ronda').text("Encuentro "+ronda+"/5");
         $('#evento *').remove();        
-        $('#evento').append(eventos[index]);
+        $('#evento').append(eventos[ronda-2]);
         
     });
     $('#inteligencia').click(function (e) { 
@@ -160,7 +164,8 @@ $(document).ready(function(){
             $('#juego').append('<div class="alert error"> <span class="closebtn" onclick="this.parentElement.style.display=\'none\';">&times;</span>No has ganau ere un boludo</div>');
             vida-=5;
             if (vida<=0){
-                window.alert("Has perdido");
+                $('#vida').text("0/15");
+                window.alert("Has perdido tu vida a llegado a 0 :c");
                 window.location.href = "dashboard.php";
             }
             else{
@@ -169,12 +174,12 @@ $(document).ready(function(){
         }
         ronda++;
         if(ronda>5 && vida>0){
-            window.alert("Has ganado");
+            window.alert("Has ganado! Has superado todos los eventos");
             window.location.href = "dashboard.php";
         }
         $('#ronda').text("Encuentro "+ronda+"/5");
         $('#evento *').remove();
-        $('#evento').append(eventos[index]);
+        $('#evento').append(eventos[ronda-2]);
         
     });
     $('#sabiduria').click(function (e) { 
@@ -198,7 +203,8 @@ $(document).ready(function(){
             $('#juego').append('<div class="alert error"> <span class="closebtn" onclick="this.parentElement.style.display=\'none\';">&times;</span>No has ganado el evento :c</div>');
             vida-=5;
             if (vida<=0){
-                window.alert("Has perdido");
+                $('#vida').text("0/15");
+                window.alert("Has perdido tu vida a llegado a 0 :c");
                 window.location.href = "dashboard.php";
             }
             else{
@@ -207,12 +213,12 @@ $(document).ready(function(){
         }
         ronda++;
         if(ronda>5 && vida>0){
-            window.alert("Has ganado");
+            window.alert("Has ganado! Has superado todos los eventos");
             window.location.href = "dashboard.php";
         }
         $('#ronda').text("Encuentro "+ronda+"/5");
         $('#evento *').remove();
-        $('#evento').append(eventos[index]);
+        $('#evento').append(eventos[ronda-2]);
         
     });
     $('#carisma').click(function (e) { 
@@ -236,7 +242,8 @@ $(document).ready(function(){
             $('#juego').append('<div class="alert error"> <span class="closebtn" onclick="this.parentElement.style.display=\'none\';">&times;</span>No has podido convencer  al/los rival/es</div>');
             vida-=5;
             if (vida<=0){
-                window.alert("Has perdido");
+                $('#vida').text("0/15");
+                window.alert("Has perdido tu vida a llegado a 0 :c");
                 window.location.href = "dashboard.php";
             }
             else{
@@ -245,12 +252,12 @@ $(document).ready(function(){
         }
         ronda++;
         if(ronda>5 && vida>0){
-            window.alert("Has ganado");
+            window.alert("Has ganado! Has superado todos los eventos");
             window.location.href = "dashboard.php";
         }
         $('#ronda').text("Encuentro "+ronda+"/5");
         $('#evento *').remove();  
-        $('#evento').append(eventos[index]);
+        $('#evento').append(eventos[ronda-2]);
         
     });
 
