@@ -847,7 +847,7 @@ label.borrar{
 
 #btnPdf input[type="submit"]{
   position: absolute;
-  top: 10px;
+  top: 70px;
   right: 65px;
   width: 200px;
   border: none;
