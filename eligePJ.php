@@ -12,7 +12,7 @@
 
     <script src="functionsAvatar.js"></script>
 
-    <title>Tus fichas</title>
+    <title>Elige Personaje</title>
 </head>
 <body id="eligePJ.php"> 
     <?php include "header.php";?>
@@ -29,7 +29,7 @@
 		</ol>
 	</nav>
     <section class="section-personajes">
-        <h1>TUS FICHAS</h1>
+        <h1>ELIGE PERSONAJE</h1>
         <div>  
             <?php  
                 include "functions.php";

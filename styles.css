@@ -94,7 +94,9 @@ button:hover, input[type="checkbox"]:hover, label:hover {
   transition: color 1s;
 } 
 /* index.php */
-
+#index > .row {
+  min-height: 60vh;
+}
 #logo-dnd {
   height: 200px;
   width: auto;
@@ -813,14 +815,23 @@ label.borrar{
 }
 #encuentro #btnHabilidades button{
   text-decoration: none;
+  font-family: RoundStyle-Book;
+  width: 150px;
   color: var(--amarillo_claro);
-  background-color: var(--negro);
+  background-color: var(--marron_oscuro);
   padding: 15px;
   border-radius: 50px;
   transition: color 1s, background-color 1s;
   font-size: 16px;
   font-weight: bold;
   margin: 7px;
+  border: none;
+  transition: color 1s, background-color 1s;
+}
+#encuentro #btnHabilidades button:hover {
+  color: var(--marron_oscuro);
+  background-color: var(--amarillo_oscuro);
+  transition: color 1s, background-color 1s;
 }
 #encuentro #evento{
   width: 60%;

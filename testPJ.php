@@ -62,7 +62,7 @@
                 <p>Velocidad<span><?php echo $personaje["velocidad"]?> pies</span></p>
             </div>
             <div id="hitPoints">
-                <p>Putnos de vida<span id="vida">15/15</span></p>
+                <p>Puntos de vida<span id="vida">15/15</span></p>
             </div>
     </section>
     <h1 id="ronda">Encuentro 1/5</h1>
