@@ -100,7 +100,7 @@
     $row = $query->fetch();
     if($row){
       $_SESSION["exito"] = true;
-      header('Location:dashboard.php');
+      header('Location:index.php');
     }
     else{
       notificacion("No se ha podido finalizar el registro, inténtalo más tarde.", "error");
