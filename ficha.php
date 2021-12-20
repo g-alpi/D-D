@@ -13,7 +13,6 @@
 	<?php include 'header.php'?>
 	<div id="ficha">
 		<?php
-			session_start();
 			include "functions.php";
 			$id_ficha=$_GET["id_ficha"];
 			$personaje = recuperarFicha($id_ficha);
