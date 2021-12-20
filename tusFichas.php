@@ -39,7 +39,7 @@
 
 
                 if(isset($_POST["personajeID"])){
-                    cambiarAvatar($pdo,$_POST["personajeID"]);
+                    cambiarAvatar($_POST["personajeID"]);
                     unset($_POST["personajeID"]);
                 }
                 
