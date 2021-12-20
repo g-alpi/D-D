@@ -738,7 +738,6 @@ label.borrar{
 #ficha section:last-child {
   margin-bottom: 0;
 }
-
 /* testPJ.php */
 #imagenPJ img{
   border: 10px solid var(--marron_oscuro);
@@ -846,10 +845,24 @@ label.borrar{
   width: 20%;
 }
 
-
-
-
-
+#btnPdf input[type="submit"]{
+  position: absolute;
+  top: 10px;
+  right: 65px;
+  width: 200px;
+  border: none;
+  color: var(--amarillo_claro);
+  background-color: var(--marron_oscuro);
+  border-radius: 25px;
+  padding: 10px;
+  transition: color 1s, background-color 1s;
+}
+#btnPdf input[type="submit"]:hover {
+ cursor: pointer;
+ color: var(--amarillo_oscuro);
+ background-color: var(--marron_claro);
+ transition: color 1s, background-color 1s;
+}
 /* Componentes CSS */
 
 .alert {

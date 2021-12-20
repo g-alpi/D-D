@@ -6,7 +6,7 @@
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="functionsAvatar.js"></script>
-	<title></title>
+	<title>Tu ficha</title>
 </head>
 <body id="ficha">
 	<?php
@@ -17,10 +17,6 @@
 		$idiomas = recuperarIdiomasPersonaje($id_ficha);
 		cambiarAvatar($id_ficha);
 		$ruta=recuperarAvatar($id_ficha);
-		
-		
-
-
 	?>
 	<section id="cabeceraFicha" class="<?php echo $id_ficha?>">
 		<div id="logo">
@@ -73,7 +69,7 @@
 			<p>Velocidad<span><?php echo $personaje["velocidad"]?> pies</span></p>
 		</div>
 		<div id="hitPoints">
-			<p>Hit Points<span><?php echo explode("d", $personaje["dg"])[1]?></span></p>
+			<p>Puntos de Golpe<span><?php echo explode("d", $personaje["dg"])[1]?></span></p>
 		</div>
 	</section>
 	<section id="centroFicha">
@@ -426,5 +422,9 @@
 			</ul>
 		</div>
 	</section>
+	<form id="btnPdf" action="pdf.php" method="get">
+		<input type="hidden" name="id_ficha" value="<?php echo $id_ficha;?>">
+		<input type="submit" value="PDF">
+	</form>
 </body>
 </html>
