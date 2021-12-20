@@ -61,7 +61,7 @@
                     ?>
                      
                         <div class="marco-personaje">
-                            <div class="img-wrapper" id='personaje<?php echo $row["idPersonaje"]?>'>
+                            <div class="img-wrapper" id='<?php echo $row["idPersonaje"]?>'>
                                 <img src="<?php echo $row["ruta"];?>" alt="">
                             </div>
                             

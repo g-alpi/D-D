@@ -3,9 +3,9 @@ $(document).ready(function() {
     //asignamos evento a cada contenedor de imagen
     if (elementoExiste('.img-wrapper')) {
         for (let i = 1; i <= $('.img-wrapper').length; i++) {
-            $('#personaje'+i).click(function () {
+            $("#"+$('.img-wrapper').attr("id")).click(function () {
                if (!elementoExiste('#divCambiarAvatar')) {
-                    cambiarAvatarTusFichas(i);
+                    cambiarAvatarTusFichas($('.img-wrapper').attr("id"));
                }
             })  
         }
@@ -18,7 +18,7 @@ $(document).ready(function() {
     })
 
     function cambiarAvatarTusFichas(id){
-        $('#personaje'+id).after('<div id="divCambiarAvatar"> <p>Quires cambiar de foto?</p></div>');
+        $("#"+id).after('<div id="divCambiarAvatar"> <p>Quires cambiar de foto?</p></div>');
         $('#divCambiarAvatar').append('<form id="formularioCambiarAvatar" method="post" enctype="multipart/form-data" ></form>');
         formulario= $('#formularioCambiarAvatar');
         formulario.append('<input type="hidden" name="personajeID" id="personajeID" value="'+id+'" /> ');
