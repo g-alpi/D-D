@@ -12,9 +12,9 @@
 
     <script src="functionsAvatar.js"></script>
 
-    <title>Tus fichas</title>
+    <title>Elige Personaje</title>
 </head>
-<body id="tusFichas"> 
+<body id="eligePJ.php"> 
     <?php include "header.php";?>
     <?php
 		if (!isset($_SESSION["IDUsuario"])){
@@ -25,23 +25,15 @@
     <nav class="breadcrumbs">
 		<ol>
 			<li><a href="dashboard.php">Dashboard</a></li>
-            <li><span>></span><a href="tusFichas.php">Tus Fichas</a></li>
+            <li><span>></span><a href="eligePJ.php">Elige personaje</a></li>
 		</ol>
 	</nav>
     <section class="section-personajes">
-        <h1>TUS FICHAS</h1>
-        <div>
-           
-            <?php
-                
+        <h1>ELIGE PERSONAJE</h1>
+        <div>  
+            <?php  
                 include "functions.php";
                 $pdo = accesoBBDD();
-
-
-                if(isset($_POST["personajeID"])){
-                    cambiarAvatar($_POST["personajeID"]);
-                    unset($_POST["personajeID"]);
-                }
                 
                 $query = $pdo -> prepare("select usuarios.usuario as usuario, personajes.nombre as personaje,personajes.id as idPersonaje, clases.nombre as clase, razas.nombre as raza, personajes.ruta_imagen as ruta 
                 from usuarios
@@ -71,12 +63,12 @@
                                 <p>Clase: <?php echo $row["clase"];?></p>
                             </div>
                             <div class="botones-ficha">
-                                <form action="ficha.php" method="get">
+                                <form action="testPJ.php" method="get">
                                     <input type="hidden" name="id_ficha" value="<?php echo $row["idPersonaje"] ?>">
-                                    <input type="submit" value="Visualizar ficha">
+                                    <input type="submit" value="Elegir">
                                 </form>
                                 
-                                <a class="borrar" href="#">Borrar ficha</a>
+                                <!-- <a class="borrar" href="#">Borrar ficha</a> -->
                             </div>
                         </div>
                     <?php
