@@ -2,11 +2,11 @@
 
 @font-face{
   font-family: D-Dtitle;
-  src: url(../fonts/BreatheFireIii-PKLOB.ttf);
+  src: url(./fonts/BreatheFireIii-PKLOB.ttf);
 }
 @font-face{
   font-family: RoundStyle-Book;
-  src: url(../fonts/RoundStyle-Book.ttf);
+  src: url(./fonts/RoundStyle-Book.ttf);
 }
 :root {
   --amarillo_claro: #FFFEBD;
@@ -44,14 +44,14 @@ h4 {
   font-size: 28px;
   letter-spacing: 3px;
 }
-p, input, a, select {
+p, input, a, select, li, td, th {
   font-family: RoundStyle-Book;
-  font-size: 20px;
+  font-size: 18px;
   text-decoration: none;
 }
 label {
   font-family: RoundStyle-Book;
-  color: (--amarillo_claro);
+  color: var(--amarillo_claro);
 }
 input[type="date"]:hover {
   cursor: pointer;
@@ -61,9 +61,42 @@ input[type="date"]:hover {
   flex-direction: row;
   justify-content: space-around;
 }
-
+button:hover, input[type="checkbox"]:hover, label:hover {
+  cursor: pointer;
+}
+.breadcrumbs ol {
+  list-style-type: none;
+  display: flex;
+  flex-direction: row;
+  margin: 0;
+  padding-top: 16px;
+  padding-bottom: 16px;
+  background-color: var(--marron_oscuro);
+}
+.breadcrumbs span {
+ margin: 0 10px;
+ color: var(--amarillo_claro);
+}
+.breadcrumbs a {
+  color: var(--amarillo_claro);
+  transition: color 1s;
+}
+.breadcrumbs a:hover {
+  color: var(--marron_claro);
+  transition: color 1s;
+}
+.breadcrumbs li:last-child > a{
+  color: var(--amarillo_oscuro);
+  transition: color 1s;
+} 
+.breadcrumbs li:last-child > a:hover{
+  color: var(--marron_claro);
+  transition: color 1s;
+} 
 /* index.php */
-
+#index > .row {
+  min-height: 60vh;
+}
 #logo-dnd {
   height: 200px;
   width: auto;
@@ -218,7 +251,7 @@ input[type="date"]:hover {
 #section-dashboard .container-btn:hover {
   background-color: var(--amarillo_oscuro);
   border-color: var(--marron_claro);
-  box-shadow: 0px 0px 0px 10px var(--amarillo_oscuro), 0px 0px 20px 20px var(--marron_claro);;
+  box-shadow: 0px 0px 0px 10px var(--amarillo_oscuro), 0px 0px 20px 20px var(--marron_claro);
   transition: background-color 1s, border-color 1s, box-shadow 1s;
   animation: animacionBoton 4s 1s infinite;
 }
@@ -229,7 +262,9 @@ input[type="date"]:hover {
 }
 
 /* tusFichas.php */
-
+.section-personajes {
+  min-height: 49.5vh;
+}
 .section-personajes > div {
   display: flex;
   flex-direction: row;
@@ -253,6 +288,9 @@ input[type="date"]:hover {
   width: 300px;
   height: 300px;
 }
+.img-wrapper:hover {
+  cursor: pointer;
+}
 .marco-personaje img {
   width: 150%;
 }
@@ -265,7 +303,7 @@ input[type="date"]:hover {
   flex-direction: row;
   justify-content: space-around;
 }
-.botones-ficha a {
+.botones-ficha a, .botones-ficha label {
   text-decoration: none;
   color: var(--amarillo_claro);
   background-color: var(--marron_claro);
@@ -280,13 +318,40 @@ input[type="date"]:hover {
   background-color: var(--amarillo_oscuro);
   transition: color 1s, background-color 1s;
 }
+
+.botones-ficha input {
+  text-decoration: none;
+  color: var(--amarillo_claro);
+  background-color: var(--marron_claro);
+  padding: 15px;
+  border-radius: 50px;
+  transition: color 1s, background-color 1s;
+  font-size: 16px;
+  font-weight: bold;
+  border:none;
+}
+.botones-ficha input:hover {
+  color: var(--marron_oscuro);
+  background-color: var(--amarillo_oscuro);
+  transition: color 1s, background-color 1s;
+  cursor: pointer;
+}
 a.borrar {
+
   pointer-events: none;
   color: white;
   background-color: black;
 }
+label.borrar{
+  color: white;
+  background-color: black;
+}
+#fileToUpload{
+  display: none;
+}
 
 /* crearPersonaje.php */
+
 #crearPersonajeForm {
   margin: 0 10%;
   padding: 50px;
@@ -330,16 +395,17 @@ a.borrar {
   padding: 10px;
   font-size: 24px;
 }
-#crearPersonajeForm select:hover, #crearPersonajeForm button:hover {
+#crearPersonajeForm select:hover, #crearPersonajeForm button:hover, input [type="submit"] {
   cursor: pointer;
 }
-#sectionRaza select {
+#sectionRaza select, #sectionClase select, #selectTrasfondo {
   width: 70%;
   background-color: var(--amarillo_claro);
   color: var(--marron_oscuro);
   padding: 10px;
   font-size: 24px;
   border: none;
+  text-align: center;
 }
 #grid-container-raza {
   display: grid;
@@ -363,8 +429,439 @@ a.borrar {
   width: 350px;
   flex-grow: 1;
 }
-#navegacionRaza{
+#navegacionRaza, #navegacionClase{
   display:flex;
+}
+#container-clase {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 100px 0;
+}
+#container-clase > div {
+  width: 400px;
+  flex-grow: 1;
+}
+#container-select {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+#container-select > div {
+  min-width: 30%;
+  display: flex;
+  flex-direction:row;
+  margin-bottom: 50px;
+}
+#container-select p {
+  width: 200px;
+}
+#container-select select {
+  width: 150px;
+  text-align: center;
+  background-color: var(--amarillo_claro);
+  border: none;
+}
+#puntos{
+  color: var(--amarillo_claro);
+  margin-bottom: 50px;
+  font-size: 24px;
+}
+#puntos:before {
+  content: "Puntos restantes: ";
+}
+#navegacionHabilidades, #navegacionTrasfondo, #navegacionIdioma, #navegacionObjetos{
+  display: flex;
+}
+#navegacionObjetos input[type="submit"]{
+  width: 300px;
+  height: 75px;
+  font-size: 20px;
+  margin: 50px auto 0;
+  background-color: var(--marron_claro);
+  color: var(--amarillo_claro);
+  border-radius: 50px;
+  border: none;
+  font-family: RoundStyle-Book;
+  transition: color 1s, background-color 1s;
+}
+#navegacionObjetos input[type="submit"]:hover{
+  background-color: var(--amarillo_claro);
+  color: var(--marron_oscuro);
+  transition: color 1s, background-color 1s;
+}
+#divIdiomas {
+  display:flex;
+  flex-wrap:wrap;
+}
+#divIdiomas > div {
+  width: 30%;
+  flex-grow: 1;
+  margin-bottom: 50px;
+}
+#divIdiomas label {
+  width: 300px;
+  color: var(--amarillo_claro);
+  font-size: 24px;
+}
+#equipamiento p {
+  font-size: 28px;
+}
+/* ficha.php */
+
+#ficha {
+  margin:30px;
+  border: 5px solid var(--marron_oscuro);
+  padding: 30px;
+}
+#ficha h2 {
+  margin: 0;
+  font-size: 34px;
+}
+#cabeceraFicha {
+  display:flex;
+  flex-direction: row;
+}
+#cabeceraFicha > #logo {
+  display: flex;
+  align-items: center;
+  margin-bottom: 30px;
+}
+#cabeceraFicha > #logo:hover {
+  cursor: pointer;
+}
+#cabeceraFicha img {
+  width: 200px;
+  height: 200px;
+}
+#detallesPersonaje {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 50px;
+  background-color: var(--marron_oscuro);
+  padding: 30px;
+  margin-left: 30px;
+  margin-bottom: 30px;
+}
+#detallesPersonaje > div {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 500px;
+  flex-grow:1;
+  background-color: var(--amarillo_claro);
+  padding-left: 30px;
+}
+#estadisticasBase {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 30px;
+}
+#estadisticasBase #estadisticas {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  background-color: var(--marron_oscuro);
+  padding: 30px;
+  width: 50%;
+}
+#estadisticasBase #estadisticas div{
+  background-color: var(--amarillo_claro);
+}
+#estadisticas div p {
+  display: flex;
+  min-width: 75px;
+  min-height: 75px;
+  flex-direction: column;
+  justify-content: center;
+  margin:0;
+  text-align: center;
+}
+#proficiencia, #velocidadMovimiento, #hitPoints {
+  width: 8%;
+  margin-left: 20px;
+  background-color: var(--marron_oscuro);
+  padding: 30px;
+}
+#proficiencia p, #velocidadMovimiento p, #hitPoints p{
+  background-color: var(--amarillo_claro);
+  margin: 0;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+#hitPoints{
+  flex-grow: 1;
+}
+#centroFicha{
+  display:flex;
+  flex-direction: row;
+  margin-bottom: 30px;
+}
+#colIzquierda {
+  width: 30%;
+  display: flex;
+  flex-direction: column;
+}
+#colDerecha {
+  width:50%;
+  flex-grow: 1;
+}
+#colDerecha #defensas div:not(:last-child) p{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%
+}
+#habilidades {
+  border-right: 5px solid var(--marron_oscuro);
+  border-bottom: 5px solid var(--marron_oscuro);
+  margin: 0;
+  padding: 30px;
+  flex-grow: 1;
+}
+#colDerecha #habilidades li{
+  display: flex;
+  gap: 20px;
+  flex-direction: row;
+}
+#colDerecha #habilidades li:not(:first-child){
+  border-bottom: 1px solid var(--marron_oscuro);
+  padding-top: 10px;
+  padding-bottom: 5px;
+}
+#colDerecha #habilidades li div:first-child{
+  width:20%;
+}
+#colDerecha #habilidades li div:nth-child(2){
+  width:20%;
+}
+#colDerecha #habilidades li div:nth-child(3){
+  width:20%;
+  flex-grow: 1;
+}
+#colDerecha #habilidades li div:last-child{
+  width:20%;
+}
+#colDerecha p {
+  margin: 0;
+  text-align: center;
+}
+#salvaciones {
+  background-color: var(--marron_oscuro);
+  padding: 30px;
+  margin-bottom: 30px;
+}
+#valoresSalvacion {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items:center;
+  justify-content:center;
+  gap: 50px;
+  margin-top: 30px;
+}
+#valoresSalvacion > div {
+  width: 100px;
+  height: 100px;
+  background-color: var(--amarillo_claro);
+}
+#valoresSalvacion > div > p {
+  margin: 0;
+  display: flex;
+  align-items:center;
+  justify-content:center;
+  flex-direction: column;
+  height: 100%;
+}
+#rasgosAtributos, #idiomasProficiencias {
+  background-color: var(--marron_oscuro);
+  padding: 30px;
+  margin-bottom: 30px;
+}
+#idiomasProficiencias {
+  margin-bottom: 0;
+  flex-grow: 1;
+}
+#rasgosAtributos ul, #idiomasProficiencias ul, #hechizos ul, #equipo ul {
+  padding-left: 0;
+}
+#rasgosAtributos li, #idiomasProficiencias li, #hechizos li, #equipo li {
+  list-style-type: none;
+  background-color:var(--amarillo_claro);
+  padding: 5px;
+  border-bottom: 1px solid var(--marron_oscuro);
+}
+#pieFicha {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 30px;
+  gap: 20px;
+}
+#pieFicha #historia {
+  width: 25%;
+  flex-grow: 1;
+}
+#pieFicha #hechizos, #pieFicha #equipo, #pieFicha #historia {
+  width: 25%;
+  padding: 30px;
+  background-color: var(--marron_oscuro); 
+}
+#pieFicha #historia p {
+  padding: 30px;
+  background-color: var(--amarillo_claro);
+}
+#defensas{
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  background-color: var(--marron_oscuro);
+  padding: 30px;
+}
+#defensas div {
+  width: 75px;
+  height: 75px;
+  background-color: var(--amarillo_claro);
+}
+#defensas div:last-child {
+  width: 200px;
+  flex-grow: 1;
+}
+#colDerecha {
+  display: flex;
+  flex-direction: column;
+}
+#ficha section:last-child {
+  margin-bottom: 0;
+}
+/* testPJ.php */
+#imagenPJ img{
+  border: 10px solid var(--marron_oscuro);
+  float: left;
+  margin: 0px 10px;
+}
+#personaje{
+  margin-top: 10px;
+}
+#estadisticasBaseTest {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 30px;
+  margin-top: 20px;
+}
+#estadisticasBaseTest #estadisticasTest {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  background-color: var(--marron_oscuro);
+  padding: 30px;
+  width: 50%;
+}
+#estadisticasBaseTest #estadisticasTest div{
+  background-color: var(--amarillo_claro);
+}
+#estadisticasTest div p {
+  display: flex;
+  min-width: 75px;
+  min-height: 75px;
+  flex-direction: column;
+  justify-content: center;
+  margin:0;
+  text-align: center;
+}
+
+#personaje> h2{
+    margin: 0;
+    font-size: 40px;
+
+}
+#valoresHabilidadesTest{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 50px;
+  margin-top: 30px;
+}
+#valoresHabilidadesTest div{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 3px solid var(--marron_oscuro);
+}
+
+#encuentro{
+  border:10px solid var(--marron_oscuro);
+  margin: 10px;
+  display: flex;
+  flex-direction: row;
+}
+#encuentro div{
+  border:10px solid var(--marron_oscuro);
+}
+#encuentro #btnHabilidades{
+  width: 20%;
+  background-color: var(--marron_claro);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+#encuentro #btnHabilidades button{
+  text-decoration: none;
+  font-family: RoundStyle-Book;
+  width: 150px;
+  color: var(--amarillo_claro);
+  background-color: var(--marron_oscuro);
+  padding: 15px;
+  border-radius: 50px;
+  transition: color 1s, background-color 1s;
+  font-size: 16px;
+  font-weight: bold;
+  margin: 7px;
+  border: none;
+  transition: color 1s, background-color 1s;
+}
+#encuentro #btnHabilidades button:hover {
+  color: var(--marron_oscuro);
+  background-color: var(--amarillo_oscuro);
+  transition: color 1s, background-color 1s;
+}
+#encuentro #evento{
+  width: 60%;
+  background-color: var(--amarillo_oscuro);
+  padding:  30px 10px 0px 10px;
+  justify-content: center;
+}
+
+#encuentro #narrador{
+  display: flex;
+  justify-content: center;
+  width: 20%;
+}
+
+#btnPdf input[type="submit"]{
+  position: absolute;
+  top: 10px;
+  right: 65px;
+  width: 200px;
+  border: none;
+  color: var(--amarillo_claro);
+  background-color: var(--marron_oscuro);
+  border-radius: 25px;
+  padding: 10px;
+  transition: color 1s, background-color 1s;
+}
+#btnPdf input[type="submit"]:hover {
+ cursor: pointer;
+ color: var(--amarillo_oscuro);
+ background-color: var(--marron_claro);
+ transition: color 1s, background-color 1s;
 }
 /* Componentes CSS */
 
@@ -468,7 +965,7 @@ header > nav li {
   list-style-type: none;
 }
 .header-flex {
-  padding: 50px;
+  padding: 0 50px;
 }
 footer {
   height: auto;
@@ -529,3 +1026,33 @@ i {
   color: var(--amarillo_oscuro);
   transition: color 1s;
 }
+
+/*Transition*/
+#transition{
+  position: relative;
+  width: 100%;
+}
+
+.sprites{
+  position: absolute;
+  top :-20.5px;
+}
+.enano{
+  background-image: url(imagenes/transition/enano.gif);
+  background-size: cover;
+  height: 370px;
+  width: 340px;
+  transform: scale(0.2) scaleX(1);
+  left: 0;
+  top: -1%;
+  animation: movimiento 20s linear infinite;
+
+}
+
+@keyframes movimiento{
+  0% {left: -7%; transform: scale(0.2) scaleX(1);}
+  49.99%{left: 38%;transform: scale(0.2) scaleX(1);}
+  50%{transform: scale(0.2) scaleX(-1);}
+  100% {left: -7%; transform: scale(0.2) scaleX(-1);}
+}
+

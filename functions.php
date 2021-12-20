@@ -173,9 +173,9 @@
 
   // Esta funcion recupera las razas de la BBDD
 
-    function recuperarDatosBBDD(){
+    function recuperarRazasBBDD(){
       $pdo = accesoBBDD();
-      $query = $pdo->prepare("select razas.nombre, razas.descripcion, razas.ruta_imagen, razas.incremento_estadistica, razas.estadistica_incrementada, razas.tamano, razas.velocidad, razas.vision, razaPadre.nombre as razaPadre 
+      $query = $pdo->prepare("select razas.id as idRaza, razas.nombre, razas.descripcion, razas.ruta_imagen, razas.incremento_estadistica, razas.estadistica_incrementada, razas.tamano, razas.velocidad, razas.vision, razaPadre.nombre as razaPadre 
       from razas 
       left join razas as razaPadre on razas.id_razaPadre = razaPadre.id;");
 
@@ -185,6 +185,7 @@
       foreach ($rows as $row) {
           ?>
             razas["<?php echo $row["nombre"]?>"] = {
+              "idRaza"                    : "<?php echo $row["idRaza"];?>",
               "incremento_estadistica"    : "<?php echo $row["incremento_estadistica"];?>",
               "estadistica_incrementada"  : "<?php echo $row["estadistica_incrementada"];?>",
               "tamaño"                    : "<?php echo $row["tamano"];?>",
@@ -237,12 +238,214 @@
                 razas["<?php echo $row["nombre"]?>"]["habilidades_raciales"].push(["<?php echo $rowHabilidadRacial["habilidadRacial"] ?>", "<?php echo $rowHabilidadRacial["descripcion"] ?>"]);
               <?php
             }
+            
 
             ?>
 
           <?php
       }
-      ?> </script> <?php 
+      ?> 
+          <?php
+            $queryTrasfondos = $pdo->prepare("select id, nombre,descripcion ,habilidad_adicional_1, habilidad_adicional_2 from trasfondos;");
+            $queryTrasfondos -> execute();
+            $rowsTrasfondos = $queryTrasfondos -> fetchAll();
+            ?>
+            var trasfondos= {};
+            <?php
+            foreach ($rowsTrasfondos as $rowTrasfondos) {
+              ?>
+              trasfondos["<?php echo $rowTrasfondos["nombre"]?>"]  ={
+                "idTrasfondo"           : "<?php echo $rowTrasfondos["id"];?>",
+                "descripcion"           : "<?php echo $rowTrasfondos["descripcion"];?>",
+                "habilidad_adicional_1" : "<?php echo $rowTrasfondos["habilidad_adicional_1"];?>",
+                "habilidad_adicional_2" : "<?php echo $rowTrasfondos["habilidad_adicional_2"];?>"
+              };
+              <?php
+            }
+          ?>
+            var idiomas=[];
+          <?php
+            $queryIdiomas= $pdo -> prepare("select id, idioma  from idiomas;");
+            $queryIdiomas -> execute();
+            $rowsIdiomas = $queryIdiomas -> fetchAll();
+            foreach ($rowsIdiomas as $rowIdiomas) {
+              ?>
+                idiomas.push([<?php echo $rowIdiomas["id"]?>, "<?php echo $rowIdiomas["idioma"]?>"]);
+              <?php
+            }
+        ?> </script> <?php 
     }
+
+  // Esta funcion recupera las clases de la BBDD
+
+  function recuperarClasesBBDD(){
+    $pdo = accesoBBDD();
+    $query = $pdo->prepare("select clases.id as idClase, clases.nombre, clases.DG, clases.caracteristicaPrimaria1, clases.caracteristicaPrimaria2, clases.competenciaSalvacion1, clases.competenciaSalvacion2,
+    clases.armaBase, clases.armaduraBase, clases.POInicial, armas.nombre as nombreArma, armaduras.nombre as nombreArmadura
+    from clases
+    left join armas on clases.armaBase = armas.id
+    left join armaduras on clases.armaduraBase = armaduras.id;");
+
+    $query -> execute();
+    $rows = $query -> fetchAll();
+    ?> <script> var clases = {}; <?php 
+    foreach ($rows as $row) {
+        ?>
+          clases["<?php echo $row["nombre"]?>"] = {
+            "id"                      : "<?php echo $row["idClase"]?>",
+            "nombre"                  : "<?php echo $row["nombre"];?>",
+            "dg"                      : "<?php echo $row["DG"];?>",
+            "caracteristicaPrimaria1" : "<?php echo $row["caracteristicaPrimaria1"];?>",
+            "caracteristicaPrimaria2" : "<?php echo $row["caracteristicaPrimaria2"];?>",
+            "competenciaSalvacion1"   : "<?php echo $row["competenciaSalvacion1"];?>",
+            "competenciaSalvacion2"   : "<?php echo $row["competenciaSalvacion2"];?>",
+            "armaInicial"             : "<?php echo $row["nombreArma"];?>",
+            "armaduraInicial"         : "<?php echo $row["nombreArmadura"];?>",
+            "oroInicial"              : "<?php echo $row["POInicial"];?>"
+          };
+
+        <?php
+    }
+    ?> </script> <?php 
+  }
+
+  //Esta funcion cambia el Avatar del persnaje
+
+  function cambiarAvatar($id){
+      $pdo = accesoBBDD();
+
+      if(isset($_FILES["fileToUpload"])){
+      $target_dir = "./imagenes/personajes/";
+      $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
+      $uploadOk = 1;
+      $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+
+
+      $id=intval($id);
+      // Allow certain file formats
+      if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
+          && $imageFileType != "gif" ) {
+          notificacion("Solo se puede subir ficheros con los siguientes formatops: JPG, JPEG, PNG & GIF ",'warning');
+          $uploadOk = 2;
+      }
+      elseif (file_exists($target_file)) {
+          // notificacion('Se ha remplazado por una imagen existente!','warning');
+          $data = ['ruta' => $target_file,
+                   'id' => $id];
+          $update= $pdo -> prepare('update personajes  set ruta_imagen= :ruta where id=:id'); 
+          $update-> execute($data);
+          $uploadOk = 2;
+
+      }
+      
+      if($uploadOk==1) {
+          if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
+              
+              $data = ['ruta' => $target_file,
+                        'id' => $id];
+              $update= $pdo -> prepare('update personajes  set ruta_imagen= :ruta where id=:id');
+              $update-> execute($data);
+              notificacion('La imagen se ha subido correctamente','success');              
+
+          } else {
+              notificacion('La imagen no se a podido subir al servidor','error');
+          }
+      }
+  }
+
+  }
+
   ?>
 
+    </script>  <?php 
+
+  // Esta funcion te devuelve todos los datos necesarios del personaje menos los idiomas
+
+  function recuperarFicha($idPersonaje){
+    $pdo = accesoBBDD();
+    $query = $pdo->prepare("select personajes.nombre, personajes.fuerza, personajes.destreza, personajes.constitucion, personajes.inteligencia, personajes.sabiduria, personajes.carisma,
+    razas.nombre as nombreRaza, razas.velocidad, clases.nombre as nombreClase, clases.dg, trasfondos.nombre as nombreTrasfondo, armas.nombre as nombreArma,
+    armaduras.nombre as nombreArmadura, clases.POInicial, armaduras.ca, armaduras.MaximoDestreza
+    from personajes
+    inner join razas on personajes.raza = razas.id
+    inner join clases on personajes.clase = clases.id
+    inner join trasfondos on personajes.trasfondo = trasfondos.id
+    inner join armas on clases.armaBase = armas.id
+    inner join armaduras on clases.armaduraBase = armaduras.id
+    where personajes.id = :id_personaje;");
+    $query->bindParam(':id_personaje', $idPersonaje);
+    $query -> execute();
+    $rows = $query -> fetchAll();
+    foreach ($rows as $row) {
+      $personaje = array(
+        "nombre"        => $row["nombre"],
+        "trasfondo"     => $row["nombreTrasfondo"],
+        "clase"         => $row["nombreClase"],
+        "raza"          => $row["nombreRaza"],
+        "fuerza"        => $row["fuerza"],
+        "destreza"      => $row["destreza"],
+        "constitucion"  => $row["constitucion"],
+        "inteligencia"  => $row["inteligencia"],
+        "sabiduria"     => $row["sabiduria"],
+        "carisma"       => $row["carisma"],
+        "velocidad"     => $row["velocidad"],
+        "dg"            => $row["dg"],
+        "po"            => $row["POInicial"],
+        "arma"          => $row["nombreArma"],
+        "armadura"      => $row["nombreArmadura"],
+        "ca"            => $row["ca"],
+        "maxDestreza"   => $row["MaximoDestreza"]
+      );
+    }
+    return $personaje;
+  }
+
+  // Esta funcion devuelve los idiomas de un personaje
+
+  function recuperarIdiomasPersonaje($idPersonaje) {
+    $pdo = accesoBBDD();
+    $query = $pdo->prepare("select idiomas.idioma
+    from personajes
+    inner join razas on personajes.raza = razas.id
+    inner join razas_idiomas on razas.id_razaPadre = razas_idiomas.id_raza
+    inner join idiomas on razas_idiomas.id_idioma = idiomas.id
+    where personajes.id = :id_personaje
+    union
+    select idiomas.idioma
+    from personajes
+    inner join personajes_idiomas on personajes.id = personajes_idiomas.id_personaje
+    inner join idiomas on idiomas.id = personajes_idiomas.id_idioma
+    where personajes.id = :id_personaje;");
+    $query->bindParam(':id_personaje', $idPersonaje);
+    $query -> execute();
+    $rows = $query -> fetchAll();
+    $idiomas = array();
+    foreach ($rows as $row) {
+      array_push($idiomas, $row["idioma"]);
+    }
+    return $idiomas;
+  }
+  function recuperarAvatar($idPersonaje) {
+    $pdo = accesoBBDD();
+    $query = $pdo->prepare("select ruta_imagen as ruta from personajes where id = :id_personaje;");
+    $query->bindParam(':id_personaje', $idPersonaje);
+    $query -> execute();
+    $ruta = $query -> fetch();
+
+    return $ruta;
+  }
+
+  // Esta funcion devuelve el modificador de una estadistica
+
+  function modificadorEstadistica($estadistica) {
+    return round((($estadistica - 10)/2), 0, PHP_ROUND_HALF_DOWN);
+  }
+
+  // Esta funcion te devuelve el modificador de destreza maximo aplicable
+
+  function maximoDestreza ($modificadorDestreza, $maximoDestreza) {
+    if($modificadorDestreza < $maximoDestreza) {
+      return $modificadorDestreza;
+    }
+    return $maximoDestreza;
+  }
